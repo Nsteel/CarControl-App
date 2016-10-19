@@ -49,7 +49,6 @@ dependencies {
     compile 'com.android.support:cardview-v7:23.2.0'
     compile 'com.android.support:recyclerview-v7:23.2.0'
     compile 'org.osmdroid:osmdroid-android:5.2@aar'
-    compile(name: 'osmbonuspack_v5.8.1', ext: 'aar')
     compile 'org.apache.commons:commons-lang3:3.3.2'
     compile 'com.squareup.okhttp:okhttp:2.6.0'
     compile 'com.android.support:support-v4:23.2.0'
@@ -60,6 +59,14 @@ dependencies {
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        Key {
+            keyAlias 'PSES'
+            keyPassword 'zeta1337'
+            storeFile file('/home/n/Android/AppKey/KeyStore.jks')
+            storePassword 'jazlyn422'
+        }
+    }
     compileSdkVersion 23
     defaultConfig {
         minSdkVersion 15
@@ -67,12 +74,27 @@ android {
         multiDexEnabled true
         versionCode 1
         versionName "1.0"
-
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        signingConfig signingConfigs.Key
     }
     sourceSets {
         main { java.srcDirs = ['src/main/java'] }
         debug { java.srcDirs = ['src/debug/java'] }
+    }
+    buildTypes {
+        debug {
+            debuggable false
+            signingConfig signingConfigs.Key
+        }
+        release {
+            signingConfig signingConfigs.Key
+            debuggable true
+        }
+    }
+    buildToolsVersion '24.0.2'
+    dexOptions {
+    }
+    productFlavors {
     }
 }
 

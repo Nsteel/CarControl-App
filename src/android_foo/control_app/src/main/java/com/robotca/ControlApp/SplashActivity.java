@@ -23,8 +23,8 @@ public class SplashActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        checkDrawOverlayPermission();
+        goToNextActivity(1500L);
+        //checkDrawOverlayPermission();
     }
 
     /**
