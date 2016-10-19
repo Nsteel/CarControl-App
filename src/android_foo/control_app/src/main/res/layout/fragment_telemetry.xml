@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fadeScrollbars="false"
+            android:fillViewport="true"
+            android:layout_marginTop="70dp"
+        tools:ignore="UselessParent">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center_horizontal"
+            android:weightSum="1">
+
+            <TextView
+                android:text="@string/x_telemetry_string"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/x_telemetry" />
+
+            <TextView
+                android:text="@string/y_telemetry_string"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/y_telemetry" />
+
+            <TextView
+                android:text="@string/driven_distance_telemetry_string"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/driven_distance_telemetry" />
+
+            <TextView
+                android:text="@string/v_x_telemetry_string"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/vx_telemetry" />
+
+            <TextView
+                android:text="@string/v_y_telemetry_string"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/vy_telemetry" />
+
+            <TextView
+                android:text="@string/speed_telemetry_string"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/speed_telemetry" />
+
+            <TextView
+                android:text="@string/a_x_telemetry_string"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/ax_telemetry" />
+
+            <TextView
+                android:text="@string/a_y_telemetry_string"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/ay_telemetry" />
+
+            <TextView
+                android:text="@string/a_z_telemetry_string"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/az_telemetry" />
+
+            <TextView
+                android:text="@string/g_x_telemetry_string"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/gx_telemetry" />
+
+            <TextView
+                android:text="@string/g_y_telemetry_string"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/gy_telemetry" />
+
+            <TextView
+                android:text="@string/g_z_telemetry_string"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/gz_telemetry" />
+
+            <TextView
+                android:text="@string/yaw_telemetry_string"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/yaw_telemetry" />
+
+            <TextView
+                android:text="@string/rsf_telemetry_string"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/rsf_telemetry" />
+
+            <TextView
+                android:text="@string/rsl_telemetry_string"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/rsl_telemetry" />
+
+            <TextView
+                android:text="@string/rsr_telemetry_string"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/rsr_telemetry" />
+
+            <TextView
+                android:text="@string/battery_system_telemetry_string"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/battery_system_telemetry" />
+
+            <TextView
+                android:text="@string/battery_motor_telemetry_string"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/battery_motor_telemetry"/>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

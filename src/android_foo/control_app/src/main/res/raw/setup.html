@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<link>
+
+<h1 style="background-color:#000044;color:white">&nbsp;Setup</h1>
+
+<p>There are two ways to set up the app to be able to connect to a model car. You can use a simulated car, or a real model car.</p>
+
+<hr>
+
+<h2><font color="#000044">Using a Simulated Model Car</font></h2>
+<p>It is likely easier to access a simulated car rather than a real one, so follow these steps to set up a simulation</p>
+
+<h4><font color="#000044">Step 1: Installing Ubuntu 14.04.3</font></h4>
+<p>Download a 32 or 64 bit Ubuntu 14.04.3 iso, either will work, and install it on a physical computer or a virtual machine. The model car will move much much smoother if Ubuntu 14.04.3 is installed to a physical computer.</p>
+<p>Note: If installing Ubuntu on a virtual machine, make sure that you use a Bridged Network Adapter and <b>NOT</b> a NAT adapter.</p>
+
+<h4><font color="#000044">Step 2: Installing ROS Indigo</font> </h4>
+<p>Once you have Ubuntu installed, follow these instructions to install ROS Indigo on your machine.</p>
+<a href="http://wiki.ros.org/indigo/Installation/Ubuntu"> http://wiki.ros.org/indigo/Installation/Ubuntu</a>
+
+<h4><font color="#000044">Step 3: Installing the PSES-Basis package</font></h4>
+<i>
+ &emsp;1. Open a terminal and run the following command in the src folder of your catkin workspace <b>git clone https://github.com/Nsteel/PSES-Basis.git .</b><br>
+ &emsp;2. <b>cd ..</b><br>
+ &emsp;3. Compile it! <b>catkin_make</b><br>
+</i>
+
+<h4><font color="#000044">Step 5: Launching the Simulator</font> </h4>
+<p>To begin open a terminal and run the command <b>ifconfig</b>, then run the command <b>export ROS_IP="the IP address of wlan0".</b>
+Once you have done that, start the simulator in the same terminal using the command <b>roslaunch simulation simulation.launch</b>.</p>
+
+<h4><font color="#000044">Step 6: Connecting to the Simulated Car</font> </h4>
+<p>To connect to the simulator, make sure that your computer running the simulator and your Android device are on the same wifi network first. Then, open the app and click the add a car button. When the prompt pops up, replace only the word "localhost" with the same IP address that you set
+ your ROS_IP environment variable to earlier. Hit connect and you should connect to the simulated car and be able to use the app. </p>
+
+<h2><font color="#000044">Using the real Model Car</font></h2>
+<p>Connecting to a model car will be easier because everything was pre-installed for you.</p>
+
+<h4><font color="#000044">Step 1: Connecting to the Model Car</font> </h4>
+
+<p>To begin open a terminal and run the command <b>ifconfig</b> on the car's mainboard, then run the command <b>export ROS_IP="the IP address of wlan0".</b>
+ Once you have done that, start the launch file in the same terminal using the command <b>roslaunch pses-basis pses-basis.launch</b>.</p>
+<p>To connect to the model car, make sure your Android device is on the car's wifi network. Then open the app and add a car. Replace only the word "localhost" with the IP address of the car and hit connect. You should connect to the car and be able to use the app. </p>
+
+
+
+<br>

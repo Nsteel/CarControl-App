@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- App name -->
+    <string name="app_name">Car Control</string>
+
+    <!-- Topic values -->
+    <string name="joy_topic">/pses_basis/command</string>
+    <string name="camera_topic">/image_raw/compressed</string>
+    <string name="laser_scan_topic">/scan</string>
+    <string name="odometry_topic">/odom</string>
+    <string name="sensorData_topic">/pses_basis/sensor_data</string>
+    <string name="pose_topic">/pose</string>
+
+    <!-- Preference titles -->
+    <string name="joy_pref_title">Command Topic</string>
+    <string name="laser_pref_title">Laser Scan Topic</string>
+    <string name="camera_pref_title">Image Topic</string>
+    <string name="topic_pref_title">Topics</string>
+    <string name="warning_enable_pref_title">Enable Warning System</string>
+    <string name="pose_pref_title">Pose Topic</string>
+    <string name="odometry_pref_title">Odometry Topic</string>
+    <string name="sensorData_pref_title">SensorData Topic</string>
+    <string name="laser_scan_detail_pref_title">Laser Scan Detail</string>
+    <string name="random_walk_range_minimum_pref_title">Random Walk Range Minimum</string>
+    <string name="warning_pref_title">Warning System</string>
+    <string name="warning_mindist_pref_title">Warning Distance</string>
+    <string name="warning_safemode_pref_title">Safe Mode</string>
+    <string name="warning_beep_pref_title">Warning Beeps</string>
+
+    <!-- Preference keys -->
+    <string name="prefs_joystick_topic_edittext_key">prefs_joystick_topic_edittext</string>
+    <string name="prefs_laserscan_topic_edittext_key">prefs_laserscan_topic_edittext</string>
+    <string name="prefs_camera_topic_edittext_key">prefs_camera_topic_edittext</string>
+    <string name="prefs_odometry_topic_edittext_key">prefs_odometry_topic_edittext</string>
+    <string name="prefs_sensorData_topic_edittext_key">prefs_sensorData_topic_edittext_keyt</string>
+    <string name="prefs_pose_topic_edittext_key">prefs_pose_topic_edittext</string>
+    <string name="prefs_warning_checkbox_key">prefs_warning_checkbox</string>
+    <string name="prefs_warning_mindist_key">prefs_warning_mindist</string>
+    <string name="prefs_warning_system_key">prefs_warning_system</string>
+    <string name="prefs_warning_safemode_key">prefs_warning_safemode</string>
+    <string name="prefs_warning_beep_key">prefs_warning_beep_key</string>
+
+    <!-- Preference summaries -->
+    <string name="topic_pref_summary">Edit default topic names</string>
+    <string name="warning_enable_pref_summary_off">Enable the Warning System for detecting imminent collisions</string>
+    <string name="warning_enable_pref_summary_on">Disable the Warning System for detecting imminent collisions</string>
+    <string name="warning_pref_summary">Edit Warning System settings</string>
+    <string name="joy_pref_summary">
+        Topic to publish the commands.\nExpected message type: pses_basis/Command\nValue: %s
+    </string>
+    <string name="laser_pref_summary">
+        Topic that the laser scan widget subscribes to.\nExpected message type: sensor_msgs/LaserScan\nValue: %s
+    </string>
+    <string name="camera_pref_summary">
+        Topic that the camera widget subscribes to.\nExpected message type: sensor_msgs/CompressedImage\nValue: %s
+    </string>
+    <string name="odometry_pref_summary">
+        Topic that the application gets odometry data from.\nExpected message type: nav_msgs/Odometry\nValue: %s
+    </string>
+    <string name="sensorData_pref_summary">
+        Topic that the application gets sensor data from.\nExpected message type: pses_basis/SensorData\nValue: %s
+    </string>
+    <string name="pose_pref_summary">Topic where the application gets pose information.
+        \nExpected message type: geometry_msgs/Pose
+        \nValue: %s
+    </string>
+    <string name="laser_scan_detail_pref_summary">Sets the detail level of the laser scan visualization.
+        A higher number will draw more laser points\nValue: %s
+    </string>
+    <string name="random_walk_range_minimum_pref_summary">This is the minimum sensed range where
+        the random walk algorithm will stop and turn\nValue: %s</string>
+    <string name="enable_kinect_pref_title">Enable Kinect</string>
+    <string name="enable_kinect_pref_summary_off">Enable to receive images from the kinect. This increase the power consumption</string>
+    <string name="enable_kinect_pref_summary_on">Disable to stop receiving images from the kinect and to reduce power consumption</string>
+    <string name="warning_mindist_pref_summary">The minimum distance considered safe when moving at full speed\nValue: %s</string>
+    <string name="warning_safemode_pref_summary_off">Enable to prevent the Car from driving into walls</string>
+    <string name="warning_safemode_pref_summary_on">Disable to allow the Car to crash into walls</string>
+    <string name="warning_beep_pref_summary_off">Enable warning beeps</string>
+    <string name="warning_beep_pref_summary_on">Disable warning beeps</string>
+
+    <!-- Robot chooser strings -->
+    <string name="add_robot">Add Car</string>
+    <string name="edit_robot">Edit Car</string>
+    <string name="add_edit_robot">Add/Edit Car</string>
+    <string name="robot_name_hint">Car Name</string>
+    <string name="chooser_uri_hint">Master URI</string>
+    <string name="no_robots">No Cars. Add a new one!</string>
+
+    <!-- Robot chooser titles -->
+    <string-array name="chooser_titles">
+        <item>Select Car</item>
+        <item>Help</item>
+        <item>About</item>
+    </string-array>
+
+    <!-- Master URI key -->
+    <string name="master_uri_key">MASTER_URI</string>
+
+    <!-- Button strings -->
+    <string name="delete">Delete</string>
+    <string name="stop">STOP</string>
+    <string name="start">START</string>
+    <string name="center">Center View</string>
+    <string name="show_advanced_options">Show Advanced Options</string>
+    <string name="ok">OK</string>
+
+    <!-- Drawer item titles -->
+    <string-array name="feature_titles">
+        <item>Select Car</item>
+        <item>Overview</item>
+        <item>Camera</item>
+        <item>Car</item>
+        <item>Telemetry</item>
+        <item>Preferences</item>
+        <item>About</item>
+    </string-array>
+
+    <!-- Drawer options -->
+    <string name="drawer_open">Open Menu</string>
+    <string name="drawer_close">Close Menu</string>
+
+    <!-- UI strings -->
+    <string name="percent_string">%1$d%%</string>
+    <string name="speed_string">%1$5.2f m/s</string>
+    <string name="x_telemetry_string">x: %1$5.2f m</string>
+    <string name="y_telemetry_string">y: %1$5.2f m</string>
+    <string name="driven_distance_telemetry_string">driven_distance: %1$5.2f m</string>
+    <string name="v_x_telemetry_string">vx: %1$5.2f m/s</string>
+    <string name="v_y_telemetry_string">vy: %1$5.2f m/s</string>
+    <string name="speed_telemetry_string">speed: %1$5.2f m/s</string>
+    <string name="a_x_telemetry_string">ax: %1$5.2f m/s²</string>
+    <string name="a_y_telemetry_string">ay: %1$5.2f m/s²</string>
+    <string name="a_z_telemetry_string">az: %1$5.2f m/s²</string>
+    <string name="g_x_telemetry_string">turning_rate_x: %1$5.2f °/s</string>
+    <string name="g_y_telemetry_string">turning_rate_y: %1$5.2f °/s</string>
+    <string name="g_z_telemetry_string">turning_rate_z: %1$5.2f °/s</string>
+    <string name="yaw_telemetry_string">yaw: %1$5.2f °</string>
+    <string name="rsf_telemetry_string">range_sensor_front: %1$5.2f m</string>
+    <string name="rsl_telemetry_string">range_sensor_left: %1$5.2f m</string>
+    <string name="rsr_telemetry_string">range_sensor_right: %1$5.2f m</string>
+    <string name="battery_system_telemetry_string">system_battery_voltage: %1$5.2f V</string>
+    <string name="battery_motor_telemetry_string">motor_battery_voltage: %1$5.2f V</string>
+    <string name="battery_1_string">System</string>
+    <string name="battery_2_string">Motor</string>
+    <string name="turnrate_string">%1$5.2f \u00B0/s</string>
+    <string name="location_string">(%1$14s, %2$14s)</string>
+    <string name="map_clear_string">Clear Waypoints</string>
+    <string name="map_lock_camera_string">Lock Camera Angle</string>
+    <string name="control_mode">Control Mode: </string>
+    <string name="robot_name">Car Name:</string>
+    <string name="master_uri">Master URI:</string>
+    <string name="joystick_topic_prompt">Joystick Topic:</string>
+    <string name="camera_topic_prompt">Camera Topic:</string>
+    <string name="laserscan_topic_prompt">Laser Scan Topic:</string>
+    <string name="sensorData_topic_prompt">sensorData Topic:</string>
+    <string name="odometry_topic_prompt">Odometry Topic:</string>
+    <string name="pose_topic_prompt">Pose Topic:</string>
+
+    <!-- Custom icon content descriptions -->
+    <string name="wifi_strength_content_description">Shows WIFI signal strength</string>
+    <string name="speedometer_icon_content_description">Speedometer icon</string>
+
+    <!-- UI messages -->
+    <string name="tilt_calibration_message">Tap the joystick to reset calibration</string>
+
+    <!-- Motion plan names -->
+    <string name="use_tilt_sensor_string">Use Tilt</string>
+    <string name="joystick_control">Joystick Control</string>
+    <string name="motion_control">Tilt Control</string>
+    <string name="simple_waypoint_control">Simple Waypoint Control</string>
+    <string name="simple_round_trip_control">Round trip without Obstacles Control</string>
+    <string name="round_trip_obstacles_control">Round trip with Obstacles Control</string>
+    <string name="park_car_control">Park Car Control</string>
+    <string name="waypoint_control">Waypoint Control</string>
+    <string name="random_walk">Random Walk</string>
+
+    <!-- Array of Motion plan names -->
+    <string-array name="motion_plans">
+        <item>Joystick</item>
+        <item>Tilt</item>
+        <item>Simple Waypoint</item>
+        <item>Simple Round Trip</item>
+        <item>Round Trip with Obstacles</item>
+        <item>Park Car</item>
+    </string-array>
+
+
+    <!-- Default Preference values -->
+    <string name="default_warning_mindist">0.40</string>
+    <string name="noCamera">No Camera</string>
+    <string name="prefs_advanced_control_settings_key">prefs_advanced_control_settings</string>
+    <string name="prefs_advanced_control_settings_summary">Edit advanced control settings</string>
+    <string name="advanced_controls__pref_title">Advanced Controls</string>
+    <string name="reverse_angle_reading_summary_off"><![CDATA[Invert Angle Reading (Min->Max Angle)]]></string>
+    <string name="reverse_angle_reading_summary_on"><![CDATA[Invert Angle Reading (Max->Min Angle)]]></string>
+    <string name="reverse_angle_reading_title">Invert Laser Scan</string>
+    <string name="prefs_reverse_angle_reading_key">prefs_reverse_angle_reading_key</string>
+    <string name="prefs_invert_x_axis_key">prefs_invert_x_axis_key</string>
+    <string name="prefs_invert_angular_velocity_key">prefs_invert_angular_velocity_key</string>
+    <string name="prefs_enable_kinect_key">prefs_enable_kinect_key</string>
+    <string name="invert_angular_velocity_summary">Invert angular velocity driving direction</string>
+    <string name="invert_x_axis_summary">Invert X-Axis driving direction</string>
+    <string name="invert_x_axis_title">Invert X-Axis</string>
+    <string name="invert_angular_velocity_title">Invert Angular Velocity</string>
+    <string name="invert_y_axis_title">Invert Y-Axis</string>
+    <string name="invert_y_axis_summary">Invert Y-axis driving direction</string>
+    <string name="prefs_invert_y_axis_key">prefs_invert_y_axis_key</string>
+    <string name="reverse_laser_scan_prompt">Invert Laser Scan:</string>
+    <string name="invert_x_axis_prompt">Invert X-axis:</string>
+    <string name="invert_y_axis_prompt">Invert Y-axis:</string>
+    <string name="invert_angular_velocity_prompt">Invert Ang. Vel:</string>
+
+    <string name="title_activity_map">MapActivity</string>
+    <string name="reset_microcontroller">Reset Microcontroller</string>
+    <string name="kinect_off">Kinect OFF</string>
+    <string name="kinect_on">Kinect ON</string>
+
+</resources>
