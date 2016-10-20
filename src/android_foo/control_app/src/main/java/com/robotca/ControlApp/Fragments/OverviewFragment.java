@@ -67,7 +67,7 @@ public class OverviewFragment extends RosFragment {
                     public void onNewMessage(CompressedImage compressedImage) {
                         if (compressedImage != null) {
                             controller.setCameraMessageReceivedListener(null);
-                            getActivity().runOnUiThread(new Runnable() {
+                            if(getActivity() != null) getActivity().runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
                                     noCameraTextView.setVisibility(View.GONE);

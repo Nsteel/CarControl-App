@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +39,8 @@ public class CameraViewFragment extends RosFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        Log.d("Test", "Im here!");
 
         @SuppressLint("InflateParams") View view = inflater.inflate(R.layout.fragment_camera_view, null);
         noCameraTextView = (TextView)view.findViewById(R.id.noCameraTextView);
