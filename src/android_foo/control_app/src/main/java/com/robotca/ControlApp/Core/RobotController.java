@@ -24,9 +24,9 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import geometry_msgs.Point;
-import geometry_msgs.Pose;
 import geometry_msgs.Quaternion;
 import nav_msgs.Odometry;
+import pses_basis.CarInfo;
 import pses_basis.Command;
 import pses_basis.SensorData;
 import sensor_msgs.CompressedImage;
@@ -79,23 +79,23 @@ public class RobotController implements NodeMain, Savable {
     // Lock for synchronizing accessing and receiving the current Odometry
     private final Object odometryMutex = new Object();
 
-    // The most recent OdomSensorWrapper
-    private final OdomSensorWrapper odomSensorWrapper = new OdomSensorWrapper();
-    // Lock for synchronizing accessing and receiving the current OdomSensorWrapper
-    private final Object odomSensorWrapperMutex = new Object();
+    // The most recent CarTelemetryWrapper
+    private final CarTelemetryWrapper carTelemetryWrapper = new CarTelemetryWrapper();
+    // Lock for synchronizing accessing and receiving the current CarTelemetryWrapper
+    private final Object carTelemetryWrapperMutex = new Object();
 
-    // Subscriber to Pose data
-    private Subscriber<Pose> poseSubscriber;
-    // The most recent Pose
-    private Pose pose;
-    // Lock for synchronizing accessing and receiving the current Pose
-    private final Object poseMutex = new Object();
+    // Subscriber to CarInfo
+    private Subscriber<CarInfo> carInfoSubscriber;
+    // The most recent CarInfo
+    private CarInfo carInfo;
+    // Lock for synchronizing accessing and receiving the current CarInfo
+    private final Object carInfoMutex = new Object();
 
-    // Subscriber to Pose data
+    // Subscriber to Image data
     private Subscriber<CompressedImage> imageSubscriber;
-    // The most recent Pose
+    // The most recent Image
     private CompressedImage image;
-    // Lock for synchronizing accessing and receiving the current Pose
+    // Lock for synchronizing accessing and receiving the current Image
     private final Object imageMutex = new Object();
     private MessageListener<CompressedImage> imageMessageReceived;
 
@@ -113,8 +113,8 @@ public class RobotController implements NodeMain, Savable {
     private ArrayList<MessageListener<SensorData>> sensorDataListeners;
     // Listener for Odometry
     private ArrayList<MessageListener<Odometry>> odometryListeners;
-    // Listener for OdomSensorWrapper
-    private ArrayList<MessageListener<OdomSensorWrapper>> odomSensorWrapperListeners;
+    // Listener for CarTelemetryWrapper
+    private ArrayList<MessageListener<CarTelemetryWrapper>> carTelemetryWrapperListeners;
 
 
     // The Robot's starting position
@@ -146,7 +146,7 @@ public class RobotController implements NodeMain, Savable {
         this.laserScanListeners = new ArrayList<>();
         this.sensorDataListeners = new ArrayList<>();
         this.odometryListeners = new ArrayList<>();
-        this.odomSensorWrapperListeners = new ArrayList<>();
+        this.carTelemetryWrapperListeners = new ArrayList<>();
 
         pausedPlanId = NO_PLAN;
 
@@ -165,12 +165,12 @@ public class RobotController implements NodeMain, Savable {
     }
 
     /**
-     * Adds an OdomSensorWrapper listener.
+     * Adds an CarTelemetryWrapper listener.
      * @param l The listener
      * @return True on success
      */
-    public boolean addOdomSensorWrapperListener(MessageListener<OdomSensorWrapper> l) {
-        return odomSensorWrapperListeners.add(l);
+    public boolean addCarTelemetryWrapperListener(MessageListener<CarTelemetryWrapper> l) {
+        return carTelemetryWrapperListeners.add(l);
     }
 
     /**
@@ -418,9 +418,9 @@ public class RobotController implements NodeMain, Savable {
                 .getString(context.getString(R.string.prefs_odometry_topic_edittext_key),
                         context.getString(R.string.odometry_topic));
 
-        String poseTopic = PreferenceManager.getDefaultSharedPreferences(context)
-                .getString(context.getString(R.string.prefs_pose_topic_edittext_key),
-                        context.getString(R.string.pose_topic));
+        String carInfoTopic = PreferenceManager.getDefaultSharedPreferences(context)
+                .getString(context.getString(R.string.prefs_carInfo_topic_edittext_key),
+                        context.getString(R.string.carInfo_topic));
 
         String imageTopic = PreferenceManager.getDefaultSharedPreferences(context)
                 .getString(context.getString(R.string.prefs_camera_topic_edittext_key),
@@ -504,19 +504,19 @@ public class RobotController implements NodeMain, Savable {
             });
         }
 
-        // Refresh the Pose Subscriber
-        if (poseSubscriber == null
-                || !poseTopic.equals(poseSubscriber.getTopicName().toString())) {
+        // Refresh the CarInfo Subscriber
+        if (carInfoSubscriber == null
+                || !carInfoTopic.equals(carInfoSubscriber.getTopicName().toString())) {
 
-            if (poseSubscriber != null)
-                poseSubscriber.shutdown();
+            if (carInfoSubscriber != null)
+                carInfoSubscriber.shutdown();
 
-            // Start the Pose subscriber
-            poseSubscriber = connectedNode.newSubscriber(poseTopic, Pose._TYPE);
-            poseSubscriber.addMessageListener(new MessageListener<Pose>() {
+            // Start the CarInfo subscriber
+            carInfoSubscriber = connectedNode.newSubscriber(carInfoTopic, CarInfo._TYPE);
+            carInfoSubscriber.addMessageListener(new MessageListener<CarInfo>() {
                 @Override
-                public void onNewMessage(Pose pose) {
-                    setPose(pose);
+                public void onNewMessage(CarInfo carInfo) {
+                    setCarInfo(carInfo);
                 }
             });
         }
@@ -565,8 +565,8 @@ public class RobotController implements NodeMain, Savable {
             sensorDataSubscriber.shutdown();
         }
 
-        if(poseSubscriber != null){
-            poseSubscriber.shutdown();
+        if(carInfoSubscriber != null){
+            carInfoSubscriber.shutdown();
         }
     }
 
@@ -668,10 +668,10 @@ public class RobotController implements NodeMain, Savable {
             for (MessageListener<SensorData> listener: sensorDataListeners) {
                 listener.onNewMessage(sensorData);
             }
-            // set sensorData in odomSensorWrapper
-            odomSensorWrapper.setSensorData(sensorData);
-            // set odomSensorWrapper
-            setOdomSensorWrapper(odomSensorWrapper);
+            // set sensorData in carTelemetryWrapper
+            carTelemetryWrapper.setSensorData(sensorData);
+            // set carTelemetryWrapper
+            setCarTelemetryWrapper(carTelemetryWrapper);
         }
         //Log.d("RobotController", "SensorData Set");
     }
@@ -690,7 +690,7 @@ public class RobotController implements NodeMain, Savable {
                 listener.onNewMessage(odometry);
             }
 
-            // Record position TODO this should be moved to setPose() but that's not being called for some reason
+            // Record position TODO this should be moved to setCarInfo() but that's not being called for some reason
             if (startPos == null) {
                 startPos = odometry.getPose().getPose().getPosition();
             } else {
@@ -701,56 +701,49 @@ public class RobotController implements NodeMain, Savable {
             // Record speed and turnrate
             speed = odometry.getTwist().getTwist().getLinear().getX();
             turnRate = odometry.getTwist().getTwist().getAngular().getZ();
-            // set odomometry in OdomSensorWrapper
-            odomSensorWrapper.setOdometry(odometry);
-            // set odomSensorWrapper
-            setOdomSensorWrapper(odomSensorWrapper);
+            // set odomometry in CarTelemetryWrapper
+            carTelemetryWrapper.setOdometry(odometry);
+            // set carTelemetryWrapper
+            setCarTelemetryWrapper(carTelemetryWrapper);
         }
         //Log.d("RobotController", "Odometry Set");
     }
 
     /**
-     * @return The most recently received Pose.
+     * Sets the current CarTelemetryWrapper.
+     * @param carTelemetryWrapper The CarTelemetryWrapper
      */
-    @SuppressWarnings("unused")
-    public Pose getPose() {
-        synchronized (poseMutex) {
-            return pose;
-        }
-    }
-
-    /**
-     * Sets the current OdomSensorWrapper.
-     * @param odomSensorWrapper The OdomSensorWrapper
-     */
-    public void setOdomSensorWrapper(OdomSensorWrapper odomSensorWrapper){
-        synchronized (odomSensorWrapperMutex){
+    public void setCarTelemetryWrapper(CarTelemetryWrapper carTelemetryWrapper){
+        synchronized (carTelemetryWrapperMutex){
             // Call the listener callbacks
-            for (MessageListener<OdomSensorWrapper> listener: odomSensorWrapperListeners) {
-                listener.onNewMessage(odomSensorWrapper);
+            for (MessageListener<CarTelemetryWrapper> listener: carTelemetryWrapperListeners) {
+                listener.onNewMessage(carTelemetryWrapper);
             }
         }
 
-        //Log.d("RobotController", "OdomSensorWrapper Set");
+        //Log.d("RobotController", "CarTelemetryWrapper Set");
     }
 
     /**
-     * Sets the current Pose.
-     * @param pose The Pose
+     * Sets the current CarInfo.
+     * @param carInfo The CarInfo
      */
-    public void setPose(Pose pose){
-        synchronized (poseMutex){
-            this.pose = pose;
+    public void setCarInfo(CarInfo carInfo){
+        synchronized (carInfoMutex){
+            this.carInfo = carInfo;
+            carTelemetryWrapper.setCarInfo(carInfo);
+            // set carTelemetryWrapper
+            setCarTelemetryWrapper(carTelemetryWrapper);
         }
 
-        Log.d("RobotController", "Pose Set");
+        //Log.d("RobotController", "CarInfo Set");
 //        // Record position
 //        if (startPos == null) {
-//            startPos = pose.getPosition();
+//            startPos = carInfo.getPosition();
 //        } else {
-//            currentPos = pose.getPosition();
+//            currentPos = carInfo.getPosition();
 //        }
-//        rotation = pose.getOrientation();
+//        rotation = carInfo.getOrientation();
     }
 
     /**

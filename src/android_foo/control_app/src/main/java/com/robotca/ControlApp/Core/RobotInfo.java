@@ -34,8 +34,8 @@ public class RobotInfo implements Comparable<RobotInfo>, Savable {
     public static final String ODOMETRY_TOPIC_KEY = "ODOMETRY_TOPIC_KEY";
     /** Bundle key for sensorData topic */
     public static final String SENSOR_DATA_TOPIC_KEY = "SENSOR_DATA_TOPIC_KEY";
-    /** Bundle key for pose topic */
-    public static final String POSE_TOPIC_KEY = "POSE_TOPIC_KEY";
+    /** Bundle key for car info topic */
+    public static final String CAR_INFO_TOPIC_KEY = "CAR_INFO_TOPIC_KEY";
     /** Bundle key for enable kinect */
     public static final String ENABLE_KINECT_KEY = "ENABLE_KINECT_KEY";
     /** Bundle key for reverse laser scan */
@@ -62,7 +62,7 @@ public class RobotInfo implements Comparable<RobotInfo>, Savable {
     private String laserTopic;
     private String odometryTopic;
     private String sensorDataTopic;
-    private String poseTopic;
+    private String carInfoTopic;
     private boolean reverseLaserScan;
     private boolean enableKinect;
     private boolean invertX;
@@ -84,7 +84,7 @@ public class RobotInfo implements Comparable<RobotInfo>, Savable {
         laserTopic = "/scan";
         odometryTopic = "/odom";
         sensorDataTopic = "/pses_basis/sensor_data";
-        poseTopic = "/pose";
+        carInfoTopic = "/pses_basis/car_info";
         reverseLaserScan = false;
         invertX = false;
         invertY = false;
@@ -107,7 +107,7 @@ public class RobotInfo implements Comparable<RobotInfo>, Savable {
      */
     public RobotInfo(UUID id, String name, String masterUriString, String joystickTopic,
                      String laserTopic, String cameraTopic,
-                     String odometryTopic, String sensorDataTopic, String poseTopic, boolean enableKinect, boolean reverseLaserScan,
+                     String odometryTopic, String sensorDataTopic, String carInfoTopic, boolean enableKinect, boolean reverseLaserScan,
                      boolean invertX, boolean invertY, boolean invertAngularVelocity) {
         this.id = id;
         this.name = name;
@@ -117,7 +117,7 @@ public class RobotInfo implements Comparable<RobotInfo>, Savable {
         this.cameraTopic = cameraTopic;
         this.odometryTopic = odometryTopic;
         this.sensorDataTopic = sensorDataTopic;
-        this.poseTopic = poseTopic;
+        this.carInfoTopic = carInfoTopic;
         this.reverseLaserScan = reverseLaserScan;
         this.enableKinect = enableKinect;
         this.invertX = invertX;
@@ -137,18 +137,18 @@ public class RobotInfo implements Comparable<RobotInfo>, Savable {
     public void setId(UUID id){ this.id = id; }
 
     /**
-     * @return The PoseTopic name of this RobotInfo
+     * @return The CarInfoTopic name of this RobotInfo
      */
-    public String getPoseTopic() {
-        return poseTopic;
+    public String getCarInfoTopic() {
+        return carInfoTopic;
     }
 
     /**
-     * Sets the PoseTopic for this RobotInfo.
-     * @param poseTopic The new PoseTopic
+     * Sets the CarInfoTopic for this RobotInfo.
+     * @param carInfoTopic The new CarInfo
      */
-    public void setPoseTopic(String poseTopic) {
-        this.poseTopic = poseTopic;
+    public void setCarInfoTopic(String carInfoTopic) {
+        this.carInfoTopic = carInfoTopic;
     }
     
      /**
@@ -398,7 +398,7 @@ public class RobotInfo implements Comparable<RobotInfo>, Savable {
         laserTopic = bundle.getString(LASER_SCAN_TOPIC_KEY, "/scan");
         odometryTopic = bundle.getString(ODOMETRY_TOPIC_KEY, "/odom");
         sensorDataTopic = bundle.getString(SENSOR_DATA_TOPIC_KEY, "/pses_basis/sensor_data");
-        poseTopic = bundle.getString(POSE_TOPIC_KEY, "/pose");
+        carInfoTopic = bundle.getString(CAR_INFO_TOPIC_KEY, "/pses_basis/car_info");
         enableKinect = bundle.getBoolean(ENABLE_KINECT_KEY, false);
         reverseLaserScan = bundle.getBoolean(REVERSE_LASER_SCAN_KEY, false);
         invertX = bundle.getBoolean(INVERT_X_KEY, false);
@@ -412,7 +412,7 @@ public class RobotInfo implements Comparable<RobotInfo>, Savable {
         laserTopic = prefs.getString(RobotStorage.getPreferenceKey(LASER_SCAN_TOPIC_KEY), "/scan");
         odometryTopic = prefs.getString(RobotStorage.getPreferenceKey(ODOMETRY_TOPIC_KEY), "/odom");
         sensorDataTopic = prefs.getString(RobotStorage.getPreferenceKey(SENSOR_DATA_TOPIC_KEY), "/pses_basis/sensor_data");
-        poseTopic = prefs.getString(RobotStorage.getPreferenceKey(POSE_TOPIC_KEY), "/pose");
+        carInfoTopic = prefs.getString(RobotStorage.getPreferenceKey(CAR_INFO_TOPIC_KEY), "/pses_basis/car_info");
         enableKinect = prefs.getBoolean(RobotStorage.getPreferenceKey(ENABLE_KINECT_KEY), false);
         reverseLaserScan = prefs.getBoolean(RobotStorage.getPreferenceKey(REVERSE_LASER_SCAN_KEY), false);
         invertX = prefs.getBoolean(RobotStorage.getPreferenceKey(INVERT_X_KEY), false);
@@ -430,7 +430,7 @@ public class RobotInfo implements Comparable<RobotInfo>, Savable {
         bundle.putString(LASER_SCAN_TOPIC_KEY, laserTopic);
         bundle.putString(ODOMETRY_TOPIC_KEY, odometryTopic);
         bundle.putString(SENSOR_DATA_TOPIC_KEY, sensorDataTopic);
-        bundle.putString(POSE_TOPIC_KEY, poseTopic);
+        bundle.putString(CAR_INFO_TOPIC_KEY, carInfoTopic);
         bundle.putBoolean(ENABLE_KINECT_KEY, enableKinect);
         bundle.putBoolean(REVERSE_LASER_SCAN_KEY, reverseLaserScan);
         bundle.putBoolean(INVERT_X_KEY, invertX);
@@ -444,7 +444,7 @@ public class RobotInfo implements Comparable<RobotInfo>, Savable {
         prefs.putString(RobotStorage.getPreferenceKey(LASER_SCAN_TOPIC_KEY), laserTopic);
         prefs.putString(RobotStorage.getPreferenceKey(ODOMETRY_TOPIC_KEY), odometryTopic);
         prefs.putString(RobotStorage.getPreferenceKey(SENSOR_DATA_TOPIC_KEY), sensorDataTopic);
-        prefs.putString(RobotStorage.getPreferenceKey(POSE_TOPIC_KEY), poseTopic);
+        prefs.putString(RobotStorage.getPreferenceKey(CAR_INFO_TOPIC_KEY), carInfoTopic);
         prefs.putBoolean(RobotStorage.getPreferenceKey(ENABLE_KINECT_KEY), enableKinect);
         prefs.putBoolean(RobotStorage.getPreferenceKey(REVERSE_LASER_SCAN_KEY), reverseLaserScan);
         prefs.putBoolean(RobotStorage.getPreferenceKey(INVERT_X_KEY), invertX);

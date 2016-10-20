@@ -18,13 +18,13 @@ public class SplashActivity extends Activity {
     private static final String TAG = "SplashActivity";
 
     // Request code for Overlay permissions
-    private static final int OVERLAY_REQUEST_CODE = 0xABCD1234;
+    private static final int OVERLAY_REQUEST_CODE = 1234;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        goToNextActivity(1500L);
-        //checkDrawOverlayPermission();
+        //goToNextActivity(1500L);
+        checkDrawOverlayPermission();
     }
 
     /**
@@ -38,11 +38,11 @@ public class SplashActivity extends Activity {
                         Uri.parse("package:" + getPackageName()));
                 startActivityForResult(intent, OVERLAY_REQUEST_CODE);
             } else {
-                goToNextActivity(2000L);
+                goToNextActivity(500L);
             }
         }
         else {
-            goToNextActivity(2000L);
+            goToNextActivity(500L);
         }
     }
 
@@ -51,7 +51,6 @@ public class SplashActivity extends Activity {
      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode,  Intent data) {
-
         if (requestCode == OVERLAY_REQUEST_CODE) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 

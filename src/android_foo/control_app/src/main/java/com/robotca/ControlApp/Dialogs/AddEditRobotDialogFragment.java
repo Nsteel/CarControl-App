@@ -17,8 +17,6 @@ import android.widget.Toast;
 import com.robotca.ControlApp.Core.RobotInfo;
 import com.robotca.ControlApp.R;
 
-import java.util.UUID;
-
 /**
  * Dialog for adding or editing a Robot.
  * <p/>
@@ -46,7 +44,7 @@ public class AddEditRobotDialogFragment extends DialogFragment {
     private EditText mCameraTopicEditTextView;
     private EditText mOdometryTopicEditTextView;
     private EditText mSensorDataTopicEditTextView;
-    private EditText mPoseTopicEditTextView;
+    private EditText mCarInfoTopicEditTextView;
     private CheckBox mReverseLaserScanCheckBox;
     private CheckBox mEnableKinectCheckBox;
     private CheckBox mInvertXAxisCheckBox;
@@ -98,7 +96,7 @@ public class AddEditRobotDialogFragment extends DialogFragment {
         mCameraTopicEditTextView = (EditText) v.findViewById(R.id.camera_topic_edit_view);
         mOdometryTopicEditTextView = (EditText) v.findViewById(R.id.odometry_topic_edit_view);
         mSensorDataTopicEditTextView = (EditText) v.findViewById(R.id.sensorData_topic_edit_view);
-        mPoseTopicEditTextView = (EditText) v.findViewById(R.id.pose_topic_edit_view);
+        mCarInfoTopicEditTextView = (EditText) v.findViewById(R.id.carInfo_topic_edit_view);
         mEnableKinectCheckBox = (CheckBox) v.findViewById(R.id.enable_kinect_check_box);
         mReverseLaserScanCheckBox = (CheckBox) v.findViewById(R.id.reverse_laser_scan_check_box);
         mInvertXAxisCheckBox = (CheckBox) v.findViewById(R.id.invert_x_axis_check_box);
@@ -124,7 +122,7 @@ public class AddEditRobotDialogFragment extends DialogFragment {
         mCameraTopicEditTextView.setText(mInfo.getCameraTopic());
         mOdometryTopicEditTextView.setText(mInfo.getOdometryTopic());
         mSensorDataTopicEditTextView.setText(mInfo.getSensorDataTopic());
-        mPoseTopicEditTextView.setText(mInfo.getPoseTopic());
+        mCarInfoTopicEditTextView.setText(mInfo.getCarInfoTopic());
         mEnableKinectCheckBox.setChecked(mInfo.isEnableKinect());
         mReverseLaserScanCheckBox.setChecked(mInfo.isReverseLaserScan());
         mInvertXAxisCheckBox.setChecked(mInfo.isInvertX());
@@ -144,7 +142,7 @@ public class AddEditRobotDialogFragment extends DialogFragment {
                         String cameraTopic = mCameraTopicEditTextView.getText().toString().trim();
                         String odometryTopic = mOdometryTopicEditTextView.getText().toString().trim();
                         String sensorDataTopic = mSensorDataTopicEditTextView.getText().toString().trim();
-                        String poseTopic = mPoseTopicEditTextView.getText().toString().trim();
+                        String carInfoTopic = mCarInfoTopicEditTextView.getText().toString().trim();
                         boolean enableKinect = mEnableKinectCheckBox.isChecked();
                         boolean reverseLaserScan = mReverseLaserScanCheckBox.isChecked();
                         boolean invertX = mInvertXAxisCheckBox.isChecked();
@@ -154,12 +152,12 @@ public class AddEditRobotDialogFragment extends DialogFragment {
                         if (masterUri.equals("")) {
                             Toast.makeText(getActivity(), "Master URI required", Toast.LENGTH_SHORT).show();
                         } else if (joystickTopic.equals("") || laserScanTopic.equals("") || cameraTopic.equals("")
-                                || odometryTopic.equals("") || sensorDataTopic.equals("") || poseTopic.equals("")) {
+                                || odometryTopic.equals("") || sensorDataTopic.equals("") || carInfoTopic.equals("")) {
                             Toast.makeText(getActivity(), "All topic names are required", Toast.LENGTH_SHORT).show();
                         } else if (!name.equals("")) {
                             mListener.onAddEditDialogPositiveClick(new RobotInfo(mInfo.getId(), name,
                                     masterUri, joystickTopic, laserScanTopic, cameraTopic,
-                                    odometryTopic, sensorDataTopic, poseTopic, enableKinect, reverseLaserScan, invertX, invertY, invertAngVel), mPosition);
+                                    odometryTopic, sensorDataTopic, carInfoTopic, enableKinect, reverseLaserScan, invertX, invertY, invertAngVel), mPosition);
                             dialog.dismiss();
                         } else {
                             Toast.makeText(getActivity(), "Robot name required", Toast.LENGTH_SHORT).show();

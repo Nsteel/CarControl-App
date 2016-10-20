@@ -168,7 +168,7 @@ public class ControlApp extends RosActivity implements ListView.OnItemClickListe
 //            editor.putString(getString(R.string.prefs_camera_topic_edittext_key), ROBOT_INFO.getCameraTopic());
 //            editor.putString(getString(R.string.prefs_navsat_topic_edittext_key), ROBOT_INFO.getNavSatTopic());
 //            editor.putString(getString(R.string.prefs_odometry_topic_edittext_key), ROBOT_INFO.getOdometryTopic());
-//            editor.putString(getString(R.string.prefs_pose_topic_edittext_key), ROBOT_INFO.getPoseTopic());
+//            editor.putString(getString(R.string.prefs_pose_topic_edittext_key), ROBOT_INFO.getCarInfoTopic());
         }
 
 //        editor.putBoolean(getString(R.string.prefs_warning_checkbox_key), true);
@@ -371,11 +371,11 @@ public class ControlApp extends RosActivity implements ListView.OnItemClickListe
 
             controller.addSensorDataListener(new SensorDataReceiver());
 
-            // Add the HUDFragment to the RobotController's OdomSensorWrapper listener
-            controller.addOdomSensorWrapperListener(hudFragment);
+            // Add the HUDFragment to the RobotController's CarTelemetryWrapper listener
+            controller.addCarTelemetryWrapperListener(hudFragment);
 
-            // Add the TelemetryFragment to the RobotController's OdomSensorWrapper listener
-            //controller.addOdomSensorWrapperListener(telemetryFragment);
+            // Add the TelemetryFragment to the RobotController's CarTelemetryWrapper listener
+            //controller.addCarTelemetryWrapperListener(telemetryFragment);
 
             // Add the JoystickView to the RobotController's odometry listener
             controller.addOdometryListener(joystickFragment.getJoystickView());
@@ -571,9 +571,9 @@ public class ControlApp extends RosActivity implements ListView.OnItemClickListe
             case 4:
                 telemetryFragment = new TelemetryFragment();
                 fragment = telemetryFragment;
-                // Add the TelemetryFragment to the RobotController's OdomSensorWrapper listener
+                // Add the TelemetryFragment to the RobotController's CarTelemetryWrapper listener
                 try {
-                    controller.addOdomSensorWrapperListener(telemetryFragment);
+                    controller.addCarTelemetryWrapperListener(telemetryFragment);
                 }catch (Exception e) {
                     Log.d("RobotController", "Problem getting data from Master");
                 }

@@ -59,14 +59,6 @@ dependencies {
 apply plugin: 'com.android.application'
 
 android {
-    signingConfigs {
-        Key {
-            keyAlias 'PSES'
-            keyPassword 'zeta1337'
-            storeFile file('/home/n/Android/AppKey/KeyStore.jks')
-            storePassword 'jazlyn422'
-        }
-    }
     compileSdkVersion 23
     defaultConfig {
         minSdkVersion 15
@@ -75,7 +67,6 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        signingConfig signingConfigs.Key
     }
     sourceSets {
         main { java.srcDirs = ['src/main/java'] }
@@ -83,11 +74,9 @@ android {
     }
     buildTypes {
         debug {
-            debuggable false
-            signingConfig signingConfigs.Key
+            debuggable true
         }
         release {
-            signingConfig signingConfigs.Key
             debuggable true
         }
     }

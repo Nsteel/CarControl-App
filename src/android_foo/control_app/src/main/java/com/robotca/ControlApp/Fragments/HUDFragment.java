@@ -3,9 +3,7 @@ package com.robotca.ControlApp.Fragments;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.location.Location;
 import android.media.AudioManager;
-import android.media.Image;
 import android.media.ToneGenerator;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
@@ -17,15 +15,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.robotca.ControlApp.ControlApp;
-import com.robotca.ControlApp.Core.OdomSensorWrapper;
+import com.robotca.ControlApp.Core.CarTelemetryWrapper;
 import com.robotca.ControlApp.Core.RobotController;
 import com.robotca.ControlApp.R;
 
 import org.ros.message.MessageListener;
-
-import nav_msgs.Odometry;
-import pses_basis.SensorData;
 
 /**
  * Simple fragment showing info about the Robot's current state.
@@ -35,7 +29,7 @@ import pses_basis.SensorData;
  *
  * @author Nathaniel Stone
  */
-public class HUDFragment extends SimpleFragment implements MessageListener<OdomSensorWrapper>{
+public class HUDFragment extends SimpleFragment implements MessageListener<CarTelemetryWrapper>{
 
     @SuppressWarnings("unused")
     private static final String TAG = "HUDFragment";
@@ -56,6 +50,7 @@ public class HUDFragment extends SimpleFragment implements MessageListener<OdomS
     private WifiManager wifiManager;
 
     private double lastSpeed, lastTurnrate, lastBatterySystemVoltage, lastBatteryMotorVoltage;
+    private double speedHUD, turnrateHUD;
     private int lastWifiImage;
     private int lastBatterySystemImage;
     private int lastBatteryMotorImage;
@@ -224,6 +219,8 @@ public class HUDFragment extends SimpleFragment implements MessageListener<OdomS
             lastTurnrate = turnrate;
             lastBatterySystemVoltage = batterySystemVoltage;
             lastBatteryMotorVoltage = batteryMotorVoltage;
+            speedHUD = (int) (lastSpeed * 100.0) / 100.0;
+            turnrateHUD = (int) (Math.toDegrees(lastTurnrate) * 100.0) / 100.0;
             view.post(UPDATE_UI_RUNNABLE);
         }
     }
@@ -284,9 +281,9 @@ public class HUDFragment extends SimpleFragment implements MessageListener<OdomS
      * @param message The OdomSensroWrapper message
      */
     @Override
-    public void onNewMessage(OdomSensorWrapper message) {
-        if(message.getOdometry() != null && message.getSensorData() != null) {
-            updateUI(message.getOdometry().getTwist().getTwist().getLinear().getX(),
+    public void onNewMessage(CarTelemetryWrapper message) {
+        if(message.getOdometry() != null && message.getSensorData() != null && message.getCarInfo() != null) {
+            updateUI(message.getCarInfo().getSpeed(),
                     message.getOdometry().getTwist().getTwist().getAngular().getZ(),
                     message.getSensorData().getSystemBatteryVoltage(), message.getSensorData().getMotorBatteryVoltage());
         }
@@ -350,10 +347,6 @@ public class HUDFragment extends SimpleFragment implements MessageListener<OdomS
                 return;
 
             try {
-                // Basic experimentation has led me to conclude that speed values from the robot
-                // are in m/s and turn rates in rad/s
-                double speed = (int) (lastSpeed * 100.0) / 100.0;
-                double turnrate = (int) (Math.toDegrees(lastTurnrate) * 100.0) / 100.0;
 
                 if(lastBatterySystemVoltage >= 13.7) lastBatterySystemImage = 3; // full charge
                 else if(lastBatterySystemVoltage >= 13.0) lastBatterySystemImage = 2; // half charge
@@ -367,7 +360,7 @@ public class HUDFragment extends SimpleFragment implements MessageListener<OdomS
 
                 // Update speed
                 if (speedView != null)
-                    speedView.setText(String.format((String) getText(R.string.speed_string), speed));
+                    speedView.setText(String.format((String) getText(R.string.speed_string), speedHUD));
 
                 // Update battery level
                 //if (speedView != null)
@@ -375,7 +368,7 @@ public class HUDFragment extends SimpleFragment implements MessageListener<OdomS
 
                 // Update turn rate
                 if (turnrateView != null)
-                    turnrateView.setText(String.format((String) getText(R.string.turnrate_string), turnrate));
+                    turnrateView.setText(String.format((String) getText(R.string.turnrate_string), turnrateHUD));
 
                 // Update WIFI icons
                 if (wifiStrengthView != null) {

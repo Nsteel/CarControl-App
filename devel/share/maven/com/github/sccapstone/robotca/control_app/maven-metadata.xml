@@ -2,11 +2,11 @@
 <metadata>
   <groupId>com.github.sccapstone.robotca</groupId>
   <artifactId>control_app</artifactId>
-  <version>unspecified</version>
   <versioning>
+    <release>unspecified</release>
     <versions>
       <version>unspecified</version>
     </versions>
-    <lastUpdated>20161015073437</lastUpdated>
+    <lastUpdated>20161019224657</lastUpdated>
   </versioning>
 </metadata>

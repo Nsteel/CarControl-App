@@ -1,7 +1,6 @@
 package com.robotca.ControlApp.Fragments;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,18 +9,17 @@ import android.widget.TextView;
 import org.ros.message.MessageListener;
 
 import nav_msgs.Odometry;
+import pses_basis.CarInfo;
 import pses_basis.SensorData;
 
-import com.robotca.ControlApp.ControlApp;
-import com.robotca.ControlApp.Core.OdomSensorWrapper;
-import com.robotca.ControlApp.Core.RobotController;
+import com.robotca.ControlApp.Core.CarTelemetryWrapper;
 import com.robotca.ControlApp.R;
 
 /**
  * Simple fragment showing info about the sensor data.
  * @author Nicolas Acero
  */
-public class TelemetryFragment extends SimpleFragment implements MessageListener<OdomSensorWrapper> {
+public class TelemetryFragment extends SimpleFragment implements MessageListener<CarTelemetryWrapper> {
 
     @SuppressWarnings("unused")
     private static final String TAG = "TelemetryFragment";
@@ -33,10 +31,10 @@ public class TelemetryFragment extends SimpleFragment implements MessageListener
 
     // The most recent Odometry
     private Odometry odometry;
-    // The most recent sensorData
+    // The most recent SensorData
     private SensorData sensorData;
-    // The robot controller
-    private RobotController controller;
+    // The most recent CarInfo
+    private CarInfo carInfo;
 
     double lastX;
     double lastY;
@@ -90,13 +88,6 @@ public class TelemetryFragment extends SimpleFragment implements MessageListener
             batteryMotorView = (TextView) view.findViewById(R.id.battery_motor_telemetry);
             updateUI(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
         }
-        // Get robot controller
-        try {
-            controller = ((ControlApp) getActivity()).getRobotController();
-        }
-        catch(Exception ignore){
-        }
-
         return view;
     }
 
@@ -108,38 +99,39 @@ public class TelemetryFragment extends SimpleFragment implements MessageListener
                   final double yaw, final double rsf, final double rsl, final double rsr, final double batterySystem, final double batteryMotor)
     {
         if (!isDetached()) {
-            lastX = x;
-            lastY = y;
-            lastDrivenDistance = distance;
-            lastVx = vx;
-            lastVy = vy;
-            lastSpeed = speed;
-            lastAx = ax;
-            lastAy = ay;
-            lastAz = az;
-            lastGx = gx;
-            lastGy = gy;
-            lastGz = gz;
-            lastYaw = yaw;
-            lastRsf = rsf;
-            lastRsl = rsl;
-            lastRsr = rsr;
-            lastBatterySystem = batterySystem;
-            lastBatteryMotor = batteryMotor;
+            lastX = (int) (x * 100.0) / 100.0;
+            lastY = (int) (y * 100.0) / 100.0;
+            lastDrivenDistance = (int) (distance * 100.0) / 100.0;
+            lastVx = (int) (vx * 100.0) / 100.0;
+            lastVy = (int) (vy * 100.0) / 100.0;
+            lastSpeed = (int) (speed * 100.0) / 100.0;
+            lastAx = (int) (ax * 100.0) / 100.0;
+            lastAy = (int) (ay * 100.0) / 100.0;
+            lastAz = (int) (az * 100.0) / 100.0;
+            lastGx = (int) (gx * 100.0) / 100.0;
+            lastGy = (int) (gy * 100.0) / 100.0;
+            lastGz = (int) (gz * 100.0) / 100.0;
+            lastYaw = (int) (yaw * 100.0) / 100.0;
+            lastRsf = (int) (rsf * 100.0) / 100.0;
+            lastRsl = (int) (rsl * 100.0) / 100.0;
+            lastRsr = (int) (rsr * 100.0) / 100.0;
+            lastBatterySystem = (int) (batterySystem * 100.0) / 100.0;
+            lastBatteryMotor = (int) (batteryMotor * 100.0) / 100.0;
 
             view.post(UPDATE_UI_RUNNABLE);
         }
     }
 
     @Override
-    public void onNewMessage(OdomSensorWrapper odomSensorWrapper) {
-        sensorData = odomSensorWrapper.getSensorData();
-        odometry = odomSensorWrapper.getOdometry();
-        if(odometry != null && view != null && sensorData != null) updateUI(odometry.getPose().getPose().getPosition().getX(),
-                odometry.getPose().getPose().getPosition().getY(), odometry.getPose().getPose().getPosition().getZ(), odometry.getTwist().getTwist().getLinear().getX(),
-                odometry.getTwist().getTwist().getLinear().getY(), odometry.getTwist().getTwist().getLinear().getZ(), sensorData.getAccelerometerX(),
+    public void onNewMessage(CarTelemetryWrapper carTelemetryWrapper) {
+        sensorData = carTelemetryWrapper.getSensorData();
+        odometry = carTelemetryWrapper.getOdometry();
+        carInfo = carTelemetryWrapper.getCarInfo();
+        if(odometry != null && view != null && sensorData != null && carInfo != null) updateUI(odometry.getPose().getPose().getPosition().getX(),
+                odometry.getPose().getPose().getPosition().getY(), carInfo.getDrivenDistance(), odometry.getTwist().getTwist().getLinear().getX(),
+                odometry.getTwist().getTwist().getLinear().getY(), carInfo.getSpeed(), sensorData.getAccelerometerX(),
                 sensorData.getAccelerometerY(), sensorData.getAccelerometerZ(), sensorData.getAngularVelocityX(), sensorData.getAngularVelocityY(),
-                sensorData.getAngularVelocityZ(), controller.getHeading(), sensorData.getRangeSensorFront(), sensorData.getRangeSensorLeft(),
+                sensorData.getAngularVelocityZ(), carInfo.getYaw(), sensorData.getRangeSensorFront(), sensorData.getRangeSensorLeft(),
                 sensorData.getRangeSensorRight(), sensorData.getSystemBatteryVoltage(), sensorData.getMotorBatteryVoltage());
     }
 
@@ -158,96 +150,78 @@ public class TelemetryFragment extends SimpleFragment implements MessageListener
                 return;
 
             try {
-                double x = (int) (lastX * 100.0) / 100.0;
-                double y = (int) (lastY * 100.0) / 100.0;
-                double distance = (int) (lastDrivenDistance * 100.0) / 100.0;
-                double vx = (int) (lastVx * 100.0) / 100.0;
-                double vy = (int) (lastVy * 100.0) / 100.0;
-                double speed = (int) (lastSpeed * 100.0) / 100.0;
-                double ax = (int) (lastAx * 100.0) / 100.0;
-                double ay = (int) (lastAy * 100.0) / 100.0;
-                double az = (int) (lastAz * 100.0) / 100.0;
-                double gx = (int) (Math.toDegrees(lastGx) * 100.0) / 100.0;
-                double gy = (int) (Math.toDegrees(lastGy) * 100.0) / 100.0;
-                double gz = (int) (Math.toDegrees(lastGz) * 100.0) / 100.0;
-                double yaw = (int) (Math.toDegrees(lastYaw) * 100.0) / 100.0;
-                double rsf = (int) (lastRsf * 100.0) / 100.0;
-                double rsl = (int) (lastRsl * 100.0) / 100.0;
-                double rsr = (int) (lastRsr * 100.0) / 100.0;
-                double batterySystem = (int) (lastBatterySystem * 100.0) / 100.0;
-                double batteryMotor = (int) (lastBatteryMotor * 100.0) / 100.0;
 
                 // Update x
                 if (xView != null)
-                    xView.setText(String.format((String) getText(R.string.x_telemetry_string), x));
+                    xView.setText(String.format((String) getText(R.string.x_telemetry_string), lastX));
 
                 // Update y
                 if (yView != null)
-                    yView.setText(String.format((String) getText(R.string.y_telemetry_string), y));
+                    yView.setText(String.format((String) getText(R.string.y_telemetry_string), lastY));
 
                 // Update driven_distance
                 if (distanceView != null)
-                    distanceView.setText(String.format((String) getText(R.string.driven_distance_telemetry_string), distance));
+                    distanceView.setText(String.format((String) getText(R.string.driven_distance_telemetry_string), lastDrivenDistance));
 
                 // Update vx
                 if (vxView != null)
-                    vxView.setText(String.format((String) getText(R.string.v_x_telemetry_string), vx));
+                    vxView.setText(String.format((String) getText(R.string.v_x_telemetry_string), lastVx));
 
                 // Update vy
                 if (vyView != null)
-                    vyView.setText(String.format((String) getText(R.string.v_y_telemetry_string), vy));
+                    vyView.setText(String.format((String) getText(R.string.v_y_telemetry_string), lastVy));
 
                 // Update speed
                 if (speedView != null)
-                    speedView.setText(String.format((String) getText(R.string.speed_telemetry_string), speed));
+                    speedView.setText(String.format((String) getText(R.string.speed_telemetry_string), lastSpeed));
 
                 // Update ax
                 if (axView != null)
-                    axView.setText(String.format((String) getText(R.string.a_x_telemetry_string), ax));
+                    axView.setText(String.format((String) getText(R.string.a_x_telemetry_string), lastAx));
 
                 // Update ay
                 if (ayView != null)
-                    ayView.setText(String.format((String) getText(R.string.a_y_telemetry_string), ay));
+                    ayView.setText(String.format((String) getText(R.string.a_y_telemetry_string), lastAy));
 
                 // Update az
                 if (azView != null)
-                    azView.setText(String.format((String) getText(R.string.a_z_telemetry_string), az));
+                    azView.setText(String.format((String) getText(R.string.a_z_telemetry_string), lastAz));
 
                 // Update gx
                 if (gxView != null)
-                    gxView.setText(String.format((String) getText(R.string.g_x_telemetry_string), gx));
+                    gxView.setText(String.format((String) getText(R.string.g_x_telemetry_string), lastGx));
 
                 // Update gy
                 if (ayView != null)
-                    gyView.setText(String.format((String) getText(R.string.g_y_telemetry_string), gy));
+                    gyView.setText(String.format((String) getText(R.string.g_y_telemetry_string), lastGy));
 
                 // Update gz
                 if (gzView != null)
-                    gzView.setText(String.format((String) getText(R.string.g_z_telemetry_string), gz));
+                    gzView.setText(String.format((String) getText(R.string.g_z_telemetry_string), lastGz));
 
                 // Update yaw
                 if (yawView != null)
-                    yawView.setText(String.format((String) getText(R.string.yaw_telemetry_string), yaw));
+                    yawView.setText(String.format((String) getText(R.string.yaw_telemetry_string), lastYaw));
 
                 // Update rsf
                 if (rsfView != null)
-                    rsfView.setText(String.format((String) getText(R.string.rsf_telemetry_string), rsf));
+                    rsfView.setText(String.format((String) getText(R.string.rsf_telemetry_string), lastRsf));
 
                 // Update rsl
                 if (rslView != null)
-                    rslView.setText(String.format((String) getText(R.string.rsl_telemetry_string), rsl));
+                    rslView.setText(String.format((String) getText(R.string.rsl_telemetry_string), lastRsl));
 
                 // Update rsr
                 if (rsrView != null)
-                    rsrView.setText(String.format((String) getText(R.string.rsr_telemetry_string), rsr));
+                    rsrView.setText(String.format((String) getText(R.string.rsr_telemetry_string), lastRsr));
 
                 // Update battery_system
                 if (batterySystemView != null)
-                    batterySystemView.setText(String.format((String) getText(R.string.battery_system_telemetry_string), batterySystem));
+                    batterySystemView.setText(String.format((String) getText(R.string.battery_system_telemetry_string), lastBatterySystem));
 
                 // Update battery_motor
                 if (batteryMotorView != null)
-                    batteryMotorView.setText(String.format((String) getText(R.string.battery_motor_telemetry_string), batteryMotor));
+                    batteryMotorView.setText(String.format((String) getText(R.string.battery_motor_telemetry_string), lastBatteryMotor));
 
                 // Update battery level
                 //if (vxView != null)

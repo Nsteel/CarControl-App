@@ -49,11 +49,11 @@
             android:title="@string/sensorData_pref_title" />
 
         <com.robotca.ControlApp.Views.BetterEditTextPreference
-            android:defaultValue="@string/pose_topic"
-            android:key="@string/prefs_pose_topic_edittext_key"
+            android:defaultValue="@string/carInfo_topic"
+            android:key="@string/prefs_carInfo_topic_edittext_key"
             android:singleLine="true"
-            android:summary="@string/pose_pref_summary"
-            android:title="@string/pose_pref_title" />
+            android:summary="@string/carInfo_pref_summary"
+            android:title="@string/carInfo_pref_title" />
 
     </PreferenceScreen>
 
