@@ -1,6 +1,7 @@
 package com.robotca.ControlApp.Fragments;
 
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +36,10 @@ public class TelemetryFragment extends SimpleFragment implements MessageListener
     private SensorData sensorData;
     // The most recent CarInfo
     private CarInfo carInfo;
+
+    //Time since last update
+    private long lastUpdate;
+    private static final long UPDATE_DELAY = 100;
 
     double lastX;
     double lastY;
@@ -86,6 +91,7 @@ public class TelemetryFragment extends SimpleFragment implements MessageListener
             rsrView = (TextView) view.findViewById(R.id.rsr_telemetry);
             batterySystemView = (TextView) view.findViewById(R.id.battery_system_telemetry);
             batteryMotorView = (TextView) view.findViewById(R.id.battery_motor_telemetry);
+            lastUpdate = 0;
             updateUI(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
         }
         return view;
@@ -98,7 +104,8 @@ public class TelemetryFragment extends SimpleFragment implements MessageListener
                   final double ax, final  double ay, final double az, final double gx, final double gy, final double gz,
                   final double yaw, final double rsf, final double rsl, final double rsr, final double batterySystem, final double batteryMotor)
     {
-        if (!isDetached()) {
+        if (!isDetached() && (System.currentTimeMillis() - lastUpdate) > UPDATE_DELAY) {
+            lastUpdate = System.currentTimeMillis();
             lastX = (int) (x * 100.0) / 100.0;
             lastY = (int) (y * 100.0) / 100.0;
             lastDrivenDistance = (int) (distance * 100.0) / 100.0;
@@ -108,10 +115,10 @@ public class TelemetryFragment extends SimpleFragment implements MessageListener
             lastAx = (int) (ax * 100.0) / 100.0;
             lastAy = (int) (ay * 100.0) / 100.0;
             lastAz = (int) (az * 100.0) / 100.0;
-            lastGx = (int) (gx * 100.0) / 100.0;
-            lastGy = (int) (gy * 100.0) / 100.0;
-            lastGz = (int) (gz * 100.0) / 100.0;
-            lastYaw = (int) (yaw * 100.0) / 100.0;
+            lastGx = (int) (Math.toDegrees(gx) * 100.0) / 100.0;
+            lastGy = (int) (Math.toDegrees(gy) * 100.0) / 100.0;
+            lastGz = (int) (Math.toDegrees(gz) * 100.0) / 100.0;
+            lastYaw = (int) (Math.toDegrees(yaw) * 100.0) / 100.0;
             lastRsf = (int) (rsf * 100.0) / 100.0;
             lastRsl = (int) (rsl * 100.0) / 100.0;
             lastRsr = (int) (rsr * 100.0) / 100.0;

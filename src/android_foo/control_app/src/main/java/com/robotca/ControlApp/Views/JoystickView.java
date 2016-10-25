@@ -405,20 +405,6 @@ public class JoystickView extends RelativeLayout implements AnimationListener,
     public void controlSchemeChanged()
     {
         Log.d(TAG, "Control Scheme Changed");
-        // Register/unregister the accelerometer listener as needed
-        if (accelerometer != null) {
-            if (controlMode == ControlMode.Tilt) {
-                tiltOffset = null;
-                sensorManager.registerListener(ACCEL_LISTENER, accelerometer, SensorManager.SENSOR_DELAY_GAME);
-                onContactDown();
-
-                Toast.makeText(getContext(), R.string.tilt_calibration_message, Toast.LENGTH_LONG).show();
-            }
-            else {
-                sensorManager.unregisterListener(ACCEL_LISTENER);
-                onContactUp();
-            }
-        }
     }
 
     /**
@@ -475,15 +461,6 @@ public class JoystickView extends RelativeLayout implements AnimationListener,
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-
-        // Touch events indicate user wants to reset calibration in Tilt mode
-        if (controlMode == ControlMode.Tilt) {
-
-            // Reset calibration
-            tiltOffset = null;
-
-            return true;
-        }
 
         final int action = event.getAction();
 

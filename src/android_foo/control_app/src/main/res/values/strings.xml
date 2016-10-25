@@ -161,25 +161,16 @@
     <string name="wifi_strength_content_description">Shows WIFI signal strength</string>
     <string name="speedometer_icon_content_description">Speedometer icon</string>
 
-    <!-- UI messages -->
-    <string name="tilt_calibration_message">Tap the joystick to reset calibration</string>
-
     <!-- Motion plan names -->
-    <string name="use_tilt_sensor_string">Use Tilt</string>
     <string name="joystick_control">Joystick Control</string>
-    <string name="motion_control">Tilt Control</string>
-    <string name="simple_waypoint_control">Simple Waypoint Control</string>
     <string name="simple_round_trip_control">Round trip without Obstacles Control</string>
     <string name="round_trip_obstacles_control">Round trip with Obstacles Control</string>
     <string name="park_car_control">Park Car Control</string>
-    <string name="waypoint_control">Waypoint Control</string>
     <string name="random_walk">Random Walk</string>
 
     <!-- Array of Motion plan names -->
     <string-array name="motion_plans">
         <item>Joystick</item>
-        <item>Tilt</item>
-        <item>Simple Waypoint</item>
         <item>Simple Round Trip</item>
         <item>Round Trip with Obstacles</item>
         <item>Park Car</item>

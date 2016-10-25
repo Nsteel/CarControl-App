@@ -3,7 +3,6 @@ package com.robotca.ControlApp.Core;
 import android.support.test.rule.ActivityTestRule;
 
 import com.robotca.ControlApp.ControlApp;
-import com.robotca.ControlApp.Core.Plans.SimpleWaypointPlan;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -31,10 +30,5 @@ public class ControlModeTest {
 
         // Make sure Joystick has no MotionPlan
         assertEquals(null, ControlMode.getRobotPlan(controlAppRule.getActivity(), ControlMode.Joystick));
-
-        // Test motion plan types
-        assertEquals(true,
-                ControlMode.getRobotPlan(controlAppRule.getActivity(), ControlMode.SimpleWaypoint)
-                        instanceof SimpleWaypointPlan);
     }
 }

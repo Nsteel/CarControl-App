@@ -5,7 +5,6 @@ import com.robotca.ControlApp.Core.Plans.ParkCarPlan;
 import com.robotca.ControlApp.Core.Plans.RobotPlan;
 import com.robotca.ControlApp.Core.Plans.RoundTripWithObstaclesPlan;
 import com.robotca.ControlApp.Core.Plans.SimpleRoundTripPlan;
-import com.robotca.ControlApp.Core.Plans.SimpleWaypointPlan;
 
 /**
  * Enum for different ways to control the Robot.
@@ -14,7 +13,6 @@ import com.robotca.ControlApp.Core.Plans.SimpleWaypointPlan;
  */
 public enum ControlMode {
     Joystick (true), // Joystick control
-    Tilt (true), // Tilt sensor control
     SimpleWaypoint (false), // SimpleWaypoint control
     RoundTripWithoutObstacles (false), // Round trip around the corridor without obstacles
     RoundTripWithObstacles (false), // Round trip around the corridor with obstacles
@@ -43,8 +41,6 @@ public enum ControlMode {
         RobotPlan plan;
 
         switch (controlMode) {
-
-            case SimpleWaypoint: plan = new SimpleWaypointPlan(controlApp); break;
             case RoundTripWithoutObstacles: plan = new SimpleRoundTripPlan(controlApp); break;
             case RoundTripWithObstacles: plan = new RoundTripWithObstaclesPlan(controlApp); break;
             case ParkCar: plan = new ParkCarPlan(controlApp); break;

@@ -511,7 +511,7 @@ public class ControlApp extends RosActivity implements ListView.OnItemClickListe
 
         Bundle args = new Bundle();
 
-        if (joystickFragment != null && getControlMode().ordinal() <= ControlMode.Tilt.ordinal()) {
+        if (joystickFragment != null && getControlMode().ordinal() <= ControlMode.Joystick.ordinal()) {
             joystickFragment.show();
         }
 
@@ -685,14 +685,6 @@ public class ControlApp extends RosActivity implements ListView.OnItemClickListe
                 setControlMode(ControlMode.Joystick);
                 return true;
 
-            case R.id.action_motion_control:
-                setControlMode(ControlMode.Tilt);
-                return true;
-
-            case R.id.action_simple_waypoint_control:
-                setControlMode(ControlMode.SimpleWaypoint);
-                return true;
-
             case R.id.action_simple_round_trip_control:
                 setControlMode(ControlMode.RoundTripWithoutObstacles);
                 return true;
@@ -800,9 +792,6 @@ public class ControlApp extends RosActivity implements ListView.OnItemClickListe
         if (joystickFragment.getControlMode() == controlMode)
             return;
 
-        // Lock the orientation for tilt controls
-        lockOrientation(controlMode == ControlMode.Tilt);
-
         // Notify the Joystick on the new ControlMode
         joystickFragment.setControlMode(controlMode);
         hudFragment.toggleEmergencyStopUI(true);
@@ -816,11 +805,6 @@ public class ControlApp extends RosActivity implements ListView.OnItemClickListe
         }
 
         invalidateOptionsMenu();
-
-        if (controlMode == ControlMode.SimpleWaypoint) {
-            Toast.makeText(this, "Tap twice to place or delete a waypoint. " +
-                    "Tap and hold a waypoint to move it.", Toast.LENGTH_LONG).show();
-        }
     }
 
     /**

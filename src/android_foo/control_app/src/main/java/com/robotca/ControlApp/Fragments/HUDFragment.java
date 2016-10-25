@@ -114,8 +114,9 @@ public class HUDFragment extends SimpleFragment implements MessageListener<CarTe
 //          locationView = (TextView) view.findViewById(R.id.hud_location);
 
             wifiStrengthView = (ImageView) view.findViewById(R.id.hud_wifi_strength);
-            batterySystemView = (ImageView) view.findViewById(R.id.hud_battery_1_icon);
-            batteryMotorView = (ImageView) view.findViewById(R.id.hud_battery_2_icon);
+            //TODO: Battery level
+            //batterySystemView = (ImageView) view.findViewById(R.id.hud_battery_1_icon);
+            //batteryMotorView = (ImageView) view.findViewById(R.id.hud_battery_2_icon);
 
             updateUI(0.0, 0.0, 0.0, 0.0);
         }
@@ -347,15 +348,15 @@ public class HUDFragment extends SimpleFragment implements MessageListener<CarTe
                 return;
 
             try {
-
+                // TODO: Battery level
                 if(lastBatterySystemVoltage >= 13.7) lastBatterySystemImage = 3; // full charge
                 else if(lastBatterySystemVoltage >= 13.0) lastBatterySystemImage = 2; // half charge
                 else if(lastBatterySystemVoltage >= 12.3) lastBatterySystemImage = 1; // low charge
                 else lastBatterySystemImage = 0; // empty charge
 
-                if(lastBatteryMotorVoltage >= 8.0) lastBatteryMotorImage = 3; // full charge
-                else if(lastBatteryMotorVoltage >= 7.7) lastBatteryMotorImage = 2; // half charge
-                else if(lastBatteryMotorVoltage >= 7.4) lastBatteryMotorImage = 1; // low charge
+                if(lastBatteryMotorVoltage >= 6.8) lastBatteryMotorImage = 3; // full charge
+                else if(lastBatteryMotorVoltage >= 5.5) lastBatteryMotorImage = 2; // half charge
+                else if(lastBatteryMotorVoltage >= 4.7) lastBatteryMotorImage = 1; // low charge
                 else lastBatteryMotorImage = 0; // empty charge
 
                 // Update speed
@@ -375,14 +376,14 @@ public class HUDFragment extends SimpleFragment implements MessageListener<CarTe
                     wifiStrengthView.setImageResource(WIFI_ICONS[lastWifiImage]);
                 }
 
-                // Update BatterySystem icon
+                // TODO: Update BatterySystem icon
                 if (batterySystemView != null) {
-                    batterySystemView.setImageResource(BATTERY_ICONS[lastBatterySystemImage]);
+                    //batterySystemView.setImageResource(BATTERY_ICONS[lastBatterySystemImage]);
                 }
 
-                // Update BatteryMotor icon
+                //TODO: Update BatteryMotor icon
                 if (batteryMotorView != null) {
-                    batteryMotorView.setImageResource(BATTERY_ICONS[lastBatteryMotorImage]);
+                    //batteryMotorView.setImageResource(BATTERY_ICONS[lastBatteryMotorImage]);
                 }
 
                 // Update warnings

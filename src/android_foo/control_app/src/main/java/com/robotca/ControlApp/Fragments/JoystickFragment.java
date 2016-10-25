@@ -90,11 +90,6 @@ public class JoystickFragment extends Fragment {
             case Joystick:
                 show();
                 break;
-
-            case Tilt:
-                show();
-                break;
-
             default:
                 hide();
                 break;

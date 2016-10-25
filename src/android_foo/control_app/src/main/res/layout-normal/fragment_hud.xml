@@ -68,7 +68,7 @@
                     android:text="@string/turnrate_string"/>
 
             </LinearLayout>
-
+            <!-- TODO
             <ImageView
                 android:id="@+id/hud_battery_1_icon"
                 android:src="@drawable/battery_full"
@@ -117,13 +117,15 @@
                 android:id="@+id/hud_wifi_strength"
                 android:src="@drawable/wifi_0"
                 android:layout_centerHorizontal="true"
-                android:layout_toEndOf="@id/hud_battery_2_icon"
-                android:layout_toRightOf="@id/hud_battery_2_icon"
+                android:layout_toEndOf="@id/hud_speedometer_icon"
+                android:layout_toRightOf="@id/hud_speedometer_icon"
                 android:paddingTop="15sp"
                 android:paddingBottom="15sp"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:contentDescription="@string/wifi_strength_content_description" />
+
+           -->
 
         </RelativeLayout>
     </HorizontalScrollView>
