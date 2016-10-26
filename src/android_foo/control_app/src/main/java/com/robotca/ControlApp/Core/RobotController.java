@@ -346,7 +346,6 @@ public class RobotController implements NodeMain, Savable {
             }
 
             currentCommand.setMotorLevel((short) (linearVelocityX * scale));
-            currentCommand.setEnableKinect(PreferenceManager.getDefaultSharedPreferences(context).getBoolean(context.getString(R.string.prefs_enable_kinect_key), false));
             currentCommand.setSteeringLevel((short) -angularVelocityZ);
         } else {
             Log.w("Emergency Stop", "currentCommand is null");

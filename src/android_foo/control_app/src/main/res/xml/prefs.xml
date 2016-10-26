@@ -73,14 +73,6 @@
         <SwitchPreference
             android:checked="false"
             android:defaultValue="false"
-            android:key="@string/prefs_enable_kinect_key"
-            android:summaryOff="@string/enable_kinect_pref_summary_off"
-            android:summaryOn="@string/enable_kinect_pref_summary_on"
-            android:title="@string/enable_kinect_pref_title" />
-
-        <SwitchPreference
-            android:checked="false"
-            android:defaultValue="false"
             android:key="@string/prefs_reverse_angle_reading_key"
             android:summaryOff="@string/reverse_angle_reading_summary_off"
             android:summaryOn="@string/reverse_angle_reading_summary_on"

@@ -80,7 +80,7 @@ public class RobotInfo implements Comparable<RobotInfo>, Savable {
         name = "Car" + robotCount++;
         masterUriString = "http://localhost:11311";
         joystickTopic = "/pses_basis/command";
-        cameraTopic = "/image_raw/compressed";
+        cameraTopic = "/kinect2/qhd/image_color/compressed";
         laserTopic = "/scan";
         odometryTopic = "/odom";
         sensorDataTopic = "/pses_basis/sensor_data";
@@ -394,7 +394,7 @@ public class RobotInfo implements Comparable<RobotInfo>, Savable {
         name = bundle.getString(ROBOT_NAME_KEY, "");
         masterUriString = bundle.getString(MASTER_URI_KEY, "http://localhost:11311");
         joystickTopic = bundle.getString(JOYSTICK_TOPIC_KEY, "/pses_basis/commad");
-        cameraTopic = bundle.getString(CAMERA_TOPIC_KEY, "/image_raw/compressed");
+        cameraTopic = bundle.getString(CAMERA_TOPIC_KEY, "/kinect2/qhd/image_color/compressed");
         laserTopic = bundle.getString(LASER_SCAN_TOPIC_KEY, "/scan");
         odometryTopic = bundle.getString(ODOMETRY_TOPIC_KEY, "/odom");
         sensorDataTopic = bundle.getString(SENSOR_DATA_TOPIC_KEY, "/pses_basis/sensor_data");
@@ -408,7 +408,7 @@ public class RobotInfo implements Comparable<RobotInfo>, Savable {
 
     public void load(@NonNull SharedPreferences prefs) {
         joystickTopic = prefs.getString(RobotStorage.getPreferenceKey(JOYSTICK_TOPIC_KEY), "/pses_basis/commad");
-        cameraTopic = prefs.getString(RobotStorage.getPreferenceKey(CAMERA_TOPIC_KEY), "/image_raw/compressed");
+        cameraTopic = prefs.getString(RobotStorage.getPreferenceKey(CAMERA_TOPIC_KEY), "/kinect2/qhd/image_color/compressed");
         laserTopic = prefs.getString(RobotStorage.getPreferenceKey(LASER_SCAN_TOPIC_KEY), "/scan");
         odometryTopic = prefs.getString(RobotStorage.getPreferenceKey(ODOMETRY_TOPIC_KEY), "/odom");
         sensorDataTopic = prefs.getString(RobotStorage.getPreferenceKey(SENSOR_DATA_TOPIC_KEY), "/pses_basis/sensor_data");

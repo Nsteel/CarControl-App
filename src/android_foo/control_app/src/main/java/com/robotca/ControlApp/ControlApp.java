@@ -761,10 +761,9 @@ public class ControlApp extends RosActivity implements ListView.OnItemClickListe
             Command cmd = controller.getCurrentCommand();
             cmd.setMotorLevel((short)0);
             cmd.setSteeringLevel((short)0);
-            cmd.setReset(false);
-            cmd.setEnableKinect(true);
             controller.setCurrentCommand(cmd);
             controller.setPublishCommands(true);
+
         }
 
         // Beep beep
