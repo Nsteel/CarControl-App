@@ -745,6 +745,10 @@ public class RobotController implements NodeMain, Savable {
 //        rotation = carInfo.getOrientation();
     }
 
+    public int getMotorLimit() {
+        return Integer.parseInt(PreferenceManager.getDefaultSharedPreferences(context).getString(context.getString(R.string.prefs_motor_limit_key), "20"));
+    }
+
     /**
      * Load from a Bundle.
      *

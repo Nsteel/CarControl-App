@@ -961,7 +961,8 @@ public class JoystickView extends RelativeLayout implements AnimationListener,
                                  double angularVelocityZ) {
 
         ((ControlApp) getContext()).getRobotController().
-                forceVelocity(linearVelocityX*20, linearVelocityY*20.0, angularVelocityZ*50.0);
+                forceVelocity((linearVelocityX > 0) ? linearVelocityX * (double)((ControlApp) getContext()).getRobotController().getMotorLimit() : linearVelocityX*20.0,
+                        linearVelocityY*20.0, angularVelocityZ*50.0);
     }
 
     /**

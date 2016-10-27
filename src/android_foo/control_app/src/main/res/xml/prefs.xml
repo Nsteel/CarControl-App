@@ -62,13 +62,14 @@
         android:key="@string/prefs_advanced_control_settings_key"
         android:summary="@string/prefs_advanced_control_settings_summary"
         android:title="@string/advanced_controls__pref_title">
+
         <com.robotca.ControlApp.Views.BetterEditTextPreference
-            android:defaultValue="1"
+            android:defaultValue="20"
             android:inputType="number"
-            android:key="edittext_laser_scan_detail"
+            android:key="@string/prefs_motor_limit_key"
             android:singleLine="true"
-            android:summary="@string/laser_scan_detail_pref_summary"
-            android:title="@string/laser_scan_detail_pref_title" />
+            android:summary="@string/motor_limit_pref_summary"
+            android:title="@string/motor_limit_pref_title" />
 
         <SwitchPreference
             android:checked="false"
