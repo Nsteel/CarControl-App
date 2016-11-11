@@ -60,6 +60,11 @@ public class RobotController implements NodeMain, Savable {
     // Indicates when a Command message should be published
     private boolean publishCommands;
 
+    // Publisher for mode_control
+    private Publisher<std_msgs.String> modeControlPublisher;
+
+    // The most recent modeControl
+    private std_msgs.String modeControl;
     // Subscriber to LaserScan data
     private Subscriber<LaserScan> laserScanSubscriber;
     // The most recent LaserScan
@@ -203,6 +208,12 @@ public class RobotController implements NodeMain, Savable {
 
     public void setPublishCommands(boolean publishCommands) {
         this.publishCommands = publishCommands;
+    }
+
+    public void setModeControl(String modeControl) {
+        Log.d("setModeControl", "set!");
+        this.modeControl.setData(modeControl);
+        refreshTopics();
     }
 
     /**
@@ -420,6 +431,8 @@ public class RobotController implements NodeMain, Savable {
         String carInfoTopic = PreferenceManager.getDefaultSharedPreferences(context)
                 .getString(context.getString(R.string.prefs_carInfo_topic_edittext_key),
                         context.getString(R.string.carInfo_topic));
+        String modeControlTopic = PreferenceManager.getDefaultSharedPreferences(context)
+                .getString(context.getString(R.string.prefs_mode_control_topic_edittext_key), context.getString(R.string.mode_control_topic));
 
         String imageTopic = PreferenceManager.getDefaultSharedPreferences(context)
                 .getString(context.getString(R.string.prefs_camera_topic_edittext_key),
@@ -450,6 +463,22 @@ public class RobotController implements NodeMain, Savable {
                 }
             }, 0, 80);
             publishCommands = false;
+        }
+
+        // Refresh the Mode Control Publisher
+        if (modeControlPublisher == null
+                || !modeControlTopic.equals(modeControlPublisher.getTopicName().toString())) {
+
+            if (modeControlPublisher != null) {
+                modeControlPublisher.shutdown();
+            }
+
+            // Start the Mode Control publisher
+            modeControlPublisher = connectedNode.newPublisher(modeControlTopic, std_msgs.String._TYPE);
+            modeControl = modeControlPublisher.newMessage();
+        }
+        else if(modeControlPublisher != null) {
+            modeControlPublisher.publish(modeControl);
         }
 
         // Refresh the LaserScan Subscriber
@@ -550,6 +579,10 @@ public class RobotController implements NodeMain, Savable {
 
         if (commandPublisher != null) {
             commandPublisher.shutdown();
+        }
+
+        if (modeControlPublisher != null) {
+            modeControlPublisher.shutdown();
         }
 
         if (laserScanSubscriber != null) {

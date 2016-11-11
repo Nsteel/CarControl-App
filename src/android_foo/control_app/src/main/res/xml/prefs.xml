@@ -55,6 +55,13 @@
             android:summary="@string/carInfo_pref_summary"
             android:title="@string/carInfo_pref_title" />
 
+        <com.robotca.ControlApp.Views.BetterEditTextPreference
+            android:defaultValue="@string/mode_control_topic"
+            android:key="@string/prefs_mode_control_topic_edittext_key"
+            android:singleLine="true"
+            android:summary="@string/mode_control_pref_summary"
+            android:title="@string/mode_control_pref_title" />
+
     </PreferenceScreen>
 
     <PreferenceScreen

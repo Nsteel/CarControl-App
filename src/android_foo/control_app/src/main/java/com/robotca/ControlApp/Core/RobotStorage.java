@@ -54,7 +54,7 @@ public class RobotStorage {
         g_cPrefKeyMap.put(RobotInfo.ODOMETRY_TOPIC_KEY, activity.getString(R.string.prefs_odometry_topic_edittext_key));
         g_cPrefKeyMap.put(RobotInfo.SENSOR_DATA_TOPIC_KEY, activity.getString(R.string.prefs_sensorData_topic_edittext_key));
         g_cPrefKeyMap.put(RobotInfo.CAR_INFO_TOPIC_KEY, activity.getString(R.string.prefs_carInfo_topic_edittext_key));
-        g_cPrefKeyMap.put(RobotInfo.ENABLE_KINECT_KEY, activity.getString(R.string.prefs_enable_kinect_key));
+        g_cPrefKeyMap.put(RobotInfo.MODE_CONTROL_TOPIC_KEY, activity.getString(R.string.prefs_mode_control_topic_edittext_key));
         g_cPrefKeyMap.put(RobotInfo.REVERSE_LASER_SCAN_KEY, activity.getString(R.string.prefs_reverse_angle_reading_key));
         g_cPrefKeyMap.put(RobotInfo.INVERT_X_KEY, activity.getString(R.string.prefs_invert_x_axis_key));
         g_cPrefKeyMap.put(RobotInfo.INVERT_Y_KEY, activity.getString(R.string.prefs_invert_y_axis_key));

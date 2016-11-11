@@ -9,6 +9,7 @@
     <string name="camera_topic">/kinect2/qhd/image_color/compressed</string>
     <string name="laser_scan_topic">/scan</string>
     <string name="odometry_topic">/odom</string>
+    <string name="mode_control_topic">/pses_basis/mode_control</string>
     <string name="sensorData_topic">/pses_basis/sensor_data</string>
     <string name="carInfo_topic">/pses_basis/car_info</string>
 
@@ -19,6 +20,7 @@
     <string name="topic_pref_title">Topics</string>
     <string name="warning_enable_pref_title">Enable Warning System</string>
     <string name="carInfo_pref_title">CarInfo Topic</string>
+    <string name="mode_control_pref_title">Mode Control Topic</string>
     <string name="odometry_pref_title">Odometry Topic</string>
     <string name="sensorData_pref_title">SensorData Topic</string>
     <string name="laser_scan_detail_pref_title">Laser Scan Detail</string>
@@ -33,6 +35,7 @@
     <string name="prefs_joystick_topic_edittext_key">prefs_joystick_topic_edittext</string>
     <string name="prefs_laserscan_topic_edittext_key">prefs_laserscan_topic_edittext</string>
     <string name="prefs_camera_topic_edittext_key">prefs_camera_topic_edittext</string>
+    <string name="prefs_mode_control_topic_edittext_key">prefs_mode_control_topic_edittext</string>
     <string name="prefs_odometry_topic_edittext_key">prefs_odometry_topic_edittext</string>
     <string name="prefs_sensorData_topic_edittext_key">prefs_sensorData_topic_edittext_keyt</string>
     <string name="prefs_carInfo_topic_edittext_key">prefs_carInfo_topic_edittext</string>
@@ -64,6 +67,10 @@
     </string>
     <string name="carInfo_pref_summary">Topic where the application gets carInfo information.
         \nExpected message type: pses_basis/CarInfo
+        \nValue: %s
+    </string>
+    <string name="mode_control_pref_summary">Topic to publish the mode control.
+        \nExpected message type: std_msgs/String
         \nValue: %s
     </string>
     <string name="laser_scan_detail_pref_summary">Sets the detail level of the laser scan visualization.
@@ -103,7 +110,8 @@
 
     <!-- Button strings -->
     <string name="delete">Delete</string>
-    <string name="stop">STOP</string>
+    <!--TODO Stop -->
+    <string name="stop"></string>
     <string name="start">START</string>
     <string name="center">Center View</string>
     <string name="show_advanced_options">Show Advanced Options</string>
@@ -160,6 +168,7 @@
     <string name="sensorData_topic_prompt">sensorData Topic:</string>
     <string name="odometry_topic_prompt">Odometry Topic:</string>
     <string name="carInfo_topic_prompt">CarInfo Topic:</string>
+    <string name="mode_control_topic_prompt">Mode control Topic:</string>
 
     <!-- Custom icon content descriptions -->
     <string name="wifi_strength_content_description">Shows WIFI signal strength</string>
@@ -167,17 +176,20 @@
 
     <!-- Motion plan names -->
     <string name="joystick_control">Joystick Control</string>
-    <string name="simple_round_trip_control">Round trip without Obstacles Control</string>
-    <string name="round_trip_obstacles_control">Round trip with Obstacles Control</string>
-    <string name="park_car_control">Park Car Control</string>
-    <string name="random_walk">Random Walk</string>
+    <string name="simple_round_trip_control">Follow Wall</string>
+    <string name="round_trip_obstacles_control">Round trip with Obstacles</string>
+    <string name="park_car_control">Park Car</string>
+    <string name="lane_detection_control">Lane Detection</string>
+    <string name="exploration_control">Exploration</string>
 
     <!-- Array of Motion plan names -->
     <string-array name="motion_plans">
-        <item>Joystick</item>
-        <item>Simple Round Trip</item>
-        <item>Round Trip with Obstacles</item>
+        <item>Remote Control</item>
+        <item>Follow Wall</item>
+        <item>Roundtrip with Obstacles</item>
         <item>Park Car</item>
+        <item>Lane Detection</item>
+        <item>Exploration</item>
     </string-array>
 
 

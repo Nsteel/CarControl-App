@@ -1,6 +1,8 @@
 package com.robotca.ControlApp.Core;
 
 import com.robotca.ControlApp.ControlApp;
+import com.robotca.ControlApp.Core.Plans.Exploration;
+import com.robotca.ControlApp.Core.Plans.LaneDetection;
 import com.robotca.ControlApp.Core.Plans.ParkCarPlan;
 import com.robotca.ControlApp.Core.Plans.RobotPlan;
 import com.robotca.ControlApp.Core.Plans.RoundTripWithObstaclesPlan;
@@ -12,22 +14,27 @@ import com.robotca.ControlApp.Core.Plans.SimpleRoundTripPlan;
  * Created by Michael Brunson on 2/12/16.
  */
 public enum ControlMode {
-    Joystick (true), // Joystick control
-    SimpleWaypoint (false), // SimpleWaypoint control
-    RoundTripWithoutObstacles (false), // Round trip around the corridor without obstacles
-    RoundTripWithObstacles (false), // Round trip around the corridor with obstacles
-    ParkCar(false); // Park the car
+    Joystick (true, "Remote Control"), // Joystick control
+    RoundTripWithoutObstacles (true, "Follow Wall"), // Round trip around the corridor without obstacles
+    RoundTripWithObstacles (true, "Roundtrip w. Obstacles"), // Round trip around the corridor with obstacles
+    ParkCar(true, "Park Car"), // Park the car
+    LaneDetection(true, "Lane Detection"), // Lane Detection & lane following
+    Exploration(true, "Exploration"); // Autonomous exploration
+
 
     // Whether the user directly controls the Robot in this mode
     public final boolean USER_CONTROLLED;
+
+    public final String NAME;
 
     /**
      * Creates a ControlMode.
      * @param userControlled Whether the user controls the Robot directly in this mode.
      */
-    ControlMode(boolean userControlled)
+    ControlMode(boolean userControlled, String name)
     {
         USER_CONTROLLED = userControlled;
+        NAME = name;
     }
 
     /**
@@ -41,9 +48,11 @@ public enum ControlMode {
         RobotPlan plan;
 
         switch (controlMode) {
-            case RoundTripWithoutObstacles: plan = new SimpleRoundTripPlan(controlApp); break;
+            /*case RoundTripWithoutObstacles: plan = new SimpleRoundTripPlan(controlApp); break;
             case RoundTripWithObstacles: plan = new RoundTripWithObstaclesPlan(controlApp); break;
             case ParkCar: plan = new ParkCarPlan(controlApp); break;
+            case LaneDetection: plan = new LaneDetection(controlApp); break;
+            case Exploration: plan = new Exploration(controlApp); break;*/
             default: plan = null; break;
         }
 

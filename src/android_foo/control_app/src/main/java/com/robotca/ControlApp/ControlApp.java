@@ -683,18 +683,32 @@ public class ControlApp extends RosActivity implements ListView.OnItemClickListe
         switch (item.getItemId()) {
             case R.id.action_joystick_control:
                 setControlMode(ControlMode.Joystick);
+                controller.setModeControl("Remote Control");
                 return true;
 
             case R.id.action_simple_round_trip_control:
                 setControlMode(ControlMode.RoundTripWithoutObstacles);
+                controller.setModeControl("Follow Wall");
                 return true;
 
             case R.id.action_round_trip_obstacles_control:
                 setControlMode(ControlMode.RoundTripWithObstacles);
+                controller.setModeControl("Roundtrip w. Obstacles");
                 return true;
 
             case R.id.action_park_car_control:
                 setControlMode(ControlMode.ParkCar);
+                controller.setModeControl("Park Car");
+                return true;
+
+            case R.id.action_lane_detection_control:
+                setControlMode(ControlMode.LaneDetection);
+                controller.setModeControl("Lane Detection");
+                return true;
+
+            case R.id.action_exploration_control:
+                setControlMode(ControlMode.Exploration);
+                controller.setModeControl("Exploration");
                 return true;
 
             default:
@@ -802,6 +816,8 @@ public class ControlApp extends RosActivity implements ListView.OnItemClickListe
         } else {
             controller.stop();
         }
+
+        controller.setModeControl(controlMode.NAME);
 
         invalidateOptionsMenu();
     }

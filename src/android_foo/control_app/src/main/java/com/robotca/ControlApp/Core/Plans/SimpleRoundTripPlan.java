@@ -37,5 +37,7 @@ public class SimpleRoundTripPlan extends RobotPlan {
 
     @Override
     protected void start(RobotController controller) throws Exception {
+        //while(!isInterrupted())
+            controller.setModeControl("Follow Wall");
     }
 }

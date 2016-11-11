@@ -32,10 +32,12 @@ public class RoundTripWithObstaclesPlan extends RobotPlan {
      */
     @Override
     public ControlMode getControlMode() {
-        return ControlMode.SimpleWaypoint;
+        return ControlMode.RoundTripWithObstacles;
     }
 
     @Override
     protected void start(RobotController controller) throws Exception {
+        //while(!isInterrupted())
+            controller.setModeControl("Roundtrip w. Obstacles");
     }
 }

@@ -15,8 +15,11 @@
         <item android:id="@+id/action_park_car_control"
             android:title="@string/park_car_control"/>
 
-        <item android:id="@+id/action_random_walk_control"
-              android:title="@string/random_walk"/>
+        <item android:id="@+id/action_lane_detection_control"
+              android:title="@string/lane_detection_control"/>
+
+        <item android:id="@+id/action_exploration_control"
+            android:title="@string/exploration_control"/>
     </group>
 
 </menu>

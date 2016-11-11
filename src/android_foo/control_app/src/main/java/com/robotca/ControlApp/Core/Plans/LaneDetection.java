@@ -1,29 +1,24 @@
 package com.robotca.ControlApp.Core.Plans;
 
-import android.util.Log;
-
 import com.robotca.ControlApp.ControlApp;
 import com.robotca.ControlApp.Core.ControlMode;
 import com.robotca.ControlApp.Core.RobotController;
-import com.robotca.ControlApp.Core.Utils;
-
-import org.ros.rosjava_geometry.Vector3;
 
 /**
- * ParkCarPlan
- *
+ * LaneDetectionPlan
  */
-public class ParkCarPlan extends RobotPlan {
+public class LaneDetection extends RobotPlan {
 
     private final ControlApp controlApp;
 
-    private static final String TAG = "ParkCarPlan";
+    private static final String TAG = "LaneDetectionPlan";
+
 
     /**
-     * Creates a ParkCarPlan for the specified ControlApp.
+     * Creates a LaneDetectionPlan for the specified ControlApp.
      * @param controlApp The ControlApp
      */
-    public ParkCarPlan(ControlApp controlApp) {
+    public LaneDetection(ControlApp controlApp) {
         this.controlApp = controlApp;
     }
 
@@ -32,13 +27,12 @@ public class ParkCarPlan extends RobotPlan {
      */
     @Override
     public ControlMode getControlMode() {
-        return ControlMode.ParkCar;
+        return ControlMode.LaneDetection;
     }
 
     @Override
     protected void start(RobotController controller) throws Exception {
         //while(!isInterrupted())
-            controller.setModeControl("Park Car");
-
+            controller.setModeControl("Lane Detection");
     }
 }

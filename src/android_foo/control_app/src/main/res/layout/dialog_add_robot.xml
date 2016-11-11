@@ -217,27 +217,29 @@
                     android:singleLine="true" />
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/mode_control_topic_prompt"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_weight="2"
+                android:text="@string/mode_control_topic_prompt"
+                android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/enable_kinect_prompt"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:singleLine="true"
-                    android:text="@string/enable_kinect_pref_title"
-                    android:textStyle="bold" />
-
-                <CheckBox
-                    android:id="@+id/enable_kinect_check_box"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:singleLine="true" />
+            <EditText
+                android:id="@+id/mode_control_topic_edit_view"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:hint="@string/mode_control_pref_title"
+                android:inputType="textUri"
+                android:singleLine="true" />
             </LinearLayout>
+
 
             <LinearLayout
                 android:layout_width="match_parent"
