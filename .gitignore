@@ -82,3 +82,5 @@ qtcreator-*
 # Catkin custom files
 CATKIN_IGNORE
 
+
+\.idea/workspace\.xml

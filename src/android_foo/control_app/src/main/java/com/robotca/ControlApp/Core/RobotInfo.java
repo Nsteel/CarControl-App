@@ -150,7 +150,7 @@ public class RobotInfo implements Comparable<RobotInfo>, Savable {
      */
     public RobotInfo(UUID id, String name, String masterUriString, String motorTopic,
                      String laserTopic, String cameraTopic,
-                     String odometryTopic, String sensorDataTopic, String carInfoTopic, String modeControlTopic, String steeringTopic,
+                     String odometryTopic, String modeControlTopic, String steeringTopic,
                      String usl, String usr, String usf, String imu,
                      String mag, String vdbat, String vsbat, boolean reverseLaserScan,
                      boolean invertX, boolean invertY, boolean invertAngularVelocity) {

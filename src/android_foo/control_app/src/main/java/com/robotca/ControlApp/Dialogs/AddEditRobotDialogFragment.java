@@ -104,8 +104,6 @@ public class AddEditRobotDialogFragment extends DialogFragment {
         mLaserScanTopicEditTextView = (EditText) v.findViewById(R.id.laser_scan_edit_view);
         mCameraTopicEditTextView = (EditText) v.findViewById(R.id.camera_topic_edit_view);
         mOdometryTopicEditTextView = (EditText) v.findViewById(R.id.odometry_topic_edit_view);
-        mSensorDataTopicEditTextView = (EditText) v.findViewById(R.id.sensorData_topic_edit_view);
-        mCarInfoTopicEditTextView = (EditText) v.findViewById(R.id.carInfo_topic_edit_view);
         mModeControlTopicEditTextView = (EditText) v.findViewById(R.id.mode_control_topic_edit_view);
         mReverseLaserScanCheckBox = (CheckBox) v.findViewById(R.id.reverse_laser_scan_check_box);
         mInvertXAxisCheckBox = (CheckBox) v.findViewById(R.id.invert_x_axis_check_box);
@@ -138,8 +136,6 @@ public class AddEditRobotDialogFragment extends DialogFragment {
         mLaserScanTopicEditTextView.setText(mInfo.getLaserTopic());
         mCameraTopicEditTextView.setText(mInfo.getCameraTopic());
         mOdometryTopicEditTextView.setText(mInfo.getOdometryTopic());
-        mSensorDataTopicEditTextView.setText(mInfo.getSensorDataTopic());
-        mCarInfoTopicEditTextView.setText(mInfo.getCarInfoTopic());
         mModeControlTopicEditTextView.setText(mInfo.getModeControlTopic());
         mSteeringTopicEditTextView.setText(mInfo.getSteeringTopic());
         mUSLeftTopicEditTextView.setText(mInfo.getUsLeftTopic());
@@ -166,8 +162,6 @@ public class AddEditRobotDialogFragment extends DialogFragment {
                         String laserScanTopic = mLaserScanTopicEditTextView.getText().toString().trim();
                         String cameraTopic = mCameraTopicEditTextView.getText().toString().trim();
                         String odometryTopic = mOdometryTopicEditTextView.getText().toString().trim();
-                        String sensorDataTopic = mSensorDataTopicEditTextView.getText().toString().trim();
-                        String carInfoTopic = mCarInfoTopicEditTextView.getText().toString().trim();
                         String modeControlTopic = mModeControlTopicEditTextView.getText().toString().trim();
                         String steeringTopic = mSteeringTopicEditTextView.getText().toString().trim();
                         String usLeftTopic = mUSLeftTopicEditTextView.getText().toString().trim();
@@ -185,12 +179,14 @@ public class AddEditRobotDialogFragment extends DialogFragment {
                         if (masterUri.equals("")) {
                             Toast.makeText(getActivity(), "Master URI required", Toast.LENGTH_SHORT).show();
                         } else if (joystickTopic.equals("") || laserScanTopic.equals("") || cameraTopic.equals("")
-                                || odometryTopic.equals("") || sensorDataTopic.equals("") || carInfoTopic.equals("") || modeControlTopic.equals("")) {
+                                || odometryTopic.equals("") || modeControlTopic.equals("")
+                                || steeringTopic.equals("") || usLeftTopic.equals("") || usRightTopic.equals("") || usFrontTopic.equals("")
+                                || imuTopic.equals("") || magTopic.equals("") || vdBatTopic.equals("") || vsBatTopic.equals("")) {
                             Toast.makeText(getActivity(), "All topic names are required", Toast.LENGTH_SHORT).show();
                         } else if (!name.equals("")) {
                             mListener.onAddEditDialogPositiveClick(new RobotInfo(mInfo.getId(), name,
                                     masterUri, joystickTopic, laserScanTopic, cameraTopic,
-                                    odometryTopic, sensorDataTopic, carInfoTopic, modeControlTopic, steeringTopic, usLeftTopic,
+                                    odometryTopic, modeControlTopic, steeringTopic, usLeftTopic,
                                     usRightTopic, usFrontTopic, imuTopic, magTopic, vdBatTopic, vsBatTopic, reverseLaserScan, invertX, invertY, invertAngVel), mPosition);
                             dialog.dismiss();
                         } else {

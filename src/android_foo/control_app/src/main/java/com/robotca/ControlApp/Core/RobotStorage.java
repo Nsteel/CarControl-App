@@ -49,9 +49,17 @@ public class RobotStorage {
         RobotInfo.resolveRobotCount(g_cRobotInfos);
 
         g_cPrefKeyMap.put(RobotInfo.MOTOR_TOPIC_KEY, activity.getString(R.string.prefs_joystick_topic_edittext_key));
+        g_cPrefKeyMap.put(RobotInfo.STEERING_TOPIC_KEY, activity.getString(R.string.prefs_steering_topic_edittext_key));
         g_cPrefKeyMap.put(RobotInfo.CAMERA_TOPIC_KEY, activity.getString(R.string.prefs_camera_topic_edittext_key));
         g_cPrefKeyMap.put(RobotInfo.LASER_SCAN_TOPIC_KEY, activity.getString(R.string.prefs_laserscan_topic_edittext_key));
         g_cPrefKeyMap.put(RobotInfo.ODOMETRY_TOPIC_KEY, activity.getString(R.string.prefs_odometry_topic_edittext_key));
+        g_cPrefKeyMap.put(RobotInfo.US_LEFT_TOPIC_KEY, activity.getString(R.string.prefs_usl_topic_edittext_key));
+        g_cPrefKeyMap.put(RobotInfo.US_RIGHT_TOPIC_KEY, activity.getString(R.string.prefs_usr_topic_edittext_key));
+        g_cPrefKeyMap.put(RobotInfo.US_FRONT_TOPIC_KEY, activity.getString(R.string.prefs_usf_topic_edittext_key));
+        g_cPrefKeyMap.put(RobotInfo.IMU_TOPIC_KEY, activity.getString(R.string.prefs_imu_topic_edittext_key));
+        g_cPrefKeyMap.put(RobotInfo.MAG_TOPIC_KEY, activity.getString(R.string.prefs_mag_topic_edittext_key));
+        g_cPrefKeyMap.put(RobotInfo.VDBAT_TOPIC_KEY, activity.getString(R.string.prefs_vdbat_topic_edittext_key));
+        g_cPrefKeyMap.put(RobotInfo.VSBAT_TOPIC_KEY, activity.getString(R.string.prefs_vsbat_topic_edittext_key));
         g_cPrefKeyMap.put(RobotInfo.SENSOR_DATA_TOPIC_KEY, activity.getString(R.string.prefs_sensorData_topic_edittext_key));
         g_cPrefKeyMap.put(RobotInfo.CAR_INFO_TOPIC_KEY, activity.getString(R.string.prefs_carInfo_topic_edittext_key));
         g_cPrefKeyMap.put(RobotInfo.MODE_CONTROL_TOPIC_KEY, activity.getString(R.string.prefs_mode_control_topic_edittext_key));

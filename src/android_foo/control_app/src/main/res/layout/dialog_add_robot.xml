@@ -108,6 +108,29 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/steering_topic_prompt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="@string/steering_topic_prompt"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/steering_topic_edit_view"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:hint="@string/steering_pref_title"
+                    android:inputType="textUri"
+                    android:singleLine="true" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
                     android:id="@+id/laserscan_topic_prompt"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -177,19 +200,19 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/sensorData_topic_prompt"
+                    android:id="@+id/usl_topic_prompt"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
-                    android:text="@string/sensorData_topic_prompt"
+                    android:text="@string/usl_topic_prompt"
                     android:textStyle="bold" />
 
                 <EditText
-                    android:id="@+id/sensorData_topic_edit_view"
+                    android:id="@+id/usl_topic_edit_view"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
-                    android:hint="@string/sensorData_pref_title"
+                    android:hint="@string/usl_pref_title"
                     android:inputType="textUri"
                     android:singleLine="true" />
             </LinearLayout>
@@ -200,22 +223,139 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/carInfo_topic_prompt"
+                    android:id="@+id/usr_topic_prompt"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
-                    android:text="@string/carInfo_topic_prompt"
+                    android:text="@string/usr_topic_prompt"
                     android:textStyle="bold" />
 
                 <EditText
-                    android:id="@+id/carInfo_topic_edit_view"
+                    android:id="@+id/usr_topic_edit_view"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
-                    android:hint="@string/carInfo_pref_title"
+                    android:hint="@string/usr_pref_title"
                     android:inputType="textUri"
                     android:singleLine="true" />
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/usf_topic_prompt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="@string/usf_topic_prompt"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/usf_topic_edit_view"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:hint="@string/usf_pref_title"
+                    android:inputType="textUri"
+                    android:singleLine="true" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/imu_topic_prompt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="@string/imu_topic_prompt"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/imu_topic_edit_view"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:hint="@string/imu_pref_title"
+                    android:inputType="textUri"
+                    android:singleLine="true" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/mag_topic_prompt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="@string/mag_topic_prompt"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/mag_topic_edit_view"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:hint="@string/mag_pref_title"
+                    android:inputType="textUri"
+                    android:singleLine="true" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/vdbat_topic_prompt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="@string/vdbat_topic_prompt"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/vdbat_topic_edit_view"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:hint="@string/vdbat_pref_title"
+                    android:inputType="textUri"
+                    android:singleLine="true" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/vsbat_topic_prompt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="@string/vsbat_topic_prompt"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/vsbat_topic_edit_view"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:hint="@string/vsbat_pref_title"
+                    android:inputType="textUri"
+                    android:singleLine="true" />
+            </LinearLayout>
+
+
 
         <LinearLayout
             android:layout_width="match_parent"

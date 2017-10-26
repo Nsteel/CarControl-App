@@ -42,20 +42,6 @@
             android:title="@string/odometry_pref_title" />
 
         <com.robotca.ControlApp.Views.BetterEditTextPreference
-            android:defaultValue="@string/sensorData_topic"
-            android:key="@string/prefs_sensorData_topic_edittext_key"
-            android:singleLine="true"
-            android:summary="@string/sensorData_pref_summary"
-            android:title="@string/sensorData_pref_title" />
-
-        <com.robotca.ControlApp.Views.BetterEditTextPreference
-            android:defaultValue="@string/carInfo_topic"
-            android:key="@string/prefs_carInfo_topic_edittext_key"
-            android:singleLine="true"
-            android:summary="@string/carInfo_pref_summary"
-            android:title="@string/carInfo_pref_title" />
-
-        <com.robotca.ControlApp.Views.BetterEditTextPreference
             android:defaultValue="@string/mode_control_topic"
             android:key="@string/prefs_mode_control_topic_edittext_key"
             android:singleLine="true"

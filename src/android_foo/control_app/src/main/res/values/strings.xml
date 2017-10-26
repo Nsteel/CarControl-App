@@ -14,15 +14,22 @@
     <string name="carInfo_topic">/pses_basis/car_info</string>
 
     <!-- Preference titles -->
-    <string name="joy_pref_title">Motor Level Topic</string>
-    <string name="laser_pref_title">Laser Scan Topic</string>
-    <string name="camera_pref_title">Image Topic</string>
+    <string name="joy_pref_title">Motor Level</string>
+    <string name="steering_pref_title">Steering Level</string>
+    <string name="laser_pref_title">Laser Scan</string>
+    <string name="camera_pref_title">Image</string>
     <string name="topic_pref_title">Topics</string>
     <string name="warning_enable_pref_title">Enable Warning System</string>
-    <string name="carInfo_pref_title">CarInfo Topic</string>
-    <string name="mode_control_pref_title">Mode Control Topic</string>
-    <string name="odometry_pref_title">Odometry Topic</string>
-    <string name="sensorData_pref_title">SensorData Topic</string>
+    <string name="carInfo_pref_title">CarInfo</string>
+    <string name="mode_control_pref_title">Mode Control</string>
+    <string name="odometry_pref_title">Odometry</string>
+    <string name="usl_pref_title">Left US Sensor:</string>
+    <string name="usr_pref_title">Right US Sensor:</string>
+    <string name="usf_pref_title">Front US Sensor:</string>
+    <string name="imu_pref_title">IMU:</string>
+    <string name="mag_pref_title">Magnetometer:</string>
+    <string name="vdbat_pref_title">Drive Battery:</string>
+    <string name="vsbat_pref_title">System Battery:</string>
     <string name="laser_scan_detail_pref_title">Laser Scan Detail</string>
     <string name="motor_limit_pref_title">Motor Level Limit</string>
     <string name="random_walk_range_minimum_pref_title">Random Walk Range Minimum</string>
@@ -33,10 +40,18 @@
 
     <!-- Preference keys -->
     <string name="prefs_joystick_topic_edittext_key">prefs_joystick_topic_edittext</string>
+    <string name="prefs_steering_topic_edittext_key">prefs_steering_topic_edittext</string>
     <string name="prefs_laserscan_topic_edittext_key">prefs_laserscan_topic_edittext</string>
     <string name="prefs_camera_topic_edittext_key">prefs_camera_topic_edittext</string>
     <string name="prefs_mode_control_topic_edittext_key">prefs_mode_control_topic_edittext</string>
     <string name="prefs_odometry_topic_edittext_key">prefs_odometry_topic_edittext</string>
+    <string name="prefs_usl_topic_edittext_key">prefs_usl_topic_edittext</string>
+    <string name="prefs_usr_topic_edittext_key">prefs_usr_topic_edittext</string>
+    <string name="prefs_usf_topic_edittext_key">prefs_usf_topic_edittext</string>
+    <string name="prefs_imu_topic_edittext_key">prefs_imu_topic_edittext</string>
+    <string name="prefs_mag_topic_edittext_key">prefs_mag_topic_edittext</string>
+    <string name="prefs_vdbat_topic_edittext_key">prefs_vdbat_topic_edittext</string>
+    <string name="prefs_vsbat_topic_edittext_key">prefs_vsbat_topic_edittext</string>
     <string name="prefs_sensorData_topic_edittext_key">prefs_sensorData_topic_edittext_keyt</string>
     <string name="prefs_carInfo_topic_edittext_key">prefs_carInfo_topic_edittext</string>
     <string name="prefs_warning_checkbox_key">prefs_warning_checkbox</string>
@@ -162,13 +177,19 @@
     <string name="control_mode">Control Mode: </string>
     <string name="robot_name">Car Name:</string>
     <string name="master_uri">Master URI:</string>
-    <string name="joystick_topic_prompt">Joystick Topic:</string>
-    <string name="camera_topic_prompt">Camera Topic:</string>
-    <string name="laserscan_topic_prompt">Laser Scan Topic:</string>
-    <string name="sensorData_topic_prompt">sensorData Topic:</string>
-    <string name="odometry_topic_prompt">Odometry Topic:</string>
-    <string name="carInfo_topic_prompt">CarInfo Topic:</string>
-    <string name="mode_control_topic_prompt">Mode control Topic:</string>
+    <string name="joystick_topic_prompt">Motor Level:</string>
+    <string name="steering_topic_prompt">Steering Level:</string>
+    <string name="camera_topic_prompt">Camera:</string>
+    <string name="laserscan_topic_prompt">Laser Scan:</string>
+    <string name="odometry_topic_prompt">Odometry:</string>
+    <string name="usl_topic_prompt">Left US Sensor:</string>
+    <string name="usr_topic_prompt">Right US Sensor:</string>
+    <string name="usf_topic_prompt">Front US Sensor:</string>
+    <string name="imu_topic_prompt">IMU:</string>
+    <string name="mag_topic_prompt">Magnetometer:</string>
+    <string name="vdbat_topic_prompt">Drive Battery:</string>
+    <string name="vsbat_topic_prompt">System Battery:</string>
+    <string name="mode_control_topic_prompt">Mode control:</string>
 
     <!-- Custom icon content descriptions -->
     <string name="wifi_strength_content_description">Shows WIFI signal strength</string>
