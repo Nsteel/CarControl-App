@@ -48,7 +48,7 @@ public class RobotStorage {
 
         RobotInfo.resolveRobotCount(g_cRobotInfos);
 
-        g_cPrefKeyMap.put(RobotInfo.JOYSTICK_TOPIC_KEY, activity.getString(R.string.prefs_joystick_topic_edittext_key));
+        g_cPrefKeyMap.put(RobotInfo.MOTOR_TOPIC_KEY, activity.getString(R.string.prefs_joystick_topic_edittext_key));
         g_cPrefKeyMap.put(RobotInfo.CAMERA_TOPIC_KEY, activity.getString(R.string.prefs_camera_topic_edittext_key));
         g_cPrefKeyMap.put(RobotInfo.LASER_SCAN_TOPIC_KEY, activity.getString(R.string.prefs_laserscan_topic_edittext_key));
         g_cPrefKeyMap.put(RobotInfo.ODOMETRY_TOPIC_KEY, activity.getString(R.string.prefs_odometry_topic_edittext_key));

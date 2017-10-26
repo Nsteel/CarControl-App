@@ -14,7 +14,7 @@
         android:title="@string/topic_pref_title">
 
         <com.robotca.ControlApp.Views.BetterEditTextPreference
-            android:defaultValue="@string/joy_topic"
+            android:defaultValue="@string/motor_topic"
             android:key="@string/prefs_joystick_topic_edittext_key"
             android:singleLine="true"
             android:summary="@string/joy_pref_summary"

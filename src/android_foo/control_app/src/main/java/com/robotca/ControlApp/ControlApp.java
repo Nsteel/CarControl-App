@@ -163,7 +163,7 @@ public class ControlApp extends RosActivity implements ListView.OnItemClickListe
         if (ROBOT_INFO != null) {
             ROBOT_INFO.save(editor);
 
-//            editor.putString(getString(R.string.prefs_joystick_topic_edittext_key), ROBOT_INFO.getJoystickTopic());
+//            editor.putString(getString(R.string.prefs_joystick_topic_edittext_key), ROBOT_INFO.getMotorTopic());
 //            editor.putString(getString(R.string.prefs_laserscan_topic_edittext_key), ROBOT_INFO.getLaserTopic());
 //            editor.putString(getString(R.string.prefs_camera_topic_edittext_key), ROBOT_INFO.getCameraTopic());
 //            editor.putString(getString(R.string.prefs_navsat_topic_edittext_key), ROBOT_INFO.getNavSatTopic());

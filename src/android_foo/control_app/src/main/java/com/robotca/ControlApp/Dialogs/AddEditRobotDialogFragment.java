@@ -40,9 +40,17 @@ public class AddEditRobotDialogFragment extends DialogFragment {
     private EditText mNameEditTextView;
     private EditText mMasterUriEditTextView;
     private View mAdvancedOptionsView;
-    private EditText mJoystickTopicEditTextView;
+    private EditText mMotorTopicEditTextView;
     private EditText mLaserScanTopicEditTextView;
     private EditText mCameraTopicEditTextView;
+    private EditText mSteeringTopicEditTextView;
+    private EditText mUSLeftTopicEditTextView;
+    private EditText mUSRightTopicEditTextView;
+    private EditText mUSFrontTopicEditTextView;
+    private EditText mIMUTopicEditTextView;
+    private EditText mMAGTopicEditTextView;
+    private EditText mVdBatTopicEditTextView;
+    private EditText mVsBatTopicEditTextView;
     private EditText mOdometryTopicEditTextView;
     private EditText mSensorDataTopicEditTextView;
     private EditText mCarInfoTopicEditTextView;
@@ -92,7 +100,7 @@ public class AddEditRobotDialogFragment extends DialogFragment {
 
         CheckBox mAdvancedOptionsCheckbox = (CheckBox) v.findViewById(R.id.advanced_options_checkbox_view);
         mAdvancedOptionsView = v.findViewById(R.id.advanced_options_view);
-        mJoystickTopicEditTextView = (EditText) v.findViewById(R.id.joystick_topic_edit_text);
+        mMotorTopicEditTextView = (EditText) v.findViewById(R.id.joystick_topic_edit_text);
         mLaserScanTopicEditTextView = (EditText) v.findViewById(R.id.laser_scan_edit_view);
         mCameraTopicEditTextView = (EditText) v.findViewById(R.id.camera_topic_edit_view);
         mOdometryTopicEditTextView = (EditText) v.findViewById(R.id.odometry_topic_edit_view);
@@ -103,6 +111,14 @@ public class AddEditRobotDialogFragment extends DialogFragment {
         mInvertXAxisCheckBox = (CheckBox) v.findViewById(R.id.invert_x_axis_check_box);
         mInvertYAxisCheckBox = (CheckBox) v.findViewById(R.id.invert_y_axis_check_box);
         mInvertAngularVelocityCheckBox = (CheckBox) v.findViewById(R.id.invert_angular_velocity_check_box);
+        mSteeringTopicEditTextView = (EditText) v.findViewById(R.id.steering_topic_edit_view);
+        mUSLeftTopicEditTextView = (EditText) v.findViewById(R.id.usl_topic_edit_view);
+        mUSRightTopicEditTextView = (EditText) v.findViewById(R.id.usr_topic_edit_view);
+        mUSFrontTopicEditTextView = (EditText) v.findViewById(R.id.usf_topic_edit_view);
+        mIMUTopicEditTextView = (EditText) v.findViewById(R.id.imu_topic_edit_view);
+        mMAGTopicEditTextView = (EditText) v.findViewById(R.id.mag_topic_edit_view);
+        mVdBatTopicEditTextView = (EditText) v.findViewById(R.id.vdbat_topic_edit_view);
+        mVsBatTopicEditTextView = (EditText) v.findViewById(R.id.vsbat_topic_edit_view);
 
         mNameEditTextView.setText(mInfo.getName());
         mMasterUriEditTextView.setText(mInfo.getMasterUri());
@@ -118,13 +134,21 @@ public class AddEditRobotDialogFragment extends DialogFragment {
             }
         });
 
-        mJoystickTopicEditTextView.setText(mInfo.getJoystickTopic());
+        mMotorTopicEditTextView.setText(mInfo.getMotorTopic());
         mLaserScanTopicEditTextView.setText(mInfo.getLaserTopic());
         mCameraTopicEditTextView.setText(mInfo.getCameraTopic());
         mOdometryTopicEditTextView.setText(mInfo.getOdometryTopic());
         mSensorDataTopicEditTextView.setText(mInfo.getSensorDataTopic());
         mCarInfoTopicEditTextView.setText(mInfo.getCarInfoTopic());
         mModeControlTopicEditTextView.setText(mInfo.getModeControlTopic());
+        mSteeringTopicEditTextView.setText(mInfo.getSteeringTopic());
+        mUSLeftTopicEditTextView.setText(mInfo.getUsLeftTopic());
+        mUSRightTopicEditTextView.setText(mInfo.getUsRightTopic());
+        mUSFrontTopicEditTextView.setText(mInfo.getUsFrontTopic());
+        mIMUTopicEditTextView.setText(mInfo.getImuTopic());
+        mMAGTopicEditTextView.setText(mInfo.getMagTopic());
+        mVdBatTopicEditTextView.setText(mInfo.getVdBatTopic());
+        mVsBatTopicEditTextView.setText(mInfo.getVsBatTopic());
         mReverseLaserScanCheckBox.setChecked(mInfo.isReverseLaserScan());
         mInvertXAxisCheckBox.setChecked(mInfo.isInvertX());
         mInvertYAxisCheckBox.setChecked(mInfo.isInvertY());
@@ -138,13 +162,21 @@ public class AddEditRobotDialogFragment extends DialogFragment {
 
                         String name = mNameEditTextView.getText().toString().trim();
                         String masterUri = mMasterUriEditTextView.getText().toString().trim();
-                        String joystickTopic = mJoystickTopicEditTextView.getText().toString().trim();
+                        String joystickTopic = mMotorTopicEditTextView.getText().toString().trim();
                         String laserScanTopic = mLaserScanTopicEditTextView.getText().toString().trim();
                         String cameraTopic = mCameraTopicEditTextView.getText().toString().trim();
                         String odometryTopic = mOdometryTopicEditTextView.getText().toString().trim();
                         String sensorDataTopic = mSensorDataTopicEditTextView.getText().toString().trim();
                         String carInfoTopic = mCarInfoTopicEditTextView.getText().toString().trim();
                         String modeControlTopic = mModeControlTopicEditTextView.getText().toString().trim();
+                        String steeringTopic = mSteeringTopicEditTextView.getText().toString().trim();
+                        String usLeftTopic = mUSLeftTopicEditTextView.getText().toString().trim();
+                        String usRightTopic = mUSRightTopicEditTextView.getText().toString().trim();
+                        String usFrontTopic = mUSFrontTopicEditTextView.getText().toString().trim();
+                        String imuTopic = mIMUTopicEditTextView.getText().toString().trim();
+                        String magTopic = mMAGTopicEditTextView.getText().toString().trim();
+                        String vdBatTopic = mVdBatTopicEditTextView.getText().toString().trim();
+                        String vsBatTopic = mVsBatTopicEditTextView.getText().toString().trim();
                         boolean reverseLaserScan = mReverseLaserScanCheckBox.isChecked();
                         boolean invertX = mInvertXAxisCheckBox.isChecked();
                         boolean invertY = mInvertYAxisCheckBox.isChecked();
@@ -158,7 +190,8 @@ public class AddEditRobotDialogFragment extends DialogFragment {
                         } else if (!name.equals("")) {
                             mListener.onAddEditDialogPositiveClick(new RobotInfo(mInfo.getId(), name,
                                     masterUri, joystickTopic, laserScanTopic, cameraTopic,
-                                    odometryTopic, sensorDataTopic, carInfoTopic, modeControlTopic, reverseLaserScan, invertX, invertY, invertAngVel), mPosition);
+                                    odometryTopic, sensorDataTopic, carInfoTopic, modeControlTopic, steeringTopic, usLeftTopic,
+                                    usRightTopic, usFrontTopic, imuTopic, magTopic, vdBatTopic, vsBatTopic, reverseLaserScan, invertX, invertY, invertAngVel), mPosition);
                             dialog.dismiss();
                         } else {
                             Toast.makeText(getActivity(), "Robot name required", Toast.LENGTH_SHORT).show();

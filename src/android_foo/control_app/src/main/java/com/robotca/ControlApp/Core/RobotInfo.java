@@ -24,8 +24,8 @@ public class RobotInfo implements Comparable<RobotInfo>, Savable {
     public static final String ROBOT_NAME_KEY = "ROBOT_NAME_KEY";
     /** Bundle key for master URI */
     public static final String MASTER_URI_KEY = "MASTER_URI_KEY";
-    /** Bundle key for joystick topic */
-    public static final String JOYSTICK_TOPIC_KEY = "JOYSTICK_TOPIC_KEY";
+    /** Bundle key for motor level topic */
+    public static final String MOTOR_TOPIC_KEY = "MOTOR_TOPIC_KEY";
     /** Bundle key for laser scan topic */
     public static final String LASER_SCAN_TOPIC_KEY = "LASER_SCAN_TOPIC_KEY";
     /** Bundle key for camera topic */
@@ -38,6 +38,22 @@ public class RobotInfo implements Comparable<RobotInfo>, Savable {
     public static final String MODE_CONTROL_TOPIC_KEY = "MODE_CONTROL_TOPIC_KEY";
     /** Bundle key for car info topic */
     public static final String CAR_INFO_TOPIC_KEY = "CAR_INFO_TOPIC_KEY";
+    /** Bundle key for steering level topic */
+    public static final String STEERING_TOPIC_KEY = "STEERING_TOPIC_KEY";
+    /** Bundle key for ultra sonic sensor left topic */
+    public static final String US_LEFT_TOPIC_KEY = "US_LEFT_TOPIC_KEY";
+    /** Bundle key for ultra sonic sensor right topic */
+    public static final String US_RIGHT_TOPIC_KEY = "US_RIGHT_TOPIC_KEY";
+    /** Bundle key for ultra sonic sensor front topic */
+    public static final String US_FRONT_TOPIC_KEY = "US_FRONT_TOPIC_KEY";
+    /** Bundle key for IMU topic */
+    public static final String IMU_TOPIC_KEY = "IMU_TOPIC_KEY";
+    /** Bundle key for magnetometer topic */
+    public static final String MAG_TOPIC_KEY = "MAG_TOPIC_KEY";
+    /** Bundle key for the topic of the voltage of the drive battery */
+    public static final String VDBAT_TOPIC_KEY = "VDBAT_TOPIC_KEY";
+    /** Bundle key for the topic of the voltage of the system battery */
+    public static final String VSBAT_TOPIC_KEY = "VSBAT_TOPIC_KEY";
     /** Bundle key for reverse laser scan */
     public static final String REVERSE_LASER_SCAN_KEY = "REVERSE_LASER_SCAN_KEY";
     /** Bundle key for invert x-axis */
@@ -57,10 +73,27 @@ public class RobotInfo implements Comparable<RobotInfo>, Savable {
     private String masterUriString;
 
     // Topic names
-    private String joystickTopic;
+    private String motorTopic;
+    private String steeringTopic;
     private String cameraTopic;
     private String laserTopic;
     private String odometryTopic;
+    private String usLeftTopic;
+    private String usRightTopic;
+    private String usFrontTopic;
+    private String imuTopic;
+    private String magTopic;
+
+    public String getVdBatTopic() {
+        return vdBatTopic;
+    }
+
+    public void setVdBatTopic(String vdBatTopic) {
+        this.vdBatTopic = vdBatTopic;
+    }
+
+    private String vdBatTopic;
+    private String vsBatTopic;
     private String sensorDataTopic;
     private String carInfoTopic;
     private String modeControlTopic;
@@ -80,12 +113,20 @@ public class RobotInfo implements Comparable<RobotInfo>, Savable {
         //id = UUID.randomUUID();
         name = "Car" + robotCount++;
         masterUriString = "http://localhost:11311";
-        joystickTopic = "/pses_basis/command";
+        motorTopic = "/uc_bridge/set_motor_level_msg";
+        steeringTopic = "/uc_bridge/set_steering_level_msg";
         cameraTopic = "/kinect2/qhd/image_color/compressed";
         laserTopic = "/scan";
         odometryTopic = "/odom";
         sensorDataTopic = "/pses_basis/sensor_data";
         carInfoTopic = "/pses_basis/car_info";
+        usLeftTopic = "/uc_bridge/usl";
+        usRightTopic = "/uc_bridge/usr";
+        usFrontTopic = "/uc_bridge/usf";
+        imuTopic = "/uc_bridge/imu";
+        magTopic = "/uc_bridge/mag";
+        vdBatTopic = "/uc_bridge/vdbat";
+        vsBatTopic = "/uc_bridge/vsbat";
         modeControlTopic = "/pses_basis/mode_control";
         reverseLaserScan = false;
         invertX = false;
@@ -103,18 +144,20 @@ public class RobotInfo implements Comparable<RobotInfo>, Savable {
      * @param id UUID
      * @param name Name to show when displaying this RobotInfo
      * @param masterUriString Master URI for this RobotInfo
-     * @param joystickTopic JoystickTopic name for this RobotInfo
+     * @param motorTopic MotorLevel topic name for this RobotInfo
      * @param laserTopic LaserTopic name for this RobotInfo
      * @param cameraTopic CameraTopic name for this RobotInfo
      */
-    public RobotInfo(UUID id, String name, String masterUriString, String joystickTopic,
+    public RobotInfo(UUID id, String name, String masterUriString, String motorTopic,
                      String laserTopic, String cameraTopic,
-                     String odometryTopic, String sensorDataTopic, String carInfoTopic, String modeControlTopic, boolean reverseLaserScan,
+                     String odometryTopic, String sensorDataTopic, String carInfoTopic, String modeControlTopic, String steeringTopic,
+                     String usl, String usr, String usf, String imu,
+                     String mag, String vdbat, String vsbat, boolean reverseLaserScan,
                      boolean invertX, boolean invertY, boolean invertAngularVelocity) {
         this.id = id;
         this.name = name;
         this.masterUriString = masterUriString;
-        this.joystickTopic = joystickTopic;
+        this.motorTopic = motorTopic;
         this.laserTopic = laserTopic;
         this.cameraTopic = cameraTopic;
         this.odometryTopic = odometryTopic;
@@ -122,6 +165,14 @@ public class RobotInfo implements Comparable<RobotInfo>, Savable {
         this.carInfoTopic = carInfoTopic;
         this.modeControlTopic = modeControlTopic;
         this.reverseLaserScan = reverseLaserScan;
+        this.steeringTopic = steeringTopic;
+        this.usLeftTopic = usl;
+        this.usRightTopic = usr;
+        this.usFrontTopic = usf;
+        this.imuTopic = imu;
+        this.magTopic = mag;
+        this.vdBatTopic = vdbat;
+        this.vsBatTopic = vsbat;
         this.invertX = invertX;
         this.invertY = invertY;
         this.invertAngularVelocity = invertAngularVelocity;
@@ -169,10 +220,66 @@ public class RobotInfo implements Comparable<RobotInfo>, Savable {
 
     /**
      * Sets the SensorDataTopic for this RobotInfo.
-     * @param sensorDataTopic The new JoystickTopic
+     * @param sensorDataTopic
      */
     public void setSensorDataTopic(String sensorDataTopic) {
         this.sensorDataTopic = sensorDataTopic;
+    }
+
+    public String getSteeringTopic() {
+        return steeringTopic;
+    }
+
+    public void setSteeringTopic(String steeringTopic) {
+        this.steeringTopic = steeringTopic;
+    }
+
+    public String getUsLeftTopic() {
+        return usLeftTopic;
+    }
+
+    public void setUsLeftTopic(String usLeftTopic) {
+        this.usLeftTopic = usLeftTopic;
+    }
+
+    public String getUsRightTopic() {
+        return usRightTopic;
+    }
+
+    public void setUsRightTopic(String usRightTopic) {
+        this.usRightTopic = usRightTopic;
+    }
+
+    public String getUsFrontTopic() {
+        return usFrontTopic;
+    }
+
+    public void setUsFrontTopic(String usFrontTopic) {
+        this.usFrontTopic = usFrontTopic;
+    }
+
+    public String getImuTopic() {
+        return imuTopic;
+    }
+
+    public void setImuTopic(String imuTopic) {
+        this.imuTopic = imuTopic;
+    }
+
+    public String getMagTopic() {
+        return magTopic;
+    }
+
+    public void setMagTopic(String magTopic) {
+        this.magTopic = magTopic;
+    }
+
+    public String getVsBatTopic() {
+        return vsBatTopic;
+    }
+
+    public void setVsBatTopic(String vsBatTopic) {
+        this.vsBatTopic = vsBatTopic;
     }
 
     /**
@@ -193,16 +300,16 @@ public class RobotInfo implements Comparable<RobotInfo>, Savable {
     /**
      * @return The JoystickTopic name of this RobotInfo
      */
-    public String getJoystickTopic() {
-        return joystickTopic;
+    public String getMotorTopic() {
+        return motorTopic;
     }
 
     /**
      * Sets the JoystickTopic for this RobotInfo.
-     * @param joystickTopic The new JoystickTopic
+     * @param motorTopic The new JoystickTopic
      */
-    public void setJoystickTopic(String joystickTopic) {
-        this.joystickTopic = joystickTopic;
+    public void setMotorTopic(String motorTopic) {
+        this.motorTopic = motorTopic;
     }
 
     /**
@@ -395,10 +502,18 @@ public class RobotInfo implements Comparable<RobotInfo>, Savable {
         id = UUID.fromString(bundle.getString(UUID_KEY, UUID.randomUUID().toString()));
         name = bundle.getString(ROBOT_NAME_KEY, "");
         masterUriString = bundle.getString(MASTER_URI_KEY, "http://localhost:11311");
-        joystickTopic = bundle.getString(JOYSTICK_TOPIC_KEY, "/pses_basis/commad");
+        motorTopic = bundle.getString(MOTOR_TOPIC_KEY, "/uc_bridge/set_motor_level_msg");
+        steeringTopic = bundle.getString(STEERING_TOPIC_KEY, "/uc_bridge/set_steering_level_msg");
         cameraTopic = bundle.getString(CAMERA_TOPIC_KEY, "/kinect2/qhd/image_color/compressed");
         laserTopic = bundle.getString(LASER_SCAN_TOPIC_KEY, "/scan");
         odometryTopic = bundle.getString(ODOMETRY_TOPIC_KEY, "/odom");
+        usLeftTopic = bundle.getString(US_LEFT_TOPIC_KEY, "/uc_bridge/usl");
+        usRightTopic = bundle.getString(US_RIGHT_TOPIC_KEY, "/uc_bridge/usr");
+        usFrontTopic = bundle.getString(US_FRONT_TOPIC_KEY, "/uc_bridge/usf");
+        imuTopic = bundle.getString(IMU_TOPIC_KEY, "/uc_bridge/imu");
+        magTopic = bundle.getString(MAG_TOPIC_KEY, "/uc_bridge/mag");
+        vdBatTopic = bundle.getString(VDBAT_TOPIC_KEY, "/uc_bridge/vdbat");
+        vsBatTopic = bundle.getString(VSBAT_TOPIC_KEY, "/uc_bridge/vsbat");
         sensorDataTopic = bundle.getString(SENSOR_DATA_TOPIC_KEY, "/pses_basis/sensor_data");
         carInfoTopic = bundle.getString(CAR_INFO_TOPIC_KEY, "/pses_basis/car_info");
         modeControlTopic = bundle.getString(MODE_CONTROL_TOPIC_KEY, "/pses_basis/mode_control");
@@ -409,10 +524,18 @@ public class RobotInfo implements Comparable<RobotInfo>, Savable {
     }
 
     public void load(@NonNull SharedPreferences prefs) {
-        joystickTopic = prefs.getString(RobotStorage.getPreferenceKey(JOYSTICK_TOPIC_KEY), "/pses_basis/commad");
+        motorTopic = prefs.getString(RobotStorage.getPreferenceKey(MOTOR_TOPIC_KEY), "/uc_bridge/set_motor_level_msg");
+        steeringTopic = prefs.getString(RobotStorage.getPreferenceKey(STEERING_TOPIC_KEY), "/uc_bridge/set_steering_level_msg");
         cameraTopic = prefs.getString(RobotStorage.getPreferenceKey(CAMERA_TOPIC_KEY), "/kinect2/qhd/image_color/compressed");
         laserTopic = prefs.getString(RobotStorage.getPreferenceKey(LASER_SCAN_TOPIC_KEY), "/scan");
         odometryTopic = prefs.getString(RobotStorage.getPreferenceKey(ODOMETRY_TOPIC_KEY), "/odom");
+        usLeftTopic = prefs.getString(RobotStorage.getPreferenceKey(US_LEFT_TOPIC_KEY), "/uc_bridge/usl");
+        usRightTopic = prefs.getString(RobotStorage.getPreferenceKey(US_RIGHT_TOPIC_KEY), "/uc_bridge/usr");
+        usFrontTopic = prefs.getString(RobotStorage.getPreferenceKey(US_FRONT_TOPIC_KEY), "/uc_bridge/usf");
+        imuTopic = prefs.getString(RobotStorage.getPreferenceKey(IMU_TOPIC_KEY), "/uc_bridge/imu");
+        magTopic = prefs.getString(RobotStorage.getPreferenceKey(MAG_TOPIC_KEY), "/uc_bridge/mag");
+        vdBatTopic = prefs.getString(RobotStorage.getPreferenceKey(VDBAT_TOPIC_KEY), "/uc_bridge/vdbat");
+        vsBatTopic = prefs.getString(RobotStorage.getPreferenceKey(VSBAT_TOPIC_KEY), "/uc_bridge/vsbat");
         sensorDataTopic = prefs.getString(RobotStorage.getPreferenceKey(SENSOR_DATA_TOPIC_KEY), "/pses_basis/sensor_data");
         carInfoTopic = prefs.getString(RobotStorage.getPreferenceKey(CAR_INFO_TOPIC_KEY), "/pses_basis/car_info");
         modeControlTopic = prefs.getString(RobotStorage.getPreferenceKey(MODE_CONTROL_TOPIC_KEY), "/pses_basis/mode_control");
@@ -427,10 +550,18 @@ public class RobotInfo implements Comparable<RobotInfo>, Savable {
         bundle.putString(UUID_KEY, id.toString());
         bundle.putString(ROBOT_NAME_KEY, name);
         bundle.putString(MASTER_URI_KEY, masterUriString);
-        bundle.putString(JOYSTICK_TOPIC_KEY, joystickTopic);
+        bundle.putString(MOTOR_TOPIC_KEY, motorTopic);
+        bundle.putString(STEERING_TOPIC_KEY, steeringTopic);
         bundle.putString(CAMERA_TOPIC_KEY, cameraTopic);
         bundle.putString(LASER_SCAN_TOPIC_KEY, laserTopic);
         bundle.putString(ODOMETRY_TOPIC_KEY, odometryTopic);
+        bundle.putString(US_LEFT_TOPIC_KEY, usLeftTopic);
+        bundle.putString(US_RIGHT_TOPIC_KEY, usRightTopic);
+        bundle.putString(US_FRONT_TOPIC_KEY, usFrontTopic);
+        bundle.putString(IMU_TOPIC_KEY, imuTopic);
+        bundle.putString(MAG_TOPIC_KEY, magTopic);
+        bundle.putString(VDBAT_TOPIC_KEY, vdBatTopic);
+        bundle.putString(VSBAT_TOPIC_KEY, vsBatTopic);
         bundle.putString(SENSOR_DATA_TOPIC_KEY, sensorDataTopic);
         bundle.putString(CAR_INFO_TOPIC_KEY, carInfoTopic);
         bundle.putString(MODE_CONTROL_TOPIC_KEY, modeControlTopic);
@@ -441,10 +572,18 @@ public class RobotInfo implements Comparable<RobotInfo>, Savable {
     }
 
     public void save(@NonNull SharedPreferences.Editor prefs) {
-        prefs.putString(RobotStorage.getPreferenceKey(JOYSTICK_TOPIC_KEY), joystickTopic);
+        prefs.putString(RobotStorage.getPreferenceKey(MOTOR_TOPIC_KEY), motorTopic);
+        prefs.putString(RobotStorage.getPreferenceKey(STEERING_TOPIC_KEY), steeringTopic);
         prefs.putString(RobotStorage.getPreferenceKey(CAMERA_TOPIC_KEY), cameraTopic);
         prefs.putString(RobotStorage.getPreferenceKey(LASER_SCAN_TOPIC_KEY), laserTopic);
         prefs.putString(RobotStorage.getPreferenceKey(ODOMETRY_TOPIC_KEY), odometryTopic);
+        prefs.putString(RobotStorage.getPreferenceKey(US_LEFT_TOPIC_KEY), usLeftTopic);
+        prefs.putString(RobotStorage.getPreferenceKey(US_RIGHT_TOPIC_KEY), usRightTopic);
+        prefs.putString(RobotStorage.getPreferenceKey(US_FRONT_TOPIC_KEY), usFrontTopic);
+        prefs.putString(RobotStorage.getPreferenceKey(IMU_TOPIC_KEY), imuTopic);
+        prefs.putString(RobotStorage.getPreferenceKey(MAG_TOPIC_KEY), magTopic);
+        prefs.putString(RobotStorage.getPreferenceKey(VDBAT_TOPIC_KEY), vdBatTopic);
+        prefs.putString(RobotStorage.getPreferenceKey(VSBAT_TOPIC_KEY), vsBatTopic);
         prefs.putString(RobotStorage.getPreferenceKey(SENSOR_DATA_TOPIC_KEY), sensorDataTopic);
         prefs.putString(RobotStorage.getPreferenceKey(CAR_INFO_TOPIC_KEY), carInfoTopic);
         prefs.putString(RobotStorage.getPreferenceKey(MODE_CONTROL_TOPIC_KEY), modeControlTopic);

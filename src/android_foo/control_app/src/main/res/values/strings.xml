@@ -5,7 +5,7 @@
     <string name="app_name">Car Control</string>
 
     <!-- Topic values -->
-    <string name="joy_topic">/pses_basis/command</string>
+    <string name="motor_topic">/uc_bridge/set_motor_level_msg</string>
     <string name="camera_topic">/kinect2/qhd/image_color/compressed</string>
     <string name="laser_scan_topic">/scan</string>
     <string name="odometry_topic">/odom</string>
@@ -14,7 +14,7 @@
     <string name="carInfo_topic">/pses_basis/car_info</string>
 
     <!-- Preference titles -->
-    <string name="joy_pref_title">Command Topic</string>
+    <string name="joy_pref_title">Motor Level Topic</string>
     <string name="laser_pref_title">Laser Scan Topic</string>
     <string name="camera_pref_title">Image Topic</string>
     <string name="topic_pref_title">Topics</string>
@@ -51,7 +51,7 @@
     <string name="warning_enable_pref_summary_on">Disable the Warning System for detecting imminent collisions</string>
     <string name="warning_pref_summary">Edit Warning System settings</string>
     <string name="joy_pref_summary">
-        Topic to publish the commands.\nExpected message type: pses_basis/Command\nValue: %s
+        Topic to publish the commands.\nExpected message type: std_msgs/Int16\nValue: %s
     </string>
     <string name="laser_pref_summary">
         Topic that the laser scan widget subscribes to.\nExpected message type: sensor_msgs/LaserScan\nValue: %s

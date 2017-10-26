@@ -414,7 +414,7 @@ public class RobotController implements NodeMain, Savable {
         // Get the correct topic names
         String moveTopic = PreferenceManager.getDefaultSharedPreferences(context)
                 .getString(context.getString(R.string.prefs_joystick_topic_edittext_key),
-                        context.getString(R.string.joy_topic));
+                        context.getString(R.string.motor_topic));
 
         String laserScanTopic = PreferenceManager.getDefaultSharedPreferences(context)
                 .getString(context.getString(R.string.prefs_laserscan_topic_edittext_key),
