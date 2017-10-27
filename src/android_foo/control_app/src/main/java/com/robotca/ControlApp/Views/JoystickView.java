@@ -952,7 +952,7 @@ public class JoystickView extends RelativeLayout implements AnimationListener,
     }
 
     /**
-     * Publish the velocity as a ROS Twist message.
+     * Publish the steering and motor levels.
      *
      * @param linearVelocityX  The normalized linear velocity (-1 to 1).
      * @param angularVelocityZ The normalized angular velocity (-1 to 1).
@@ -961,8 +961,8 @@ public class JoystickView extends RelativeLayout implements AnimationListener,
                                  double angularVelocityZ) {
 
         ((ControlApp) getContext()).getRobotController().
-                forceVelocity((linearVelocityX > 0) ? linearVelocityX * (double)((ControlApp) getContext()).getRobotController().getMotorLimit() : linearVelocityX*20.0,
-                        linearVelocityY*20.0, angularVelocityZ*50.0);
+                forceVelocity((linearVelocityX > 0) ? linearVelocityX * (double)((ControlApp) getContext()).getRobotController().getMotorLimit() : linearVelocityX*500.0,
+                        linearVelocityY*1000.0, angularVelocityZ*1000.0);
     }
 
     /**

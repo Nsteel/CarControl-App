@@ -26,11 +26,15 @@ import java.util.TimerTask;
 import geometry_msgs.Point;
 import geometry_msgs.Quaternion;
 import nav_msgs.Odometry;
-import pses_basis.CarInfo;
-import pses_basis.Command;
-import pses_basis.SensorData;
+import sensor_msgs.Imu;
+import std_msgs.Int16;
+import sensor_msgs.Range;
+
 import sensor_msgs.CompressedImage;
 import sensor_msgs.LaserScan;
+import sensor_msgs.Range;
+import sensor_msgs.BatteryState;
+import sensor_msgs.MagneticField;
 
 /**
  * Manages receiving data from, and sending commands to, a connected Robot.
@@ -51,11 +55,17 @@ public class RobotController implements NodeMain, Savable {
     // Timer for periodically publishing velocity commands
     private Timer publisherTimer;
 
-    // Publisher for commands
-    private Publisher<Command> commandPublisher;
+    // Publisher for Motor level
+    private Publisher<Int16> motorPublisher;
 
-    // Contains the current Command message to be published
-    private Command currentCommand;
+    // Publisher for Steering level
+    private Publisher<Int16> steeringPublisher;
+
+    // Contains the current motor level to be published
+    private Int16 currentMotorLevel;
+
+    // Contains the current steering level to be published
+    private Int16 currentSteeringLevel;
 
     // Indicates when a Command message should be published
     private boolean publishCommands;
@@ -71,12 +81,48 @@ public class RobotController implements NodeMain, Savable {
     private LaserScan laserScan;
     // Lock for synchronizing accessing and receiving the current LaserScan
     private final Object laserScanMutex = new Object();
-    // Subscriber to Sensor data
-    private Subscriber<SensorData> sensorDataSubscriber;
-    // The most recent Sensor data
-    private SensorData sensorData;
-    // Lock for synchronizing accessing and receiving the current Sensor data
-    private final Object sensorDataMutex = new Object();
+    // Subscriber to US Sensor data
+    private Subscriber<Range> usLeftSubscriber;
+    // The most recent US Sensor data
+    private Range usLeft;
+    // Subscriber to US Sensor data
+    private Subscriber<Range> usRightSubscriber;
+    // The most recent US Sensor data
+    private Range usRight;
+    // Subscriber to US Sensor data
+    private Subscriber<Range> usFrontSubscriber;
+    // The most recent US Sensor data
+    private Range usFront;
+    // Subscriber to Imu data
+    private Subscriber<Imu> imuSubscriber;
+    // The most recent imu data
+    private Imu imu;
+    // Subscriber to magnetometer data
+    private Subscriber<MagneticField> magSubscriber;
+    // The most recent magnetometer data
+    private MagneticField mag;
+    // Subscriber to the voltage of the drive battery
+    private Subscriber<BatteryState> vdbatSubscriber;
+    // The most recent voltage of the drive battery
+    private BatteryState vdbat;
+    // Subscriber to the voltage of the system battery
+    private Subscriber<BatteryState> vsbatSubscriber;
+    // The most recent voltage of the system battery
+    private BatteryState vsbat;
+    // Lock for synchronizing accessing and receiving the current US data
+    private final Object usLeftMutex = new Object();
+    // Lock for synchronizing accessing and receiving the current US data
+    private final Object usRightMutex = new Object();
+    // Lock for synchronizing accessing and receiving the current US data
+    private final Object usFrontMutex = new Object();
+    // Lock for synchronizing accessing and receiving the current imu data
+    private final Object imuMutex = new Object();
+    // Lock for synchronizing accessing and receiving the current magnetometer data
+    private final Object magMutex = new Object();
+    // Lock for synchronizing accessing and receiving the current vdbat data
+    private final Object vdbatMutex = new Object();
+    // Lock for synchronizing accessing and receiving the current vsbat data
+    private final Object vsbatMutex = new Object();
     // Subscriber to Odometry data
     private Subscriber<Odometry> odometrySubscriber;
     // The most recent Odometry
@@ -88,13 +134,6 @@ public class RobotController implements NodeMain, Savable {
     private final CarTelemetryWrapper carTelemetryWrapper = new CarTelemetryWrapper();
     // Lock for synchronizing accessing and receiving the current CarTelemetryWrapper
     private final Object carTelemetryWrapperMutex = new Object();
-
-    // Subscriber to CarInfo
-    private Subscriber<CarInfo> carInfoSubscriber;
-    // The most recent CarInfo
-    private CarInfo carInfo;
-    // Lock for synchronizing accessing and receiving the current CarInfo
-    private final Object carInfoMutex = new Object();
 
     // Subscriber to Image data
     private Subscriber<CompressedImage> imageSubscriber;
@@ -114,8 +153,20 @@ public class RobotController implements NodeMain, Savable {
 
     // Listener for LaserScans
     private final ArrayList<MessageListener<LaserScan>> laserScanListeners;
-    // Listener for sensorData
-    private ArrayList<MessageListener<SensorData>> sensorDataListeners;
+    // Listener for usLeft
+    private ArrayList<MessageListener<Range>> usLeftListeners;
+    // Listener for usRight
+    private ArrayList<MessageListener<Range>> usRightListeners;
+    // Listener for usFront
+    private ArrayList<MessageListener<Range>> usFrontListeners;
+    // Listener for imu
+    private ArrayList<MessageListener<Imu>> imuListeners;
+    // Listener for magnetometer
+    private ArrayList<MessageListener<MagneticField>> magListeners;
+    // Listener for vdbat
+    private ArrayList<MessageListener<BatteryState>> vdbatListeners;
+    // Listener for vsbat
+    private ArrayList<MessageListener<BatteryState>> vsbatListeners;
     // Listener for Odometry
     private ArrayList<MessageListener<Odometry>> odometryListeners;
     // Listener for CarTelemetryWrapper
@@ -149,7 +200,7 @@ public class RobotController implements NodeMain, Savable {
         this.initialized = false;
 
         this.laserScanListeners = new ArrayList<>();
-        this.sensorDataListeners = new ArrayList<>();
+        this.usLeftListeners = new ArrayList<MessageListener<Range>>();
         this.odometryListeners = new ArrayList<>();
         this.carTelemetryWrapperListeners = new ArrayList<>();
 
@@ -179,12 +230,66 @@ public class RobotController implements NodeMain, Savable {
     }
 
     /**
-     * Adds an SensorData listener.
+     * Adds an usLeft listener.
      * @param l The listener
      * @return True on success
      */
-    public boolean addSensorDataListener(MessageListener<SensorData> l) {
-        return sensorDataListeners.add(l);
+    public boolean addUsLeftListener(MessageListener<Range> l) {
+        return usLeftListeners.add(l);
+    }
+
+    /**
+     * Adds an usRight listener.
+     * @param l The listener
+     * @return True on success
+     */
+    public boolean addUsRightListener(MessageListener<Range> l) {
+        return usRightListeners.add(l);
+    }
+
+    /**
+     * Adds an usFront listener.
+     * @param l The listener
+     * @return True on success
+     */
+    public boolean addUsFrontListener(MessageListener<Range> l) {
+        return usFrontListeners.add(l);
+    }
+
+    /**
+     * Adds an imu listener.
+     * @param l The listener
+     * @return True on success
+     */
+    public boolean addImuListener(MessageListener<Imu> l) {
+        return imuListeners.add(l);
+    }
+
+    /**
+     * Adds an magnetometer listener.
+     * @param l The listener
+     * @return True on success
+     */
+    public boolean addMagListener(MessageListener<MagneticField> l) {
+        return magListeners.add(l);
+    }
+
+    /**
+     * Adds an vdbat listener.
+     * @param l The listener
+     * @return True on success
+     */
+    public boolean addVdBatListener(MessageListener<BatteryState> l) {
+        return vdbatListeners.add(l);
+    }
+
+    /**
+     * Adds an vsbat listener.
+     * @param l The listener
+     * @return True on success
+     */
+    public boolean addVsBatListener(MessageListener<BatteryState> l) {
+        return vsbatListeners.add(l);
     }
 
     /**
@@ -198,12 +303,20 @@ public class RobotController implements NodeMain, Savable {
         }
     }
 
-    public void setCurrentCommand(Command currentCommand) {
-        this.currentCommand = currentCommand;
+    public void setCurrentMotorLevel(Int16 currentMotorLevel) {
+        this.currentMotorLevel = currentMotorLevel;
     }
 
-    public Command getCurrentCommand() {
-        return currentCommand;
+    public void setCurrentSteeringLevel(Int16 currentSteeringLevel) {
+        this.currentSteeringLevel = currentSteeringLevel;
+    }
+
+    public Int16 getCurrentMotorLevel() {
+        return currentMotorLevel;
+    }
+
+    public Int16 getCurrentSteeringLevel() {
+        return currentSteeringLevel;
     }
 
     public void setPublishCommands(boolean publishCommands) {
@@ -315,8 +428,9 @@ public class RobotController implements NodeMain, Savable {
         publishCommands = false;
         publishCommand(0.0, 0.0, 0.0);
 
-        if (commandPublisher != null){
-            commandPublisher.publish(currentCommand);
+        if (motorPublisher != null && steeringPublisher != null){
+            motorPublisher.publish(currentMotorLevel);
+            steeringPublisher.publish(currentSteeringLevel);
         }
 
         return pausedPlanId != NO_PLAN && cancelMotionPlan;
@@ -329,7 +443,7 @@ public class RobotController implements NodeMain, Savable {
      * @param angularVelocityZ Angular velocity about the z axis
      */
     public void publishCommand(double linearVelocityX, double linearVelocityY, double angularVelocityZ) {
-        if (currentCommand != null) {
+        if (currentMotorLevel != null && currentSteeringLevel != null) {
 
             float scale = 1.0f;
 
@@ -356,8 +470,8 @@ public class RobotController implements NodeMain, Savable {
                 angularVelocityZ *= -1;
             }
 
-            currentCommand.setMotorLevel((short) (linearVelocityX * scale));
-            currentCommand.setSteeringLevel((short) -angularVelocityZ);
+            currentMotorLevel.setData(((short) (linearVelocityX * scale)));
+            currentSteeringLevel.setData(((short) -angularVelocityZ));
         } else {
             Log.w("Emergency Stop", "currentCommand is null");
         }
@@ -412,7 +526,7 @@ public class RobotController implements NodeMain, Savable {
     public void refreshTopics() {
 
         // Get the correct topic names
-        String moveTopic = PreferenceManager.getDefaultSharedPreferences(context)
+        String motorLevelTopic = PreferenceManager.getDefaultSharedPreferences(context)
                 .getString(context.getString(R.string.prefs_joystick_topic_edittext_key),
                         context.getString(R.string.motor_topic));
 
@@ -420,45 +534,68 @@ public class RobotController implements NodeMain, Savable {
                 .getString(context.getString(R.string.prefs_laserscan_topic_edittext_key),
                         context.getString(R.string.laser_scan_topic));
 
-        String sensorDataTopic = PreferenceManager.getDefaultSharedPreferences(context)
-                .getString(context.getString(R.string.prefs_sensorData_topic_edittext_key),
-                        context.getString(R.string.sensorData_topic));
-
         String odometryTopic = PreferenceManager.getDefaultSharedPreferences(context)
                 .getString(context.getString(R.string.prefs_odometry_topic_edittext_key),
                         context.getString(R.string.odometry_topic));
-
-        String carInfoTopic = PreferenceManager.getDefaultSharedPreferences(context)
-                .getString(context.getString(R.string.prefs_carInfo_topic_edittext_key),
-                        context.getString(R.string.carInfo_topic));
+        String steeringLevelTopic = PreferenceManager.getDefaultSharedPreferences(context)
+                .getString(context.getString(R.string.prefs_steering_topic_edittext_key),
+                        context.getString(R.string.steering_topic));
+        String usLeftTopic = PreferenceManager.getDefaultSharedPreferences(context)
+                .getString(context.getString(R.string.prefs_usl_topic_edittext_key),
+                        context.getString(R.string.usl_topic));
+        String usRightTopic = PreferenceManager.getDefaultSharedPreferences(context)
+                .getString(context.getString(R.string.prefs_usr_topic_edittext_key),
+                        context.getString(R.string.usr_topic));
+        String usFrontTopic = PreferenceManager.getDefaultSharedPreferences(context)
+                .getString(context.getString(R.string.prefs_usf_topic_edittext_key),
+                        context.getString(R.string.usf_topic));
+        String imuTopic = PreferenceManager.getDefaultSharedPreferences(context)
+                .getString(context.getString(R.string.prefs_imu_topic_edittext_key),
+                        context.getString(R.string.imu_topic));
+        String magTopic = PreferenceManager.getDefaultSharedPreferences(context)
+                .getString(context.getString(R.string.prefs_mag_topic_edittext_key),
+                        context.getString(R.string.mag_topic));
+        String vdbatTopic = PreferenceManager.getDefaultSharedPreferences(context)
+                .getString(context.getString(R.string.prefs_vdbat_topic_edittext_key),
+                        context.getString(R.string.vdbat_topic));
+        String vsbatTopic = PreferenceManager.getDefaultSharedPreferences(context)
+                .getString(context.getString(R.string.prefs_vsbat_topic_edittext_key),
+                        context.getString(R.string.vsbat_topic));
         String modeControlTopic = PreferenceManager.getDefaultSharedPreferences(context)
                 .getString(context.getString(R.string.prefs_mode_control_topic_edittext_key), context.getString(R.string.mode_control_topic));
-
         String imageTopic = PreferenceManager.getDefaultSharedPreferences(context)
                 .getString(context.getString(R.string.prefs_camera_topic_edittext_key),
                         context.getString(R.string.camera_topic));
 
         // Refresh the Command Publisher
-        if (commandPublisher == null
-                || !moveTopic.equals(commandPublisher.getTopicName().toString())) {
+        if (motorPublisher == null
+                || !motorLevelTopic.equals(motorPublisher.getTopicName().toString())
+                || steeringPublisher == null || !steeringLevelTopic.equals((steeringPublisher.getTopicName().toString()))) {
 
             if (publisherTimer != null) {
                 publisherTimer.cancel();
             }
 
-            if (commandPublisher != null) {
-                commandPublisher.shutdown();
+            if (motorPublisher != null) {
+                motorPublisher.shutdown();
+            }
+
+            if(steeringPublisher != null) {
+                steeringPublisher.shutdown();
             }
 
             // Start the Command publisher
-            commandPublisher = connectedNode.newPublisher(moveTopic, Command._TYPE);
-            currentCommand = commandPublisher.newMessage();
+            motorPublisher = connectedNode.newPublisher(motorLevelTopic, Int16._TYPE);
+            steeringPublisher = connectedNode.newPublisher(steeringLevelTopic, Int16._TYPE);
+            currentMotorLevel = motorPublisher.newMessage();
+            currentSteeringLevel = steeringPublisher.newMessage();
 
             publisherTimer = new Timer();
             publisherTimer.schedule(new TimerTask() {
                 @Override
                 public void run() { if (publishCommands) {
-                    commandPublisher.publish(currentCommand);
+                    motorPublisher.publish(currentMotorLevel);
+                    steeringPublisher.publish(currentSteeringLevel);
                 }
                 }
             }, 0, 80);
@@ -515,36 +652,121 @@ public class RobotController implements NodeMain, Savable {
             });
         }
 
-        // Refresh the sensorData Subscriber
-        if (sensorDataSubscriber == null
-                || !sensorDataTopic.equals(sensorDataSubscriber.getTopicName().toString())) {
+        // Refresh the usLeft Subscriber
+        if (usLeftSubscriber == null
+                || !usLeftTopic.equals(usLeftSubscriber.getTopicName().toString())) {
 
-            if (sensorDataSubscriber != null)
-                sensorDataSubscriber.shutdown();
+            if (usLeftSubscriber != null)
+                usLeftSubscriber.shutdown();
 
-            // Start the sensorData subscriber
-            sensorDataSubscriber = connectedNode.newSubscriber(sensorDataTopic, SensorData._TYPE);
-            sensorDataSubscriber.addMessageListener(new MessageListener<SensorData>() {
+            // Start the usLeft subscriber
+            usLeftSubscriber = connectedNode.newSubscriber(usLeftTopic, Range._TYPE);
+            usLeftSubscriber.addMessageListener(new MessageListener<Range>() {
                 @Override
-                public void onNewMessage(SensorData sensorData) {
-                    setSensorData(sensorData);
+                public void onNewMessage(Range value) {
+                    setUsLeft(value);
                 }
             });
         }
 
-        // Refresh the CarInfo Subscriber
-        if (carInfoSubscriber == null
-                || !carInfoTopic.equals(carInfoSubscriber.getTopicName().toString())) {
+        // Refresh the usRight Subscriber
+        if (usRightSubscriber == null
+                || !usRightTopic.equals(usRightSubscriber.getTopicName().toString())) {
 
-            if (carInfoSubscriber != null)
-                carInfoSubscriber.shutdown();
+            if (usRightSubscriber != null)
+                usRightSubscriber.shutdown();
 
-            // Start the CarInfo subscriber
-            carInfoSubscriber = connectedNode.newSubscriber(carInfoTopic, CarInfo._TYPE);
-            carInfoSubscriber.addMessageListener(new MessageListener<CarInfo>() {
+            // Start the usRight subscriber
+            usRightSubscriber = connectedNode.newSubscriber(usRightTopic, Range._TYPE);
+            usRightSubscriber.addMessageListener(new MessageListener<Range>() {
                 @Override
-                public void onNewMessage(CarInfo carInfo) {
-                    setCarInfo(carInfo);
+                public void onNewMessage(Range value) {
+                    setUsRight(value);
+                }
+            });
+        }
+
+        // Refresh the usFront Subscriber
+        if (usFrontSubscriber == null
+                || !usFrontTopic.equals(usFrontSubscriber.getTopicName().toString())) {
+
+            if (usFrontSubscriber != null)
+                usFrontSubscriber.shutdown();
+
+            // Start the usFront subscriber
+            usFrontSubscriber = connectedNode.newSubscriber(usFrontTopic, Range._TYPE);
+            usFrontSubscriber.addMessageListener(new MessageListener<Range>() {
+                @Override
+                public void onNewMessage(Range value) {
+                    setUsFront(value);
+                }
+            });
+        }
+
+        // Refresh the imu Subscriber
+        if (imuSubscriber == null
+                || !imuTopic.equals(imuSubscriber.getTopicName().toString())) {
+
+            if (imuSubscriber != null)
+                imuSubscriber.shutdown();
+
+            // Start the imu subscriber
+            imuSubscriber = connectedNode.newSubscriber(imuTopic, Imu._TYPE);
+            imuSubscriber.addMessageListener(new MessageListener<Imu>() {
+                @Override
+                public void onNewMessage(Imu value) {
+                    setImu(value);
+                }
+            });
+        }
+
+        // Refresh the mag Subscriber
+        if (magSubscriber == null
+                || !magTopic.equals(magSubscriber.getTopicName().toString())) {
+
+            if (magSubscriber != null)
+                magSubscriber.shutdown();
+
+            // Start the mag subscriber
+            magSubscriber = connectedNode.newSubscriber(magTopic, MagneticField._TYPE);
+            magSubscriber.addMessageListener(new MessageListener<MagneticField>() {
+                @Override
+                public void onNewMessage(MagneticField value) {
+                    setMag(value);
+                }
+            });
+        }
+
+        // Refresh the vdbat Subscriber
+        if (vdbatSubscriber == null
+                || !vdbatTopic.equals(vdbatSubscriber.getTopicName().toString())) {
+
+            if (vdbatSubscriber != null)
+                vdbatSubscriber.shutdown();
+
+            // Start the vdbat subscriber
+            vdbatSubscriber = connectedNode.newSubscriber(vdbatTopic, BatteryState._TYPE);
+            vdbatSubscriber.addMessageListener(new MessageListener<BatteryState>() {
+                @Override
+                public void onNewMessage(BatteryState value) {
+                    setVdBat(value);
+                }
+            });
+        }
+
+        // Refresh the vsbat Subscriber
+        if (vsbatSubscriber == null
+                || !vsbatTopic.equals(vsbatSubscriber.getTopicName().toString())) {
+
+            if (vsbatSubscriber != null)
+                vsbatSubscriber.shutdown();
+
+            // Start the vsbat subscriber
+            vsbatSubscriber = connectedNode.newSubscriber(vsbatTopic, BatteryState._TYPE);
+            vsbatSubscriber.addMessageListener(new MessageListener<BatteryState>() {
+                @Override
+                public void onNewMessage(BatteryState value) {
+                    setVsBat(value);
                 }
             });
         }
@@ -577,8 +799,8 @@ public class RobotController implements NodeMain, Savable {
             publisherTimer.cancel();
         }
 
-        if (commandPublisher != null) {
-            commandPublisher.shutdown();
+        if (motorPublisher != null) {
+            motorPublisher.shutdown();
         }
 
         if (modeControlPublisher != null) {
@@ -593,12 +815,32 @@ public class RobotController implements NodeMain, Savable {
             odometrySubscriber.shutdown();
         }
 
-        if(sensorDataSubscriber != null){
-            sensorDataSubscriber.shutdown();
+        if(usLeftSubscriber != null){
+            usLeftSubscriber.shutdown();
         }
 
-        if(carInfoSubscriber != null){
-            carInfoSubscriber.shutdown();
+        if(usRightSubscriber != null){
+            usRightSubscriber.shutdown();
+        }
+
+        if(usFrontSubscriber != null){
+            usFrontSubscriber.shutdown();
+        }
+
+        if(imuSubscriber != null){
+            imuSubscriber.shutdown();
+        }
+
+        if(magSubscriber != null){
+            magSubscriber.shutdown();
+        }
+
+        if(vdbatSubscriber != null){
+            vdbatSubscriber.shutdown();
+        }
+
+        if(vsbatSubscriber != null){
+            vsbatSubscriber.shutdown();
         }
     }
 
@@ -669,39 +911,139 @@ public class RobotController implements NodeMain, Savable {
     }
 
     /**
-     * @return The most recently received Odometry.
+     * Sets the current ultrasonic value.
+     * @param usLeft The US value
      */
-    @SuppressWarnings("unused")
-    public Odometry getOdometry() {
-        synchronized (odometryMutex) {
-            return odometry;
-        }
-    }
-
-    /**
-     * @return The most recently received SensorData.
-     */
-    @SuppressWarnings("unused")
-    public SensorData getSensorData() {
-        synchronized (sensorDataMutex) {
-            return sensorData;
-        }
-    }
-
-    /**
-     * Sets the current SensorData.
-     * @param sensorData The SensorData
-     */
-    public void setSensorData(SensorData sensorData){
-        synchronized (sensorDataMutex){
-            this.sensorData = sensorData;
+    public void setUsLeft(Range usLeft){
+        synchronized (usLeftMutex){
+            this.usLeft = usLeft;
 
             // Call the listener callbacks
-            for (MessageListener<SensorData> listener: sensorDataListeners) {
-                listener.onNewMessage(sensorData);
+            for (MessageListener<Range> listener: usLeftListeners) {
+                listener.onNewMessage(usLeft);
             }
-            // set sensorData in carTelemetryWrapper
-            carTelemetryWrapper.setSensorData(sensorData);
+            // set usLeft in carTelemetryWrapper
+            carTelemetryWrapper.setUsLeft(usLeft);
+            // set carTelemetryWrapper
+            setCarTelemetryWrapper(carTelemetryWrapper);
+        }
+        //Log.d("RobotController", "SensorData Set");
+    }
+
+    /**
+     * Sets the current ultrasonic value.
+     * @param usRight The US value
+     */
+    public void setUsRight(Range usRight){
+        synchronized (usRightMutex){
+            this.usRight = usRight;
+
+            // Call the listener callbacks
+            for (MessageListener<Range> listener: usRightListeners) {
+                listener.onNewMessage(usRight);
+            }
+            // set usRight in carTelemetryWrapper
+            carTelemetryWrapper.setUsRight(usRight);
+            // set carTelemetryWrapper
+            setCarTelemetryWrapper(carTelemetryWrapper);
+        }
+        //Log.d("RobotController", "SensorData Set");
+    }
+
+    /**
+     * Sets the current ultrasonic value.
+     * @param usFront The US value
+     */
+    public void setUsFront(Range usFront){
+        synchronized (usFrontMutex){
+            this.usFront = usFront;
+
+            // Call the listener callbacks
+            for (MessageListener<Range> listener: usFrontListeners) {
+                listener.onNewMessage(usFront);
+            }
+            // set usFront in carTelemetryWrapper
+            carTelemetryWrapper.setUsFront(usFront);
+            // set carTelemetryWrapper
+            setCarTelemetryWrapper(carTelemetryWrapper);
+        }
+        //Log.d("RobotController", "SensorData Set");
+    }
+
+    /**
+     * Sets the current Imu data.
+     * @param imu The Imu data
+     */
+    public void setImu(Imu imu){
+        synchronized (imuMutex){
+            this.imu = imu;
+
+            // Call the listener callbacks
+            for (MessageListener<Imu> listener: imuListeners) {
+                listener.onNewMessage(imu);
+            }
+            // set Imu in carTelemetryWrapper
+            carTelemetryWrapper.setImu(imu);
+            // set carTelemetryWrapper
+            setCarTelemetryWrapper(carTelemetryWrapper);
+        }
+        //Log.d("RobotController", "SensorData Set");
+    }
+
+    /**
+     * Sets the current magnetometer data.
+     * @param mag The magnetometer data
+     */
+    public void setMag(MagneticField mag){
+        synchronized (magMutex){
+            this.mag = mag;
+
+            // Call the listener callbacks
+            for (MessageListener<MagneticField> listener: magListeners) {
+                listener.onNewMessage(mag);
+            }
+            // set Mag in carTelemetryWrapper
+            carTelemetryWrapper.setMag(mag);
+            // set carTelemetryWrapper
+            setCarTelemetryWrapper(carTelemetryWrapper);
+        }
+        //Log.d("RobotController", "SensorData Set");
+    }
+
+    /**
+     * Sets the current voltage of the drive battery.
+     * @param vdbat The voltage of the drive battery
+     */
+    public void setVdBat(BatteryState vdbat){
+        synchronized (vdbatMutex){
+            this.vdbat = vdbat;
+
+            // Call the listener callbacks
+            for (MessageListener<BatteryState> listener: vdbatListeners) {
+                listener.onNewMessage(vdbat);
+            }
+            // set vdbat in carTelemetryWrapper
+            carTelemetryWrapper.setVdBat(vdbat);
+            // set carTelemetryWrapper
+            setCarTelemetryWrapper(carTelemetryWrapper);
+        }
+        //Log.d("RobotController", "SensorData Set");
+    }
+
+    /**
+     * Sets the current voltage of the system battery.
+     * @param vsbat The voltage of the system battery
+     */
+    public void setVsBat(BatteryState vsbat){
+        synchronized (vsbatMutex){
+            this.vsbat = vsbat;
+
+            // Call the listener callbacks
+            for (MessageListener<BatteryState> listener: vsbatListeners) {
+                listener.onNewMessage(vsbat);
+            }
+            // set vsbat in carTelemetryWrapper
+            carTelemetryWrapper.setVsBat(vsbat);
             // set carTelemetryWrapper
             setCarTelemetryWrapper(carTelemetryWrapper);
         }
@@ -722,7 +1064,6 @@ public class RobotController implements NodeMain, Savable {
                 listener.onNewMessage(odometry);
             }
 
-            // Record position TODO this should be moved to setCarInfo() but that's not being called for some reason
             if (startPos == null) {
                 startPos = odometry.getPose().getPose().getPosition();
             } else {
@@ -756,30 +1097,9 @@ public class RobotController implements NodeMain, Savable {
         //Log.d("RobotController", "CarTelemetryWrapper Set");
     }
 
-    /**
-     * Sets the current CarInfo.
-     * @param carInfo The CarInfo
-     */
-    public void setCarInfo(CarInfo carInfo){
-        synchronized (carInfoMutex){
-            this.carInfo = carInfo;
-            carTelemetryWrapper.setCarInfo(carInfo);
-            // set carTelemetryWrapper
-            setCarTelemetryWrapper(carTelemetryWrapper);
-        }
-
-        //Log.d("RobotController", "CarInfo Set");
-//        // Record position
-//        if (startPos == null) {
-//            startPos = carInfo.getPosition();
-//        } else {
-//            currentPos = carInfo.getPosition();
-//        }
-//        rotation = carInfo.getOrientation();
-    }
 
     public int getMotorLimit() {
-        return Integer.parseInt(PreferenceManager.getDefaultSharedPreferences(context).getString(context.getString(R.string.prefs_motor_limit_key), "20"));
+        return Integer.parseInt(PreferenceManager.getDefaultSharedPreferences(context).getString(context.getString(R.string.prefs_motor_limit_key), "600"));
     }
 
     /**

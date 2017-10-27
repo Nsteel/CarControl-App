@@ -29,18 +29,20 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.Toast;
 
+import com.robotca.ControlApp.Core.BatteryStateReceiver;
 import com.robotca.ControlApp.Core.ControlMode;
 import com.robotca.ControlApp.Core.DrawerItem;
 import com.robotca.ControlApp.Core.IWaypointProvider;
+import com.robotca.ControlApp.Core.ImuReceiver;
+import com.robotca.ControlApp.Core.MagReceiver;
 import com.robotca.ControlApp.Core.NavDrawerAdapter;
 import com.robotca.ControlApp.Core.Plans.RobotPlan;
 import com.robotca.ControlApp.Core.RobotController;
 import com.robotca.ControlApp.Core.RobotInfo;
 import com.robotca.ControlApp.Core.RobotStorage;
 import com.robotca.ControlApp.Core.Savable;
-import com.robotca.ControlApp.Core.SensorDataReceiver;
+import com.robotca.ControlApp.Core.UltraSonicSensorReceiver;
 import com.robotca.ControlApp.Core.Utils;
 import com.robotca.ControlApp.Core.WarningSystem;
 import com.robotca.ControlApp.Fragments.AboutFragment;
@@ -62,7 +64,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import pses_basis.Command;
+import std_msgs.Int16;
 
 /**
  * Main Activity for the App. The RobotController manages the connection with the Robot while this
@@ -369,7 +371,19 @@ public class ControlApp extends RosActivity implements ListView.OnItemClickListe
             // Add the HUDFragment to the RobotController's odometry listener
             //controller.addOdometryListener(hudFragment);
 
-            controller.addSensorDataListener(new SensorDataReceiver());
+            controller.addUsLeftListener(new UltraSonicSensorReceiver());
+
+            controller.addUsRightListener(new UltraSonicSensorReceiver());
+
+            controller.addUsFrontListener(new UltraSonicSensorReceiver());
+
+            controller.addImuListener(new ImuReceiver());
+
+            controller.addMagListener(new MagReceiver());
+
+            controller.addVdBatListener(new BatteryStateReceiver());
+
+            controller.addVsBatListener(new BatteryStateReceiver());
 
             // Add the HUDFragment to the RobotController's CarTelemetryWrapper listener
             controller.addCarTelemetryWrapperListener(hudFragment);
@@ -771,11 +785,13 @@ public class ControlApp extends RosActivity implements ListView.OnItemClickListe
         // Warning System
         warningSystem.setEnabled(prefs.getBoolean(getString(R.string.prefs_warning_checkbox_key), true));
         warningSystem.enableSafemode(prefs.getBoolean(getString(R.string.prefs_warning_safemode_key), true));
-        if(controller.getCurrentCommand() != null) {
-            Command cmd = controller.getCurrentCommand();
-            cmd.setMotorLevel((short)0);
-            cmd.setSteeringLevel((short)0);
-            controller.setCurrentCommand(cmd);
+        if(controller.getCurrentMotorLevel() != null) {
+            Int16 motorLevel = controller.getCurrentMotorLevel();
+            Int16 steeringLevel = controller.getCurrentSteeringLevel();
+            motorLevel.setData((short)0);
+            steeringLevel.setData((short)0);
+            controller.setCurrentMotorLevel(motorLevel);
+            controller.setCurrentSteeringLevel(steeringLevel);
             controller.setPublishCommands(true);
 
         }

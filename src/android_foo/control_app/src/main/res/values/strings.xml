@@ -6,12 +6,19 @@
 
     <!-- Topic values -->
     <string name="motor_topic">/uc_bridge/set_motor_level_msg</string>
+    <string name="steering_topic">/uc_bridge/set_steering_level_msg</string>
     <string name="camera_topic">/kinect2/qhd/image_color/compressed</string>
     <string name="laser_scan_topic">/scan</string>
     <string name="odometry_topic">/odom</string>
-    <string name="mode_control_topic">/pses_basis/mode_control</string>
-    <string name="sensorData_topic">/pses_basis/sensor_data</string>
-    <string name="carInfo_topic">/pses_basis/car_info</string>
+    <string name="usl_topic">/uc_bridge/usl</string>
+    <string name="usr_topic">/uc_bridge/usr</string>
+    <string name="usf_topic">/uc_bridge/usf</string>
+    <string name="imu_topic">/uc_bridge/imu</string>
+    <string name="mag_topic">/uc_bridge/mag</string>
+    <string name="vdbat_topic">/uc_bridge/vdbat</string>
+    <string name="vsbat_topic">/uc_bridge/vsbat</string>
+    <string name="mode_control_topic">/carControlApp/mode_control</string>
+
 
     <!-- Preference titles -->
     <string name="joy_pref_title">Motor Level</string>
@@ -20,7 +27,6 @@
     <string name="camera_pref_title">Image</string>
     <string name="topic_pref_title">Topics</string>
     <string name="warning_enable_pref_title">Enable Warning System</string>
-    <string name="carInfo_pref_title">CarInfo</string>
     <string name="mode_control_pref_title">Mode Control</string>
     <string name="odometry_pref_title">Odometry</string>
     <string name="usl_pref_title">Left US Sensor:</string>
@@ -52,8 +58,6 @@
     <string name="prefs_mag_topic_edittext_key">prefs_mag_topic_edittext</string>
     <string name="prefs_vdbat_topic_edittext_key">prefs_vdbat_topic_edittext</string>
     <string name="prefs_vsbat_topic_edittext_key">prefs_vsbat_topic_edittext</string>
-    <string name="prefs_sensorData_topic_edittext_key">prefs_sensorData_topic_edittext_keyt</string>
-    <string name="prefs_carInfo_topic_edittext_key">prefs_carInfo_topic_edittext</string>
     <string name="prefs_warning_checkbox_key">prefs_warning_checkbox</string>
     <string name="prefs_warning_mindist_key">prefs_warning_mindist</string>
     <string name="prefs_warning_system_key">prefs_warning_system</string>
@@ -77,13 +81,6 @@
     <string name="odometry_pref_summary">
         Topic that the application gets odometry data from.\nExpected message type: nav_msgs/Odometry\nValue: %s
     </string>
-    <string name="sensorData_pref_summary">
-        Topic that the application gets sensor data from.\nExpected message type: pses_basis/SensorData\nValue: %s
-    </string>
-    <string name="carInfo_pref_summary">Topic where the application gets carInfo information.
-        \nExpected message type: pses_basis/CarInfo
-        \nValue: %s
-    </string>
     <string name="mode_control_pref_summary">Topic to publish the mode control.
         \nExpected message type: std_msgs/String
         \nValue: %s
@@ -92,7 +89,7 @@
         A higher number will draw more laser points\nValue: %s
     </string>
       <string name="motor_limit_pref_summary">Sets a limit for the motor level, in order
-          to prevent accidents by remote controlling. (Min: 0, Max: 20)\nValue: %s
+          to prevent accidents by remote controlling. (Min: 0, Max: 1000)\nValue: %s
     </string>
     <string name="random_walk_range_minimum_pref_summary">This is the minimum sensed range where
         the random walk algorithm will stop and turn\nValue: %s</string>

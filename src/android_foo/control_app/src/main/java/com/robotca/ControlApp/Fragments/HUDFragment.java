@@ -122,7 +122,7 @@ public class HUDFragment extends SimpleFragment implements MessageListener<CarTe
         }
 
         // Get WifiManager
-        wifiManager = (WifiManager) getActivity().getSystemService(Context.WIFI_SERVICE);
+        wifiManager = (WifiManager) getActivity().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
 
         // Find the Emergency Stop Button
         // Emergency stop button
@@ -283,10 +283,15 @@ public class HUDFragment extends SimpleFragment implements MessageListener<CarTe
      */
     @Override
     public void onNewMessage(CarTelemetryWrapper message) {
-        if(message.getOdometry() != null && message.getSensorData() != null && message.getCarInfo() != null) {
-            updateUI(message.getCarInfo().getSpeed(),
+        if(message.getOdometry() != null && message.getVdBat() != null && message.getVsBat() != null) {
+            updateUI(Math.sqrt(Math.pow(message.getOdometry().getTwist().getTwist().getLinear().getX(), 2)
+                    + Math.pow(message.getOdometry().getTwist().getTwist().getLinear().getY(), 2)),
                     message.getOdometry().getTwist().getTwist().getAngular().getZ(),
-                    message.getSensorData().getSystemBatteryVoltage(), message.getSensorData().getMotorBatteryVoltage());
+                    message.getVsBat().getVoltage(), message.getVdBat().getVoltage());
+        }
+        else if(message.getVdBat() != null && message.getVsBat() != null){
+            updateUI(Double.NaN, Double.NaN,
+                    message.getVsBat().getVoltage(), message.getVdBat().getVoltage());
         }
     }
 

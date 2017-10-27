@@ -52,8 +52,6 @@ public class AddEditRobotDialogFragment extends DialogFragment {
     private EditText mVdBatTopicEditTextView;
     private EditText mVsBatTopicEditTextView;
     private EditText mOdometryTopicEditTextView;
-    private EditText mSensorDataTopicEditTextView;
-    private EditText mCarInfoTopicEditTextView;
     private EditText mModeControlTopicEditTextView;
     private CheckBox mReverseLaserScanCheckBox;
     private CheckBox mInvertXAxisCheckBox;

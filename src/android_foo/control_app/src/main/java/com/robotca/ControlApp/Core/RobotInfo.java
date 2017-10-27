@@ -118,8 +118,6 @@ public class RobotInfo implements Comparable<RobotInfo>, Savable {
         cameraTopic = "/kinect2/qhd/image_color/compressed";
         laserTopic = "/scan";
         odometryTopic = "/odom";
-        sensorDataTopic = "/pses_basis/sensor_data";
-        carInfoTopic = "/pses_basis/car_info";
         usLeftTopic = "/uc_bridge/usl";
         usRightTopic = "/uc_bridge/usr";
         usFrontTopic = "/uc_bridge/usf";
@@ -127,7 +125,7 @@ public class RobotInfo implements Comparable<RobotInfo>, Savable {
         magTopic = "/uc_bridge/mag";
         vdBatTopic = "/uc_bridge/vdbat";
         vsBatTopic = "/uc_bridge/vsbat";
-        modeControlTopic = "/pses_basis/mode_control";
+        modeControlTopic = "/carControlApp/mode_control";
         reverseLaserScan = false;
         invertX = false;
         invertY = false;
@@ -161,8 +159,6 @@ public class RobotInfo implements Comparable<RobotInfo>, Savable {
         this.laserTopic = laserTopic;
         this.cameraTopic = cameraTopic;
         this.odometryTopic = odometryTopic;
-        this.sensorDataTopic = sensorDataTopic;
-        this.carInfoTopic = carInfoTopic;
         this.modeControlTopic = modeControlTopic;
         this.reverseLaserScan = reverseLaserScan;
         this.steeringTopic = steeringTopic;
@@ -514,9 +510,7 @@ public class RobotInfo implements Comparable<RobotInfo>, Savable {
         magTopic = bundle.getString(MAG_TOPIC_KEY, "/uc_bridge/mag");
         vdBatTopic = bundle.getString(VDBAT_TOPIC_KEY, "/uc_bridge/vdbat");
         vsBatTopic = bundle.getString(VSBAT_TOPIC_KEY, "/uc_bridge/vsbat");
-        sensorDataTopic = bundle.getString(SENSOR_DATA_TOPIC_KEY, "/pses_basis/sensor_data");
-        carInfoTopic = bundle.getString(CAR_INFO_TOPIC_KEY, "/pses_basis/car_info");
-        modeControlTopic = bundle.getString(MODE_CONTROL_TOPIC_KEY, "/pses_basis/mode_control");
+        modeControlTopic = bundle.getString(MODE_CONTROL_TOPIC_KEY, "/carControlApp/mode_control");
         reverseLaserScan = bundle.getBoolean(REVERSE_LASER_SCAN_KEY, false);
         invertX = bundle.getBoolean(INVERT_X_KEY, false);
         invertY = bundle.getBoolean(INVERT_Y_KEY, false);
@@ -536,9 +530,7 @@ public class RobotInfo implements Comparable<RobotInfo>, Savable {
         magTopic = prefs.getString(RobotStorage.getPreferenceKey(MAG_TOPIC_KEY), "/uc_bridge/mag");
         vdBatTopic = prefs.getString(RobotStorage.getPreferenceKey(VDBAT_TOPIC_KEY), "/uc_bridge/vdbat");
         vsBatTopic = prefs.getString(RobotStorage.getPreferenceKey(VSBAT_TOPIC_KEY), "/uc_bridge/vsbat");
-        sensorDataTopic = prefs.getString(RobotStorage.getPreferenceKey(SENSOR_DATA_TOPIC_KEY), "/pses_basis/sensor_data");
-        carInfoTopic = prefs.getString(RobotStorage.getPreferenceKey(CAR_INFO_TOPIC_KEY), "/pses_basis/car_info");
-        modeControlTopic = prefs.getString(RobotStorage.getPreferenceKey(MODE_CONTROL_TOPIC_KEY), "/pses_basis/mode_control");
+        modeControlTopic = prefs.getString(RobotStorage.getPreferenceKey(MODE_CONTROL_TOPIC_KEY), "/carControlApp/mode_control");
         reverseLaserScan = prefs.getBoolean(RobotStorage.getPreferenceKey(REVERSE_LASER_SCAN_KEY), false);
         invertX = prefs.getBoolean(RobotStorage.getPreferenceKey(INVERT_X_KEY), false);
         invertY = prefs.getBoolean(RobotStorage.getPreferenceKey(INVERT_Y_KEY), false);

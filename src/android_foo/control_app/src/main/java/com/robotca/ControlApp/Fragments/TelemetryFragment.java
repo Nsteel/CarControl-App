@@ -7,11 +7,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import org.ros.internal.message.RawMessage;
 import org.ros.message.MessageListener;
 
+import geometry_msgs.Quaternion;
 import nav_msgs.Odometry;
-import pses_basis.CarInfo;
-import pses_basis.SensorData;
+import sensor_msgs.BatteryState;
+import sensor_msgs.Imu;
+import sensor_msgs.MagneticField;
+import sensor_msgs.Range;
 
 import com.robotca.ControlApp.Core.CarTelemetryWrapper;
 import com.robotca.ControlApp.R;
@@ -32,10 +36,15 @@ public class TelemetryFragment extends SimpleFragment implements MessageListener
 
     // The most recent Odometry
     private Odometry odometry;
-    // The most recent SensorData
-    private SensorData sensorData;
-    // The most recent CarInfo
-    private CarInfo carInfo;
+
+    //The most recent sensor data
+    private double usLeft;
+    private double usRight;
+    private double usFront;
+    private Imu imu;
+    private MagneticField mag;
+    private BatteryState vdbat;
+    private BatteryState vsbat;
 
     //Time since last update
     private long lastUpdate;
@@ -53,12 +62,60 @@ public class TelemetryFragment extends SimpleFragment implements MessageListener
     double lastGx;
     double lastGy;
     double lastGz;
+    double lastMx;
+    double lastMy;
     double lastYaw;
     double lastRsf;
     double lastRsl;
     double lastRsr;
     double lastBatterySystem;
     double lastBatteryMotor;
+    Quaternion lastOrientation = new Quaternion() {
+        @Override
+        public double getX() {
+            return 0;
+        }
+
+        @Override
+        public void setX(double v) {
+
+        }
+
+        @Override
+        public double getY() {
+            return 0;
+        }
+
+        @Override
+        public void setY(double v) {
+
+        }
+
+        @Override
+        public double getZ() {
+            return 0;
+        }
+
+        @Override
+        public void setZ(double v) {
+
+        }
+
+        @Override
+        public double getW() {
+            return 0;
+        }
+
+        @Override
+        public void setW(double v) {
+
+        }
+
+        @Override
+        public RawMessage toRawMessage() {
+            return null;
+        }
+    };
 
     // Updates this Fragments UI on the UI Thread
     private final UpdateUIRunnable UPDATE_UI_RUNNABLE = new UpdateUIRunnable();
@@ -92,7 +149,7 @@ public class TelemetryFragment extends SimpleFragment implements MessageListener
             batterySystemView = (TextView) view.findViewById(R.id.battery_system_telemetry);
             batteryMotorView = (TextView) view.findViewById(R.id.battery_motor_telemetry);
             lastUpdate = 0;
-            updateUI(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
+            updateUI();
         }
         return view;
     }
@@ -100,30 +157,35 @@ public class TelemetryFragment extends SimpleFragment implements MessageListener
     /**
      * Updates this Fragment's speed display.
      */
-    void updateUI(final double x, final double y, final double distance, final double vx, final double vy, final double speed,
-                  final double ax, final  double ay, final double az, final double gx, final double gy, final double gz,
-                  final double yaw, final double rsf, final double rsl, final double rsr, final double batterySystem, final double batteryMotor)
+    void updateUI()
     {
         if (!isDetached() && (System.currentTimeMillis() - lastUpdate) > UPDATE_DELAY) {
             lastUpdate = System.currentTimeMillis();
-            lastX = (int) (x * 100.0) / 100.0;
-            lastY = (int) (y * 100.0) / 100.0;
-            lastDrivenDistance = (int) (distance * 100.0) / 100.0;
-            lastVx = (int) (vx * 100.0) / 100.0;
-            lastVy = (int) (vy * 100.0) / 100.0;
-            lastSpeed = (int) (speed * 100.0) / 100.0;
-            lastAx = (int) (ax * 100.0) / 100.0;
-            lastAy = (int) (ay * 100.0) / 100.0;
-            lastAz = (int) (az * 100.0) / 100.0;
-            lastGx = (int) (Math.toDegrees(gx) * 100.0) / 100.0;
-            lastGy = (int) (Math.toDegrees(gy) * 100.0) / 100.0;
-            lastGz = (int) (Math.toDegrees(gz) * 100.0) / 100.0;
-            lastYaw = (int) (Math.toDegrees(yaw) * 100.0) / 100.0;
-            lastRsf = (int) (rsf * 100.0) / 100.0;
-            lastRsl = (int) (rsl * 100.0) / 100.0;
-            lastRsr = (int) (rsr * 100.0) / 100.0;
-            lastBatterySystem = (int) (batterySystem * 100.0) / 100.0;
-            lastBatteryMotor = (int) (batteryMotor * 100.0) / 100.0;
+            lastX = (int) (lastX * 100.0) / 100.0;
+            lastY = (int) (lastY * 100.0) / 100.0;
+            lastVx = (int) (lastVx * 100.0) / 100.0;
+            lastVy = (int) (lastVy * 100.0) / 100.0;
+            lastSpeed = (int) (Math.sqrt(lastVx*lastVx + lastVy*lastVy) * 100.0) / 100.0;
+            lastAx = (int) (lastAx * 100.0) / 100.0;
+            lastAy = (int) (lastAy * 100.0) / 100.0;
+            lastAz = (int) (lastAz * 100.0) / 100.0;
+            lastGx = (int) (Math.toDegrees(lastGx) * 100.0) / 100.0;
+            lastGy = (int) (Math.toDegrees(lastGy) * 100.0) / 100.0;
+            lastGz = (int) (Math.toDegrees(lastGz) * 100.0) / 100.0;
+            lastMx = lastMx * 1000.0; // mT conversion
+            lastMx = (int) (lastMx * 100.0) / 100.0;
+            lastMy = lastMy * 1000.0; // mT conversion
+            lastMy = (int) (lastMy * 100.0) / 100.0;
+            lastRsf = (int) (lastRsf* 100.0) / 100.0;
+            lastRsl = (int) (lastRsl * 100.0) / 100.0;
+            lastRsr = (int) (lastRsr * 100.0) / 100.0;
+            lastBatterySystem = (int) (lastBatterySystem * 100.0) / 100.0;
+            lastBatteryMotor = (int) (lastBatteryMotor * 100.0) / 100.0;
+
+            // yaw (z-axis rotation)
+            lastYaw = Math.atan2(2.0 * (lastOrientation.getW() * lastOrientation.getZ() + lastOrientation.getX() * lastOrientation.getY()),
+                    1.0 - 2.0 * (lastOrientation.getY() * lastOrientation.getY() + lastOrientation.getZ() * lastOrientation.getZ()));
+            lastYaw = (int) (Math.toDegrees(lastYaw) * 100.0) / 100.0;
 
             view.post(UPDATE_UI_RUNNABLE);
         }
@@ -131,15 +193,35 @@ public class TelemetryFragment extends SimpleFragment implements MessageListener
 
     @Override
     public void onNewMessage(CarTelemetryWrapper carTelemetryWrapper) {
-        sensorData = carTelemetryWrapper.getSensorData();
-        odometry = carTelemetryWrapper.getOdometry();
-        carInfo = carTelemetryWrapper.getCarInfo();
-        if(odometry != null && view != null && sensorData != null && carInfo != null) updateUI(odometry.getPose().getPose().getPosition().getX(),
-                odometry.getPose().getPose().getPosition().getY(), carInfo.getDrivenDistance(), odometry.getTwist().getTwist().getLinear().getX(),
-                odometry.getTwist().getTwist().getLinear().getY(), carInfo.getSpeed(), sensorData.getAccelerometerX(),
-                sensorData.getAccelerometerY(), sensorData.getAccelerometerZ(), sensorData.getAngularVelocityX(), sensorData.getAngularVelocityY(),
-                sensorData.getAngularVelocityZ(), carInfo.getYaw(), sensorData.getRangeSensorFront(), sensorData.getRangeSensorLeft(),
-                sensorData.getRangeSensorRight(), sensorData.getSystemBatteryVoltage(), sensorData.getMotorBatteryVoltage());
+        lastRsl = carTelemetryWrapper.getUsLeft() != null? carTelemetryWrapper.getUsLeft().getRange() : lastRsl;
+        lastRsr = carTelemetryWrapper.getUsRight() != null? carTelemetryWrapper.getUsRight().getRange() : lastRsr;
+        lastRsf = carTelemetryWrapper.getUsFront() != null? carTelemetryWrapper.getUsFront().getRange() : lastRsf;
+        if (carTelemetryWrapper.getImu() != null) {
+            lastAx = carTelemetryWrapper.getImu().getLinearAcceleration().getX();
+            lastAy = carTelemetryWrapper.getImu().getLinearAcceleration().getY();
+            lastAz = carTelemetryWrapper.getImu().getLinearAcceleration().getZ();
+            lastGx = carTelemetryWrapper.getImu().getAngularVelocity().getX();
+            lastGy = carTelemetryWrapper.getImu().getAngularVelocity().getY();
+            lastGz = carTelemetryWrapper.getImu().getAngularVelocity().getZ();
+        }
+
+        if(carTelemetryWrapper.getOdometry() != null) {
+            lastX = carTelemetryWrapper.getOdometry().getPose().getPose().getPosition().getX();
+            lastY = carTelemetryWrapper.getOdometry().getPose().getPose().getPosition().getY();
+            lastVx = carTelemetryWrapper.getOdometry().getTwist().getTwist().getLinear().getX();
+            lastVy = carTelemetryWrapper.getOdometry().getTwist().getTwist().getLinear().getY();
+            lastOrientation = carTelemetryWrapper.getOdometry().getPose().getPose().getOrientation();
+        }
+
+        if(carTelemetryWrapper.getMag() != null) {
+            lastMx = carTelemetryWrapper.getMag().getMagneticField().getX();
+            lastMy = carTelemetryWrapper.getMag().getMagneticField().getY();
+        }
+
+        lastBatteryMotor = carTelemetryWrapper.getVdBat() != null? carTelemetryWrapper.getVdBat().getVoltage() : lastBatteryMotor;
+        lastBatterySystem = carTelemetryWrapper.getVsBat() != null? carTelemetryWrapper.getVsBat().getVoltage() : lastBatterySystem;
+
+        updateUI();
     }
 
     /*

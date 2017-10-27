@@ -11,17 +11,17 @@
 <h2><font color="#000044">Using a Simulated Model Car</font></h2>
 <p>It is likely easier to access a simulated car rather than a real one, so follow these steps to set up a simulation</p>
 
-<h4><font color="#000044">Step 1: Installing Ubuntu 14.04.3</font></h4>
-<p>Download a 32 or 64 bit Ubuntu 14.04.3 iso, either will work, and install it on a physical computer or a virtual machine. The model car will move much much smoother if Ubuntu 14.04.3 is installed to a physical computer.</p>
+<h4><font color="#000044">Step 1: Installing Ubuntu 16.04</font></h4>
+<p>Download a 32 or 64 bit Ubuntu 16.04 iso, either will work, and install it on a physical computer or a virtual machine. The model car will move much much smoother if Ubuntu 16.04 is installed to a physical computer.</p>
 <p>Note: If installing Ubuntu on a virtual machine, make sure that you use a Bridged Network Adapter and <b>NOT</b> a NAT adapter.</p>
 
-<h4><font color="#000044">Step 2: Installing ROS Indigo</font> </h4>
+<h4><font color="#000044">Step 2: Installing ROS Kinetic</font> </h4>
 <p>Once you have Ubuntu installed, follow these instructions to install ROS Indigo on your machine.</p>
-<a href="http://wiki.ros.org/indigo/Installation/Ubuntu"> http://wiki.ros.org/indigo/Installation/Ubuntu</a>
+<a href="http://wiki.ros.org/kinetic/Installation/Ubuntu"> http://wiki.ros.org/kinetic/Installation/Ubuntu</a>
 
-<h4><font color="#000044">Step 3: Installing the PSES-Basis package</font></h4>
+<h4><font color="#000044">Step 3: Installing the PSES-UcBridge package</font></h4>
 <i>
- &emsp;1. Open a terminal and run the following command in the src folder of your catkin workspace <b>git clone https://github.com/Nsteel/PSES-Basis.git .</b><br>
+ &emsp;1. Open a terminal and run the following command in the src folder of your catkin workspace <b>git clone https://github.com/tud-pses/pses_ucbridge.git</b><br>
  &emsp;2. <b>cd ..</b><br>
  &emsp;3. Compile it! <b>catkin_make</b><br>
 </i>
@@ -40,7 +40,7 @@ Once you have done that, start the simulator in the same terminal using the comm
 <h4><font color="#000044">Step 1: Connecting to the Model Car</font> </h4>
 
 <p>To begin open a terminal and run the command <b>ifconfig</b> on the car's mainboard, then run the command <b>export ROS_IP="the IP address of wlan0".</b>
- Once you have done that, start the launch file in the same terminal using the command <b>roslaunch pses_basis pses_basis.launch</b>.</p>
+ Once you have done that, start the launch file in the same terminal using the command <b>roslaunch pses_ucbridge ucbridge.launch</b>.</p>
 <p>To connect to the model car, make sure your Android device is on the car's wifi network. Then open the app and add a car. Replace only the word "localhost" with the IP address of the car and hit connect. You should connect to the car and be able to use the app. </p>
 
 
