@@ -26,8 +26,8 @@ public class TelemetryFragment extends SimpleFragment implements MessageListener
 
     private View view;
 
-    private TextView xView, yView, distanceView, vxView, vyView, speedView, axView, ayView, azView, gxView,
-            gyView, gzView, yawView, rsfView, rslView, rsrView, batterySystemView, batteryMotorView;
+    private TextView xView, yView, vxView, vyView, speedView, axView, ayView, azView, gxView,
+            gyView, gzView, yawView, mxView, myView, rsfView, rslView, rsrView, batterySystemView, batteryMotorView;
 
     //Time since last update
     private long lastUpdate;
@@ -70,7 +70,6 @@ public class TelemetryFragment extends SimpleFragment implements MessageListener
             view = inflater.inflate(R.layout.fragment_telemetry, container, false);
             xView = (TextView) view.findViewById(R.id.x_telemetry);
             yView = (TextView) view.findViewById(R.id.y_telemetry);
-            distanceView = (TextView) view.findViewById(R.id.driven_distance_telemetry);
             vxView = (TextView) view.findViewById(R.id.vx_telemetry);
             vyView = (TextView) view.findViewById(R.id.vy_telemetry);
             speedView = (TextView) view.findViewById(R.id.speed_telemetry);
@@ -81,6 +80,8 @@ public class TelemetryFragment extends SimpleFragment implements MessageListener
             gyView = (TextView) view.findViewById(R.id.gy_telemetry);
             gzView = (TextView) view.findViewById(R.id.gz_telemetry);
             yawView = (TextView) view.findViewById(R.id.yaw_telemetry);
+            mxView = (TextView) view.findViewById(R.id.mx_telemetry);
+            myView = (TextView) view.findViewById(R.id.my_telemetry);
             rsfView = (TextView) view.findViewById(R.id.rsf_telemetry);
             rslView = (TextView) view.findViewById(R.id.rsl_telemetry);
             rsrView = (TextView) view.findViewById(R.id.rsr_telemetry);
@@ -187,8 +188,8 @@ public class TelemetryFragment extends SimpleFragment implements MessageListener
                     yView.setText(String.format((String) getText(R.string.y_telemetry_string), lastY));
 
                 // Update driven_distance
-                if (distanceView != null)
-                    distanceView.setText(String.format((String) getText(R.string.driven_distance_telemetry_string), lastDrivenDistance));
+                //if (distanceView != null)
+                  //  distanceView.setText(String.format((String) getText(R.string.driven_distance_telemetry_string), lastDrivenDistance));
 
                 // Update vx
                 if (vxView != null)
@@ -229,6 +230,14 @@ public class TelemetryFragment extends SimpleFragment implements MessageListener
                 // Update yaw
                 if (yawView != null)
                     yawView.setText(String.format((String) getText(R.string.yaw_telemetry_string), lastYaw));
+
+                // Update Magnetometer x
+                if (mxView != null)
+                    mxView.setText(String.format((String) getText(R.string.mx_telemetry_string), lastMx));
+
+                // Update Magnetometer y
+                if (myView != null)
+                    myView.setText(String.format((String) getText(R.string.mx_telemetry_string), lastMy));
 
                 // Update rsf
                 if (rsfView != null)

@@ -32,12 +32,6 @@
                 android:id="@+id/y_telemetry" />
 
             <TextView
-                android:text="@string/driven_distance_telemetry_string"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/driven_distance_telemetry" />
-
-            <TextView
                 android:text="@string/v_x_telemetry_string"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -96,6 +90,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/yaw_telemetry" />
+
+            <TextView
+                android:text="@string/mx_telemetry_string"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/mx_telemetry" />
+
+            <TextView
+                android:text="@string/my_telemetry_string"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/my_telemetry" />
 
             <TextView
                 android:text="@string/rsf_telemetry_string"

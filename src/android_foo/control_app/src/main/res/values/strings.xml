@@ -70,7 +70,10 @@
     <string name="warning_enable_pref_summary_on">Disable the Warning System for detecting imminent collisions</string>
     <string name="warning_pref_summary">Edit Warning System settings</string>
     <string name="joy_pref_summary">
-        Topic to publish the commands.\nExpected message type: std_msgs/Int16\nValue: %s
+        Topic to publish the motor level.\nExpected message type: std_msgs/Int16\nValue: %s
+    </string>
+    <string name="steering_pref_summary">
+        Topic to publish the steering level.\nExpected message type: std_msgs/Int16\nValue: %s
     </string>
     <string name="laser_pref_summary">
         Topic that the laser scan widget subscribes to.\nExpected message type: sensor_msgs/LaserScan\nValue: %s
@@ -80,6 +83,27 @@
     </string>
     <string name="odometry_pref_summary">
         Topic that the application gets odometry data from.\nExpected message type: nav_msgs/Odometry\nValue: %s
+    </string>
+    <string name="usl_pref_summary">
+        Topic of the left ultrasonic sensor.\nExpected message type: sensor_msgs/Range\nValue: %s
+    </string>
+    <string name="usr_pref_summary">
+        Topic of the right ultrasonic sensor.\nExpected message type: sensor_msgs/Range\nValue: %s
+    </string>
+    <string name="usf_pref_summary">
+        Topic of the front ultrasonic sensor.\nExpected message type: sensor_msgs/Range\nValue: %s
+    </string>
+    <string name="imu_pref_summary">
+        Topic of the imu data.\nExpected message type: sensor_msgs/Imu\nValue: %s
+    </string>
+    <string name="mag_pref_summary">
+        Topic of the magnetometer data.\nExpected message type: sensor_msgs/MagneticField\nValue: %s
+    </string>
+    <string name="vdbat_pref_summary">
+        Topic of the motor battery state.\nExpected message type: sensor_msgs/BatteryState\nValue: %s
+    </string>
+    <string name="vsbat_pref_summary">
+        Topic of the system battery state.\nExpected message type: sensor_msgs/BatteryState\nValue: %s
     </string>
     <string name="mode_control_pref_summary">Topic to publish the mode control.
         \nExpected message type: std_msgs/String
@@ -160,6 +184,8 @@
     <string name="g_y_telemetry_string">turning_rate_y: %1$5.2f °/s</string>
     <string name="g_z_telemetry_string">turning_rate_z: %1$5.2f °/s</string>
     <string name="yaw_telemetry_string">yaw: %1$5.2f °</string>
+    <string name="mx_telemetry_string">magnetometer_x: %1$5.2f mT</string>
+    <string name="my_telemetry_string">magnetometer_y: %1$5.2f mT</string>
     <string name="rsf_telemetry_string">range_sensor_front: %1$5.2f m</string>
     <string name="rsl_telemetry_string">range_sensor_left: %1$5.2f m</string>
     <string name="rsr_telemetry_string">range_sensor_right: %1$5.2f m</string>

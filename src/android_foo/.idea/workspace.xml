@@ -72,23 +72,31 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="setup.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/control_app/src/main/res/raw/setup.html">
+      <file leaf-file-name="TelemetryFragment.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/control_app/src/main/java/com/robotca/ControlApp/Fragments/TelemetryFragment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1">
-              <caret line="19" column="56" lean-forward="false" selection-start-line="19" selection-start-column="56" selection-end-line="19" selection-end-column="56" />
-              <folding />
+            <state relative-caret-position="1512">
+              <caret line="84" column="49" lean-forward="false" selection-start-line="84" selection-start-column="49" selection-end-line="84" selection-end-column="49" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#10211#10248#0" expanded="true" />
+                <element signature="e#10396#10433#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TelemetryFragment.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/control_app/src/main/java/com/robotca/ControlApp/Fragments/TelemetryFragment.java">
+      <file leaf-file-name="fragment_telemetry.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/control_app/src/main/res/layout/fragment_telemetry.xml">
+          <provider editor-type-id="android-designer2">
+            <state />
+          </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="594">
-              <caret line="51" column="19" lean-forward="false" selection-start-line="51" selection-start-column="19" selection-end-line="51" selection-end-column="19" />
+            <state relative-caret-position="144">
+              <caret line="88" column="44" lean-forward="false" selection-start-line="88" selection-start-column="38" selection-end-line="88" selection-end-column="58" />
               <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="e#3685#3714#0" expanded="true" />
+                <element signature="e#3922#3951#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -104,12 +112,71 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="strings.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/control_app/src/main/res/values/strings.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="420">
+              <caret line="105" column="27" lean-forward="false" selection-start-line="105" selection-start-column="27" selection-end-line="105" selection-end-column="27" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="JoystickFragment.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/control_app/src/main/java/com/robotca/ControlApp/Fragments/JoystickFragment.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-90">
               <caret line="19" column="13" lean-forward="false" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="prefs.xml" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/control_app/src/main/res/xml/prefs.xml">
+          <provider editor-type-id="android-designer2">
+            <state />
+          </provider>
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="420">
+              <caret line="101" column="71" lean-forward="true" selection-start-line="101" selection-start-column="71" selection-end-line="101" selection-end-column="71" />
+              <folding>
+                <element signature="e#603#624#0" expanded="true" />
+                <element signature="e#937#961#0" expanded="true" />
+                <element signature="e#986#1029#0" expanded="true" />
+                <element signature="e#1096#1127#0" expanded="true" />
+                <element signature="e#1154#1183#0" expanded="true" />
+                <element signature="e#2126#2157#0" expanded="true" />
+                <element signature="e#2314#2333#0" expanded="true" />
+                <element signature="e#2358#2396#0" expanded="true" />
+                <element signature="e#2463#2489#0" expanded="true" />
+                <element signature="e#2516#2540#0" expanded="true" />
+                <element signature="e#2641#2660#0" expanded="true" />
+                <element signature="e#2685#2723#0" expanded="true" />
+                <element signature="e#2790#2816#0" expanded="true" />
+                <element signature="e#2843#2867#0" expanded="true" />
+                <element signature="e#2968#2987#0" expanded="true" />
+                <element signature="e#3012#3050#0" expanded="true" />
+                <element signature="e#3117#3143#0" expanded="true" />
+                <element signature="e#3170#3194#0" expanded="true" />
+                <element signature="e#3295#3314#0" expanded="true" />
+                <element signature="e#3339#3377#0" expanded="true" />
+                <element signature="e#3444#3470#0" expanded="true" />
+                <element signature="e#3497#3521#0" expanded="true" />
+                <element signature="e#3622#3641#0" expanded="true" />
+                <element signature="e#3666#3704#0" expanded="true" />
+                <element signature="e#3771#3797#0" expanded="true" />
+                <element signature="e#3824#3848#0" expanded="true" />
+                <element signature="e#3949#3970#0" expanded="true" />
+                <element signature="e#3995#4035#0" expanded="true" />
+                <element signature="e#4102#4130#0" expanded="true" />
+                <element signature="e#4157#4183#0" expanded="true" />
+                <element signature="e#4284#4305#0" expanded="true" />
+                <element signature="e#4330#4370#0" expanded="true" />
+                <element signature="e#4437#4465#0" expanded="true" />
+                <element signature="e#4492#4518#0" expanded="true" />
+                <element signature="e#4619#4647#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -124,14 +191,15 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RobotController.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="RobotController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/control_app/src/main/java/com/robotca/ControlApp/Core/RobotController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="168">
-              <caret line="600" column="25" lean-forward="false" selection-start-line="600" selection-start-column="25" selection-end-line="600" selection-end-column="25" />
+            <state relative-caret-position="199">
+              <caret line="491" column="27" lean-forward="false" selection-start-line="491" selection-start-column="16" selection-end-line="491" selection-end-column="29" />
               <folding>
                 <element signature="e#9243#9244#0" expanded="true" />
                 <element signature="e#9289#9290#0" expanded="true" />
+                <element signature="e#21720#22092#0" expanded="true" />
                 <element signature="e#22091#22092#0" expanded="true" />
                 <element signature="e#25827#26010#0" expanded="true" />
                 <element signature="e#26009#26010#0" expanded="true" />
@@ -140,71 +208,13 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ArrayList.java" pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/Android/Sdk/sources/android-25/java/util/ArrayList.java">
+      <file leaf-file-name="JoystickView.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/control_app/src/main/java/com/robotca/ControlApp/Views/JoystickView.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="218">
-              <caret line="442" column="0" lean-forward="false" selection-start-line="442" selection-start-column="0" selection-end-line="442" selection-end-column="0" />
+            <state relative-caret-position="162">
+              <caret line="411" column="47" lean-forward="false" selection-start-line="411" selection-start-column="47" selection-end-line="411" selection-end-column="47" />
               <folding>
-                <element signature="e#0#56401#0" expanded="false" />
-                <element signature="imports" expanded="false" />
-                <element signature="e#10639#10640#0" expanded="false" />
-                <element signature="e#10666#10667#0" expanded="false" />
-                <element signature="e#10848#10849#0" expanded="false" />
-                <element signature="e#10880#10881#0" expanded="false" />
-                <element signature="e#11357#11358#0" expanded="false" />
-                <element signature="e#11395#11396#0" expanded="false" />
-                <element signature="e#13991#13992#0" expanded="false" />
-                <element signature="e#14046#14047#0" expanded="false" />
-                <element signature="e#15388#15418#0" expanded="false" />
-                <element signature="e#24867#24868#0" expanded="false" />
-                <element signature="e#24921#24922#0" expanded="false" />
-                <element signature="e#25764#25765#0" expanded="false" />
-                <element signature="e#25808#25809#0" expanded="false" />
-                <element signature="e#26765#26766#0" expanded="false" />
-                <element signature="e#26808#26809#0" expanded="false" />
-                <element signature="e#30595#30596#0" expanded="false" />
-                <element signature="e#30632#30633#0" expanded="false" />
-                <element signature="e#30932#30933#0" expanded="false" />
-                <element signature="e#30964#30965#0" expanded="false" />
-                <element signature="e#31753#31754#0" expanded="false" />
-                <element signature="e#31798#31799#0" expanded="false" />
-                <element signature="e#31809#31839#0" expanded="false" />
-                <element signature="e#32918#32948#0" expanded="false" />
-                <element signature="e#34044#34045#0" expanded="false" />
-                <element signature="e#34086#34087#0" expanded="false" />
-                <element signature="e#34120#34121#0" expanded="false" />
-                <element signature="e#34157#34158#0" expanded="false" />
-                <element signature="e#34195#34196#0" expanded="false" />
-                <element signature="e#34236#34237#0" expanded="false" />
-                <element signature="e#34247#34277#0" expanded="false" />
-                <element signature="e#40818#40819#0" expanded="false" />
-                <element signature="e#40869#40870#0" expanded="false" />
-                <element signature="e#41479#41480#0" expanded="false" />
-                <element signature="e#41524#41525#0" expanded="false" />
-                <element signature="e#42097#42098#0" expanded="false" />
-                <element signature="e#42171#42172#0" expanded="false" />
-                <element signature="e#42190#42220#0" expanded="false" />
-                <element signature="e#42903#42904#0" expanded="false" />
-                <element signature="e#42961#42962#0" expanded="false" />
-                <element signature="e#42980#43010#0" expanded="false" />
-                <element signature="e#43651#43681#0" expanded="false" />
-                <element signature="e#44714#44715#0" expanded="false" />
-                <element signature="e#44767#44768#0" expanded="false" />
-                <element signature="e#44813#44814#0" expanded="false" />
-                <element signature="e#44870#44871#0" expanded="false" />
-                <element signature="e#46960#46961#0" expanded="false" />
-                <element signature="e#47027#47028#0" expanded="false" />
-                <element signature="e#47524#47554#0" expanded="false" />
-                <element signature="e#48640#48641#0" expanded="false" />
-                <element signature="e#48705#48706#0" expanded="false" />
-                <element signature="e#52472#52502#1" expanded="false" />
-                <element signature="e#53427#53457#1" expanded="false" />
-                <element signature="e#53749#53750#0" expanded="false" />
-                <element signature="e#53807#53808#0" expanded="false" />
-                <element signature="e#54483#54513#0" expanded="false" />
-                <element signature="e#55570#55600#0" expanded="false" />
-                <element signature="e#56084#56114#0" expanded="false" />
+                <element signature="e#14839#14866#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -214,10 +224,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>LOGGE</find>
-      <find>LOGG</find>
-      <find>LOG</find>
-      <find>F</find>
       <find>Fr</find>
       <find>Fra</find>
       <find>Frag</find>
@@ -242,8 +248,12 @@
       <find>warningsy</find>
       <find>addCarTelemetryWrapperListener</find>
       <find>updateUiR</find>
-      <find>construc</find>
       <find>publis</find>
+      <find>force</find>
+      <find>warning</find>
+      <find>warn</find>
+      <find>construc</find>
+      <find>motor_to</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -2874,8 +2884,6 @@
       <list>
         <option value="$PROJECT_DIR$/control_app/src/main/res/layout/dialog_add_robot.xml" />
         <option value="$PROJECT_DIR$/control_app/src/main/java/com/robotca/ControlApp/Core/CarTelemetryWrapper.java" />
-        <option value="$PROJECT_DIR$/control_app/src/main/java/com/robotca/ControlApp/Views/JoystickView.java" />
-        <option value="$PROJECT_DIR$/control_app/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/control_app/src/main/java/com/robotca/ControlApp/Core/usLeftReceiver.java" />
         <option value="$PROJECT_DIR$/control_app/src/main/java/com/robotca/ControlApp/Core/ultraSonicSensorReceiver.java" />
         <option value="$PROJECT_DIR$/control_app/src/main/java/com/robotca/ControlApp/Core/ImuReceiver.java" />
@@ -2886,13 +2894,16 @@
         <option value="$PROJECT_DIR$/control_app/src/main/java/com/robotca/ControlApp/Core/RobotStorage.java" />
         <option value="$PROJECT_DIR$/control_app/src/main/java/com/robotca/ControlApp/Dialogs/AddEditRobotDialogFragment.java" />
         <option value="$PROJECT_DIR$/control_app/src/main/java/com/robotca/ControlApp/Core/RobotInfo.java" />
-        <option value="$PROJECT_DIR$/control_app/src/main/res/xml/prefs.xml" />
         <option value="$PROJECT_DIR$/control_app/src/main/java/com/robotca/ControlApp/Fragments/HUDFragment.java" />
         <option value="$PROJECT_DIR$/control_app/src/androidTest/java/com/robotca/ControlApp/Fragments/HUDFragmentTest.java" />
         <option value="$PROJECT_DIR$/control_app/src/main/java/com/robotca/ControlApp/ControlApp.java" />
-        <option value="$PROJECT_DIR$/control_app/src/main/java/com/robotca/ControlApp/Fragments/TelemetryFragment.java" />
         <option value="$PROJECT_DIR$/control_app/src/main/java/com/robotca/ControlApp/Fragments/HelpFragment.java" />
         <option value="$PROJECT_DIR$/control_app/src/main/java/com/robotca/ControlApp/Core/RobotController.java" />
+        <option value="$PROJECT_DIR$/control_app/src/main/java/com/robotca/ControlApp/Views/JoystickView.java" />
+        <option value="$PROJECT_DIR$/control_app/src/main/java/com/robotca/ControlApp/Fragments/TelemetryFragment.java" />
+        <option value="$PROJECT_DIR$/control_app/src/main/res/layout/fragment_telemetry.xml" />
+        <option value="$PROJECT_DIR$/control_app/src/main/res/xml/prefs.xml" />
+        <option value="$PROJECT_DIR$/control_app/src/main/res/values/strings.xml" />
       </list>
     </option>
   </component>
@@ -3239,7 +3250,7 @@
       <option name="ACTIVITY_CLASS" value="" />
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1509150834408" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1509153647751" />
       </method>
     </configuration>
     <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Instrumented Tests">
@@ -3287,7 +3298,7 @@
       </Profilers>
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1509150834408" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1509153647751" />
       </method>
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -3470,7 +3481,7 @@
       <option name="ACTIVITY_CLASS" value="" />
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1509150834409" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1509153647752" />
       </method>
     </configuration>
     <list size="1">
@@ -3519,7 +3530,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="64" y="43" width="1857" height="1092" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Android Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -3529,13 +3539,13 @@
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Device File Explorer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32916668" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32708332" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32708332" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.328911" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.328911" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -3567,13 +3577,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/control_app/src/main/java/com/robotca/ControlApp/Fragments/AboutFragmentRobotChooser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="18" column="13" lean-forward="false" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/control_app/src/main/java/com/robotca/ControlApp/Fragments/CameraViewFragment.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="162">
@@ -3695,33 +3698,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/control_app/src/main/java/com/robotca/ControlApp/Views/JoystickView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="16272">
-          <caret line="963" column="164" lean-forward="false" selection-start-line="963" selection-start-column="164" selection-end-line="963" selection-end-column="164" />
-          <folding>
-            <element signature="e#0#47750#0" expanded="false" />
-            <element signature="imports" expanded="false" />
-            <element signature="e#14546#14547#0" expanded="false" />
-            <element signature="e#14598#14599#0" expanded="false" />
-            <element signature="e#14939#14940#0" expanded="false" />
-            <element signature="e#14974#14975#0" expanded="false" />
-            <element signature="e#16361#16362#0" expanded="false" />
-            <element signature="e#16428#16429#0" expanded="false" />
-            <element signature="e#20083#20084#0" expanded="false" />
-            <element signature="e#20115#20116#0" expanded="false" />
-            <element signature="e#20269#20270#0" expanded="false" />
-            <element signature="e#20300#20301#0" expanded="false" />
-            <element signature="e#45772#45773#0" expanded="false" />
-            <element signature="e#45828#45829#0" expanded="false" />
-            <element signature="e#47638#47639#0" expanded="false" />
-            <element signature="e#47682#47683#0" expanded="false" />
-            <element signature="e#47708#47709#0" expanded="false" />
-            <element signature="e#47746#47747#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/control_app/src/main/java/com/robotca/ControlApp/Core/UltraSonicSensorReceiver.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="198">
@@ -3769,14 +3745,6 @@
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/control_app/src/main/res/values/strings.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="281">
-          <caret line="19" column="22" lean-forward="false" selection-start-line="19" selection-start-column="18" selection-end-line="19" selection-end-column="22" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3844,20 +3812,6 @@
           <caret line="104" column="71" lean-forward="false" selection-start-line="104" selection-start-column="71" selection-end-line="104" selection-end-column="71" />
           <folding />
         </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/control_app/src/main/res/xml/prefs.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="548">
-          <caret line="59" column="37" lean-forward="false" selection-start-line="59" selection-start-column="37" selection-end-line="59" selection-end-column="37" />
-          <folding>
-            <element signature="e#2134#2169#0" expanded="false" />
-            <element signature="e#2715#2746#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/control_app/src/main/java/com/robotca/ControlApp/Fragments/PreferencesFragment.java">
@@ -4043,16 +3997,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/control_app/src/main/java/com/robotca/ControlApp/Fragments/TelemetryFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="594">
-          <caret line="51" column="19" lean-forward="false" selection-start-line="51" selection-start-column="19" selection-end-line="51" selection-end-column="19" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/control_app/src/main/java/com/robotca/ControlApp/ControlApp.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="288">
@@ -4065,16 +4009,108 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/control_app/src/main/java/com/robotca/ControlApp/Core/RobotController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="600" column="25" lean-forward="false" selection-start-line="600" selection-start-column="25" selection-end-line="600" selection-end-column="25" />
+        <state relative-caret-position="199">
+          <caret line="491" column="27" lean-forward="false" selection-start-line="491" selection-start-column="16" selection-end-line="491" selection-end-column="29" />
           <folding>
             <element signature="e#9243#9244#0" expanded="true" />
             <element signature="e#9289#9290#0" expanded="true" />
+            <element signature="e#21720#22092#0" expanded="true" />
             <element signature="e#22091#22092#0" expanded="true" />
             <element signature="e#25827#26010#0" expanded="true" />
             <element signature="e#26009#26010#0" expanded="true" />
           </folding>
         </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/control_app/src/main/java/com/robotca/ControlApp/Views/JoystickView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="411" column="47" lean-forward="false" selection-start-line="411" selection-start-column="47" selection-end-line="411" selection-end-column="47" />
+          <folding>
+            <element signature="e#14839#14866#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/control_app/src/main/res/layout/fragment_telemetry.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="88" column="44" lean-forward="false" selection-start-line="88" selection-start-column="38" selection-end-line="88" selection-end-column="58" />
+          <folding>
+            <element signature="e#3685#3714#0" expanded="true" />
+            <element signature="e#3922#3951#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/control_app/src/main/java/com/robotca/ControlApp/Fragments/TelemetryFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1512">
+          <caret line="84" column="49" lean-forward="false" selection-start-line="84" selection-start-column="49" selection-end-line="84" selection-end-column="49" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#10211#10248#0" expanded="true" />
+            <element signature="e#10396#10433#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/control_app/src/main/res/values/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="105" column="27" lean-forward="false" selection-start-line="105" selection-start-column="27" selection-end-line="105" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/control_app/src/main/res/xml/prefs.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="101" column="71" lean-forward="true" selection-start-line="101" selection-start-column="71" selection-end-line="101" selection-end-column="71" />
+          <folding>
+            <element signature="e#603#624#0" expanded="true" />
+            <element signature="e#937#961#0" expanded="true" />
+            <element signature="e#986#1029#0" expanded="true" />
+            <element signature="e#1096#1127#0" expanded="true" />
+            <element signature="e#1154#1183#0" expanded="true" />
+            <element signature="e#2126#2157#0" expanded="true" />
+            <element signature="e#2314#2333#0" expanded="true" />
+            <element signature="e#2358#2396#0" expanded="true" />
+            <element signature="e#2463#2489#0" expanded="true" />
+            <element signature="e#2516#2540#0" expanded="true" />
+            <element signature="e#2641#2660#0" expanded="true" />
+            <element signature="e#2685#2723#0" expanded="true" />
+            <element signature="e#2790#2816#0" expanded="true" />
+            <element signature="e#2843#2867#0" expanded="true" />
+            <element signature="e#2968#2987#0" expanded="true" />
+            <element signature="e#3012#3050#0" expanded="true" />
+            <element signature="e#3117#3143#0" expanded="true" />
+            <element signature="e#3170#3194#0" expanded="true" />
+            <element signature="e#3295#3314#0" expanded="true" />
+            <element signature="e#3339#3377#0" expanded="true" />
+            <element signature="e#3444#3470#0" expanded="true" />
+            <element signature="e#3497#3521#0" expanded="true" />
+            <element signature="e#3622#3641#0" expanded="true" />
+            <element signature="e#3666#3704#0" expanded="true" />
+            <element signature="e#3771#3797#0" expanded="true" />
+            <element signature="e#3824#3848#0" expanded="true" />
+            <element signature="e#3949#3970#0" expanded="true" />
+            <element signature="e#3995#4035#0" expanded="true" />
+            <element signature="e#4102#4130#0" expanded="true" />
+            <element signature="e#4157#4183#0" expanded="true" />
+            <element signature="e#4284#4305#0" expanded="true" />
+            <element signature="e#4330#4370#0" expanded="true" />
+            <element signature="e#4437#4465#0" expanded="true" />
+            <element signature="e#4492#4518#0" expanded="true" />
+            <element signature="e#4619#4647#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
       </provider>
     </entry>
   </component>
