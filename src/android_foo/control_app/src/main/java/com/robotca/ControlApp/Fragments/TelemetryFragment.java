@@ -1,7 +1,7 @@
 package com.robotca.ControlApp.Fragments;
 
 import android.os.Bundle;
-import android.provider.Settings;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,11 +11,6 @@ import org.ros.internal.message.RawMessage;
 import org.ros.message.MessageListener;
 
 import geometry_msgs.Quaternion;
-import nav_msgs.Odometry;
-import sensor_msgs.BatteryState;
-import sensor_msgs.Imu;
-import sensor_msgs.MagneticField;
-import sensor_msgs.Range;
 
 import com.robotca.ControlApp.Core.CarTelemetryWrapper;
 import com.robotca.ControlApp.R;
@@ -33,18 +28,6 @@ public class TelemetryFragment extends SimpleFragment implements MessageListener
 
     private TextView xView, yView, distanceView, vxView, vyView, speedView, axView, ayView, azView, gxView,
             gyView, gzView, yawView, rsfView, rslView, rsrView, batterySystemView, batteryMotorView;
-
-    // The most recent Odometry
-    private Odometry odometry;
-
-    //The most recent sensor data
-    private double usLeft;
-    private double usRight;
-    private double usFront;
-    private Imu imu;
-    private MagneticField mag;
-    private BatteryState vdbat;
-    private BatteryState vsbat;
 
     //Time since last update
     private long lastUpdate;
@@ -70,52 +53,7 @@ public class TelemetryFragment extends SimpleFragment implements MessageListener
     double lastRsr;
     double lastBatterySystem;
     double lastBatteryMotor;
-    Quaternion lastOrientation = new Quaternion() {
-        @Override
-        public double getX() {
-            return 0;
-        }
-
-        @Override
-        public void setX(double v) {
-
-        }
-
-        @Override
-        public double getY() {
-            return 0;
-        }
-
-        @Override
-        public void setY(double v) {
-
-        }
-
-        @Override
-        public double getZ() {
-            return 0;
-        }
-
-        @Override
-        public void setZ(double v) {
-
-        }
-
-        @Override
-        public double getW() {
-            return 0;
-        }
-
-        @Override
-        public void setW(double v) {
-
-        }
-
-        @Override
-        public RawMessage toRawMessage() {
-            return null;
-        }
-    };
+    Quaternion lastOrientation;
 
     // Updates this Fragments UI on the UI Thread
     private final UpdateUIRunnable UPDATE_UI_RUNNABLE = new UpdateUIRunnable();
@@ -129,7 +67,7 @@ public class TelemetryFragment extends SimpleFragment implements MessageListener
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         if (view == null) {
-            view = inflater.inflate(R.layout.fragment_telemetry, null);
+            view = inflater.inflate(R.layout.fragment_telemetry, container, false);
             xView = (TextView) view.findViewById(R.id.x_telemetry);
             yView = (TextView) view.findViewById(R.id.y_telemetry);
             distanceView = (TextView) view.findViewById(R.id.driven_distance_telemetry);
@@ -159,7 +97,7 @@ public class TelemetryFragment extends SimpleFragment implements MessageListener
      */
     void updateUI()
     {
-        if (!isDetached() && (System.currentTimeMillis() - lastUpdate) > UPDATE_DELAY) {
+        if (view != null && !isDetached() && (System.currentTimeMillis() - lastUpdate) > UPDATE_DELAY) {
             lastUpdate = System.currentTimeMillis();
             lastX = (int) (lastX * 100.0) / 100.0;
             lastY = (int) (lastY * 100.0) / 100.0;

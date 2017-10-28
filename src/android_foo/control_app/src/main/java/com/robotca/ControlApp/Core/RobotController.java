@@ -201,8 +201,14 @@ public class RobotController implements NodeMain, Savable {
 
         this.laserScanListeners = new ArrayList<>();
         this.usLeftListeners = new ArrayList<MessageListener<Range>>();
-        this.odometryListeners = new ArrayList<>();
-        this.carTelemetryWrapperListeners = new ArrayList<>();
+        this.usRightListeners = new ArrayList<MessageListener<Range>>();
+        this.usFrontListeners = new ArrayList<MessageListener<Range>>();
+        this.imuListeners = new ArrayList<MessageListener<Imu>>();
+        this.magListeners = new ArrayList<MessageListener<MagneticField>>();
+        this.vdbatListeners = new ArrayList<MessageListener<BatteryState>>();
+        this.vsbatListeners = new ArrayList<MessageListener<BatteryState>>();
+        this.odometryListeners = new ArrayList<MessageListener<Odometry>>();
+        this.carTelemetryWrapperListeners = new ArrayList<MessageListener<CarTelemetryWrapper>>();
 
         pausedPlanId = NO_PLAN;
 
@@ -596,7 +602,8 @@ public class RobotController implements NodeMain, Savable {
                 public void run() { if (publishCommands) {
                     motorPublisher.publish(currentMotorLevel);
                     steeringPublisher.publish(currentSteeringLevel);
-                }
+                    Log.d("Publisher", "New motor and steering levels published!");
+                    }
                 }
             }, 0, 80);
             publishCommands = false;

@@ -96,8 +96,6 @@ public class ControlApp extends RosActivity implements ListView.OnItemClickListe
     private JoystickFragment joystickFragment;
     // Fragment for the HUD
     private HUDFragment hudFragment;
-    // Fragment for the Telemetry
-    private TelemetryFragment telemetryFragment;
 
     // The RobotController for managing the connection to the Robot
     private RobotController controller;
@@ -396,7 +394,6 @@ public class ControlApp extends RosActivity implements ListView.OnItemClickListe
 
             // Create and add a WarningSystem
             controller.addLaserScanListener(warningSystem = new WarningSystem(this));
-
 //            // Add the LaserScanMap
 //            controller.addLaserScanListener(laserScanMap);
 
@@ -568,26 +565,29 @@ public class ControlApp extends RosActivity implements ListView.OnItemClickListe
                 return;
 
             case 1:
+                Log.d(TAG, "Drawer item 1 selected, finishing");
                 fragment = new OverviewFragment();
                 fragmentsCreatedCounter = 0;
                 break;
 
             case 2:
+                Log.d(TAG, "Drawer item 2 selected, finishing");
                 fragment = new CameraViewFragment();
                 fragmentsCreatedCounter = fragmentsCreatedCounter + 1;
                 break;
 
             case 3:
+                Log.d(TAG, "Drawer item 3 selected, finishing");
                 fragment = new LaserScanFragment();
                 fragmentsCreatedCounter = fragmentsCreatedCounter + 1;
                 break;
 
             case 4:
-                telemetryFragment = new TelemetryFragment();
-                fragment = telemetryFragment;
+                Log.d(TAG, "Drawer item 4 selected, finishing");
+                fragment = new TelemetryFragment();
                 // Add the TelemetryFragment to the RobotController's CarTelemetryWrapper listener
                 try {
-                    controller.addCarTelemetryWrapperListener(telemetryFragment);
+                    controller.addCarTelemetryWrapperListener((TelemetryFragment)fragment);
                 }catch (Exception e) {
                     Log.d("RobotController", "Problem getting data from Master");
                 }
@@ -595,6 +595,7 @@ public class ControlApp extends RosActivity implements ListView.OnItemClickListe
                 break;
 
             case 5:
+                Log.d(TAG, "Drawer item 5 selected, finishing");
                 if (joystickFragment != null)
                     joystickFragment.hide();
                 if (hudFragment != null) {
@@ -613,6 +614,7 @@ public class ControlApp extends RosActivity implements ListView.OnItemClickListe
                 break;
 
             case 6:
+                Log.d(TAG, "Drawer item 6 selected, finishing");
                 if (joystickFragment != null)
                     joystickFragment.hide();
                 if (hudFragment != null) {

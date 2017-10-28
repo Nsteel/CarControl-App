@@ -57,7 +57,7 @@
         android:title="@string/advanced_controls__pref_title">
 
         <com.robotca.ControlApp.Views.BetterEditTextPreference
-            android:defaultValue="20"
+            android:defaultValue="600"
             android:inputType="number"
             android:key="@string/prefs_motor_limit_key"
             android:singleLine="true"
