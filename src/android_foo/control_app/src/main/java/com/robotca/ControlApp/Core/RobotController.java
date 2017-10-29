@@ -605,7 +605,7 @@ public class RobotController implements NodeMain, Savable {
                     Log.d("Publisher", "New motor and steering levels published!");
                     }
                 }
-            }, 0, 80);
+            }, 0, 5);
             publishCommands = false;
         }
 

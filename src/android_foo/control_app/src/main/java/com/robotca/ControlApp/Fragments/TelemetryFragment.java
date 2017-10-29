@@ -47,7 +47,7 @@ public class TelemetryFragment extends SimpleFragment implements MessageListener
     double lastGz;
     double lastMx;
     double lastMy;
-    double lastYaw;
+    double lastYaw = Double.NaN;
     double lastRsf;
     double lastRsl;
     double lastRsr;
@@ -122,8 +122,8 @@ public class TelemetryFragment extends SimpleFragment implements MessageListener
             lastBatteryMotor = (int) (lastBatteryMotor * 100.0) / 100.0;
 
             // yaw (z-axis rotation)
-            lastYaw = Math.atan2(2.0 * (lastOrientation.getW() * lastOrientation.getZ() + lastOrientation.getX() * lastOrientation.getY()),
-                    1.0 - 2.0 * (lastOrientation.getY() * lastOrientation.getY() + lastOrientation.getZ() * lastOrientation.getZ()));
+            lastYaw = lastOrientation != null? Math.atan2(2.0 * (lastOrientation.getW() * lastOrientation.getZ() + lastOrientation.getX() * lastOrientation.getY()),
+                    1.0 - 2.0 * (lastOrientation.getY() * lastOrientation.getY() + lastOrientation.getZ() * lastOrientation.getZ())) : lastYaw;
             lastYaw = (int) (Math.toDegrees(lastYaw) * 100.0) / 100.0;
 
             view.post(UPDATE_UI_RUNNABLE);
@@ -237,7 +237,7 @@ public class TelemetryFragment extends SimpleFragment implements MessageListener
 
                 // Update Magnetometer y
                 if (myView != null)
-                    myView.setText(String.format((String) getText(R.string.mx_telemetry_string), lastMy));
+                    myView.setText(String.format((String) getText(R.string.my_telemetry_string), lastMy));
 
                 // Update rsf
                 if (rsfView != null)
