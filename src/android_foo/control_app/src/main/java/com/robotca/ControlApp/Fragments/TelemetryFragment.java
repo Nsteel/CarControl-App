@@ -35,7 +35,6 @@ public class TelemetryFragment extends SimpleFragment implements MessageListener
 
     double lastX;
     double lastY;
-    double lastDrivenDistance;
     double lastVx;
     double lastVy;
     double lastSpeed;
@@ -111,9 +110,9 @@ public class TelemetryFragment extends SimpleFragment implements MessageListener
             lastGx = (int) (Math.toDegrees(lastGx) * 100.0) / 100.0;
             lastGy = (int) (Math.toDegrees(lastGy) * 100.0) / 100.0;
             lastGz = (int) (Math.toDegrees(lastGz) * 100.0) / 100.0;
-            lastMx = lastMx * 1000.0; // mT conversion
+            lastMx = lastMx * 1000000000.0; // µT conversion
             lastMx = (int) (lastMx * 100.0) / 100.0;
-            lastMy = lastMy * 1000.0; // mT conversion
+            lastMy = lastMy * 1000000000.0; // µT conversion
             lastMy = (int) (lastMy * 100.0) / 100.0;
             lastRsf = (int) (lastRsf* 100.0) / 100.0;
             lastRsl = (int) (lastRsl * 100.0) / 100.0;
