@@ -184,8 +184,8 @@
     <string name="g_y_telemetry_string">turning_rate_y: %1$5.2f °/s</string>
     <string name="g_z_telemetry_string">turning_rate_z: %1$5.2f °/s</string>
     <string name="yaw_telemetry_string">yaw: %1$5.2f °</string>
-    <string name="mx_telemetry_string">magnetometer_x: %1$5.2f mT</string>
-    <string name="my_telemetry_string">magnetometer_y: %1$5.2f mT</string>
+    <string name="mx_telemetry_string">magnetometer_x: %1$5.3f mT</string>
+    <string name="my_telemetry_string">magnetometer_y: %1$5.3f mT</string>
     <string name="rsf_telemetry_string">range_sensor_front: %1$5.2f m</string>
     <string name="rsl_telemetry_string">range_sensor_left: %1$5.2f m</string>
     <string name="rsr_telemetry_string">range_sensor_right: %1$5.2f m</string>
