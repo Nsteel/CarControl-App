@@ -898,7 +898,7 @@ public class RobotController implements NodeMain, Savable {
 
             boolean invertLaserScan = PreferenceManager.getDefaultSharedPreferences(context).getBoolean(context.getString(R.string.prefs_reverse_angle_reading_key), false);
 
-            if(invertLaserScan) {
+            if(!invertLaserScan) {
                 float[] ranges = this.laserScan.getRanges();
 
                 for (int i = 0; i < this.laserScan.getRanges().length / 2; i++) {
