@@ -84,3 +84,5 @@ CATKIN_IGNORE
 
 
 \.idea/workspace\.xml
+
+src/android_foo/\.idea/workspace\.xml
